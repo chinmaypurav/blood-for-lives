@@ -18,6 +18,7 @@ class Donor extends Model
         'blood_group',
         'contact',
         'postal',
+        'dob',
         'lat',
         'lon',
         'donor_card_no',
