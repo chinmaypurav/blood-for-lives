@@ -33,4 +33,16 @@ class Donor extends Model
         'dob' => 'date',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class)->first();
+    }
+
+    public function banks()
+    {
+        return $this->belongsToMany(Bank::class)
+                ->withPivot('donated_at', 'editor')
+                ->orderByDesc('donated_at');
+                //->using(Donor::class);
+    }
 }
