@@ -20,8 +20,10 @@ class CreateBankDonorTable extends Migration
             $table->foreignId('bank_id')
                     ->constrained();
             $table->enum('blood_component', ['whole', 'plasma', 'platelets', 'wbc', 'rbc']);
+            $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
             $table->string('editor');
             $table->timestamp('donated_at')->useCurrent();
+            $table->timestamp('expiry_at')->nullable();
             $table->timestamps();
         });
     }
