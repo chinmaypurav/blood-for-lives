@@ -30,4 +30,9 @@ class Bank extends Model
         ->withPivot('id', 'donated_at', 'editor', 'blood_component', 'status_code')
         ->orderByDesc('donated_at');
     }
+
+    public function demands()
+    {
+        return $this->hasMany(Demand::class);
+    }
 }
