@@ -15,6 +15,24 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.bank.index')" :active="request()->routeIs('admin.bank.*')">
+                        {{ __('Banks') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
+                        {{ __('Donors') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manager.donation.index')" :active="request()->routeIs('manager.donation.index')">
+                        {{ __('Donations') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manager.process.index')" :active="request()->routeIs('manager.process.*')">
+                        {{ __('Process') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manager.inventory.index')" :active="request()->routeIs('manager.inventory.*')">
+                        {{ __('Inventory') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manager.demand.index')" :active="request()->routeIs('manager.demand.*')">
+                        {{ __('Demand') }}
+                    </x-nav-link>
                 </div>
             </div>
 
