@@ -26,6 +26,7 @@ class CreateDonorsTable extends Migration
             $table->unsignedTinyInteger('status_code')->default(0);
             $table->boolean('entry_self')->default(false);
             $table->string('donor_card_no')->default(0); //Set Default to 0 for now
+            $table->timestamp('safe_donate_at')->useCurrent();
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });
