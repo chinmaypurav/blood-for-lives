@@ -18,11 +18,14 @@ class Demand extends Model
         'compatible_group',
         'buffer_time',
         'required_at',
+        'required_units',
+        'status',
         'logger',
     ];
 
     protected $casts = [
-        'compatible_blood_group' => 'array',
+        'guardian_contact' => 'encrypted',
+        'compatible_group' => 'array',
         'logger' => 'array',
     ];
 }

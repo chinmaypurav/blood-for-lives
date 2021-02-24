@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Donor extends Model
 {
@@ -22,6 +22,7 @@ class Donor extends Model
         'lat',
         'lon',
         'donor_card_no',
+        'last_donated_at',
     ];
 
     /**
@@ -31,6 +32,9 @@ class Donor extends Model
      */
     protected $casts = [
         'dob' => 'date',
+        'contact' => 'encrypted',
+        //'safe_donate_at' => 'date',
+        //'contact' => Encrypt::class,
     ];
 
     public function user()

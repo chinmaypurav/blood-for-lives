@@ -21,14 +21,13 @@ class Bank extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function donors()
     {
         return $this->belongsToMany(Donor::class)
-        ->withPivot('id', 'donated_at', 'editor', 'blood_component', 'status_code')
-        ->orderByDesc('donated_at');
+        ->withPivot('id', 'donated_at', 'editor', 'blood_component', 'status_code');
     }
 
     public function demands()
