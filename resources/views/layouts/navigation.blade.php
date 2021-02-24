@@ -15,13 +15,17 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @role('admin')
                     <x-nav-link :href="route('admin.bank.index')" :active="request()->routeIs('admin.bank.*')">
                         {{ __('Banks') }}
                     </x-nav-link>
+                    @endrole
+
+                    @role('manager')
                     <x-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
                         {{ __('Donors') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.donation.index')" :active="request()->routeIs('manager.donation.index')">
+                    <x-nav-link :href="route('manager.donation.search')" :active="request()->routeIs('manager.donation.index')">
                         {{ __('Donations') }}
                     </x-nav-link>
                     <x-nav-link :href="route('manager.process.index')" :active="request()->routeIs('manager.process.*')">
@@ -33,6 +37,11 @@
                     <x-nav-link :href="route('manager.demand.index')" :active="request()->routeIs('manager.demand.*')">
                         {{ __('Demand') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('manager.manager.index')" :active="request()->routeIs('manager.manager.*')">
+                        {{ __('Manager Users') }}
+                    </x-nav-link>
+                    @endrole
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Blood Process Entry') }}
+            {{ __('Blood Inventory Level') }}
         </h2>
     </x-slot>
 
@@ -13,20 +13,18 @@
                     
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Index</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Component</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Group</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Units</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Component</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Group</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Units Available</th>
                             
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($inventories as $inventory)
                             
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$loop->index + 1}}</td>
-                                    <td class="px-6 py-4 uppercase whitespace-nowrap">{{$inventory->blood_component}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$inventory->blood_group}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$inventory->unit_count}}</td>
+                                    <td class="px-6 py-4 uppercase whitespace-nowrap text-center">{{$inventory->blood_component}}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{$inventory->blood_group}}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{$inventory->unit_count}}</td>
 
                                 </tr>
                             

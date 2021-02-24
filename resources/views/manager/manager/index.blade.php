@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Blood Process Entry') }}
+            {{ __('Manager List') }}
         </h2>
     </x-slot>
 
@@ -20,39 +20,29 @@
                     <x-table.table>
                         <x-slot name="thead">
                             <x-table.th>Index</x-table.th>
-                            <x-table.th>Recipient Name</x-table.th>
-                            <x-table.th>Recipient Group</x-table.th>
-                            <x-table.th>Recipient Component</x-table.th>
-                            <x-table.th>Compatible Group</x-table.th>
-                            <x-table.th>Required Between</x-table.th>
+                            <x-table.th>Name</x-table.th>
+                            <x-table.th>Email</x-table.th>
+                            <x-table.th>Created At</x-table.th>
                         </x-slot>
                         {{-- td --}}
-                        @if ($demands->count())
-                            @foreach ($demands as $demand)
+                        @if ($managers->count())
+                            @foreach ($managers as $manager)
+                            <tr>
                                 <x-table.td>{{ $loop->iteration }}</x-table.td>
-                                <x-table.td>{{ $demand->recipient_name }}</x-table.td>
-                                <x-table.td>{{ $demand->recipient_group }}</x-table.td>
-                                <x-table.td class="uppercase">{{ $demand->recipient_component }}</x-table.td>
+                                <x-table.td>{{ $manager->name }}</x-table.td>
                                 <x-table.td>
-                                    @foreach ($demand->compatible_group as $item)
-                                        {{ $loop->last ? $item : $item . ', ' }}
-                                    @endforeach    
+                                    {{ $manager->email === auth()->user()->email ? $manager->email . ' (Admin)' : $manager->email }}
                                 </x-table.td>
-                                <x-table.td>{{ $demand->buffer_time }}</x-table.td>
+                                <x-table.td>{{ $manager->created_at }}</x-table.td>
+                            </tr>
                             @endforeach
                         @else
-                            <x-table.td class="text-center" colspan="6">No Data Found</x-table.td>
+                            <tr>
+                                <x-table.td class="text-center" colspan="6">No Data Found</x-table.td>
+                            </tr>
                         @endif
-
-                        
-
+        
                     </x-table.table>
-
-                    
-                    
-                   
-
-                    
 
                 </div>
             </div>

@@ -51,10 +51,10 @@
 
                         <div class="mt-4">
                             <x-label for="bloodComponent" :value="__('Component to Donate')" />
-                            <x-select id="bloodComponent" name="bloodComponent">
-                                <option>Whole</option>
-                                <option>WBC</option>
-                                <option>RBC</option>
+                            <x-select id="bloodComponent" name="bloodComponent" class="uppercase">
+                                <option>whole</option>
+                                <option>wbc</option>
+                                <option>rbc</option>
                             </x-select>
                     
                         </div>

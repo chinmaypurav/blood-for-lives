@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Blood Process Entry') }}
+            {{ __('Donated Blood Unprocessed') }}
         </h2>
     </x-slot>
 
@@ -30,18 +30,26 @@
                                 @csrf
                                 <input type="hidden" name="_method" value="PUT">
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$loop->index + 1}}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ ($donations->currentPage() - 1) * 10 + $loop->index + 1}}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{$donation->donor_card_no}}</td>
                                     <td class="px-6 py-4 uppercase whitespace-nowrap">{{$donation->blood_component}}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{$donation->blood_group}}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{$donation->donated_at}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$donation->status_code}}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <x-select class="uppercase" name="action">
+                                            <option></option>
+                                            <option value="stored">store</option>
+                                            <option value="failed">Fail</option>
+                                        </x-select>
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <input type="hidden" name="donor_id" value="{{$donation->id}}" />
                                         <input type="hidden" name="donated_at" value="{{$donation->donated_at}}" />
+                                        <input type="hidden" name="donated_at" value="{{$donation->donated_at}}" />
+                                        
 
                                         <x-button class="ml-4">
-                                            {{ __('Save') }}
+                                            {{ __('Update') }}
                                         </x-button>
                                     </td>
                                 </tr>
@@ -49,6 +57,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $donations->links()}}
                     
                     
                    

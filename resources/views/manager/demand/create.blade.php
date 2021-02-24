@@ -29,7 +29,7 @@
                         </div class="mt-4">
 
                          <!-- Guardian Contact -->
-                         <div>
+                         <div class="mt-4">
                             <x-label for="guardianContact" :value="__('Guardian Contact')" />
 
                             <x-input id="guardianContact" class="block mt-1 w-full" 
@@ -39,7 +39,7 @@
                         </div>
 
                         <!-- Recipient Name -->
-                        <div>
+                        <div class="mt-4">
                             <x-label for="recipientName" :value="__('Recipient Name')" />
 
                             <x-input id="recipientName" class="block mt-1 w-full" 
@@ -68,7 +68,7 @@
                         <!-- Recipient Blood Component -->
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="recipientComponent" class="block text-sm font-medium text-gray-700">Blood Group</label>
-                            <select id="recipientComponent" name="recipientComponent" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <select id="recipientComponent" name="recipientComponent" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm uppercase">
                                 <option>whole</option>
                                 <option>wbc</option>
                                 <option>rbc</option>
