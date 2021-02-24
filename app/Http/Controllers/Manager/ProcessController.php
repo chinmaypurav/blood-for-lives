@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Models\Bank;
+use App\Models\BankDonor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Manager\ProcessUpdateRequest;
 
 class ProcessController extends Controller
 {
@@ -17,13 +20,17 @@ class ProcessController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $bank = Bank::find($user->banks()->first()->id);
+        $bank = $user->bank;
 
         $donations = DB::table('bank_donor')
             ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
             ->select('bank_donor.*', 'donors.donor_card_no', 'donors.blood_group')
-            ->where('bank_donor.status_code', 0)
-            ->get();
+            ->where([
+                'bank_donor.bank_id'=> $bank->id,
+                'bank_donor.status'=> 'raw',
+                ])
+            ->orderBy('bank_donor.donated_at')
+            ->paginate(10);
 
         return view('manager.process.index')->with('donations', $donations);
     }
@@ -79,15 +86,29 @@ class ProcessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProcessUpdateRequest $request, $id)
     {
 
+        $validated = $request->validated();
+        //dd($validated['action']);
 
-        DB::transaction(function () use (&$id) {
+        $state = $validated['action'];
+        
+        $donation = BankDonor::find($id);
+        //dd($donation);
+
+        DB::transaction(function () use (&$id, $donation, $state) {
             DB::table('bank_donor')
               ->where('id', $id)
-              ->update(['status_code' => 10]);
+              ->update([
+                  'status' => $state,
+                  'logger->' . $state . '->id' => auth()->user()->id,
+                  'logger->' . $state . '->updated_at' => Carbon::now(),
+                  ]);
+
         });
+
+        
         
         return redirect()->route('manager.process.index');
     }

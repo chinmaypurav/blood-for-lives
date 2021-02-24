@@ -18,7 +18,7 @@ class DemandController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $bank = $user->banks->first();
+        $bank = $user->bank;
         
         $demands = $bank->demands;
 
@@ -62,15 +62,18 @@ class DemandController extends Controller
         DB::connection()->enableQueryLog();
 
         $user = auth()->user();
+        $bank = $user->bank;
 
-        $demand = $user->banks->first()->demands();
+        
+
+        $demand = $user->bank->demands();
 
         //dd($demand);
         $compatibleGroup = CompatibilityController::recipient($request->recipientComponent, $request->recipientGroup);
 
         //
 
-        $demand->create([
+        $demand = $user->bank->demands()->create([
             'guardian_name' => $request->guardianName,
             'guardian_contact' => $request->guardianContact,
             'recipient_name' => $request->recipientName,
@@ -79,53 +82,26 @@ class DemandController extends Controller
             'compatible_group' => json_encode($compatibleGroup),
             'buffer_time' => 2,
             'required_at' => $request->requiredAt,
+            'required_units' => 2,
         ]);
-        return $queries = DB::getQueryLog();
+        
 
         Demand::where('id', $demand->id)
             ->update([
-            'logger->open->id' => '',
-            'logger->open->updated_at' => '99',
+            'logger->open->id' => $user->id,
+            'logger->open->updated_at' => date_format(date_create(), DATE_W3C),
         ]);
 
-        return now();
+        //return now();
 
 
 
 
-    DB::table('demands')
-            ->where('id', $demand->id)
-            ->update([
-            'logger->open->id' => 6,
-            'logger->open->updated_at' => 'today'
-            ]
-        );
 
-    Demand::where('id', $demand->id)
-    ->update([
-    'logger->open->id' => '11',
-    'logger->open->updated_at' => '99',
-    ]);
-
-
-    return $queries;
-
+    
         
 
-        return DB::table('demands')
-            ->where('id', $demand->id)
-            ->update([
-            'logger' => [
-                'open' => [
-                    'id' => '6',
-                    'updated_at' => '8',
-                ]
-            ]
-        ]);
-
-        
-
-        return $json;
+        return 23;
 
 
     }

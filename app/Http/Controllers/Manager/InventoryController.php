@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manager;
 
 use App\Models\Bank;
-use App\Models\User;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Admin\BankRequest;
 
-class BankController extends Controller
+class InventoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,22 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::paginate(1);
-        return view('admin.bank.index')->with('banks', $banks);
+        $user = auth()->user();
+        $bank = $user->bank;
+
+        $inventories = DB::table('bank_donor')
+            ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
+            ->select(
+                DB::raw('count(*) as unit_count, bank_donor.blood_component, donors.blood_group')
+                )
+            ->where([
+                'bank_donor.bank_id'=> $bank->id,
+                'bank_donor.status'=> 'stored',
+                ])
+            ->groupBy('bank_donor.blood_component', 'donors.blood_group')
+            ->get();
+
+        return view('manager.inventory.index')->with('inventories', $inventories);
     }
 
     /**
@@ -29,7 +42,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('admin.bank.create');
+        //
     }
 
     /**
@@ -38,32 +51,9 @@ class BankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BankRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
-
-        //Create Bank Model
-        $bank = Bank::create([
-            'name' => $validated['bankName'],
-            'bank_code' => $validated['bankCode'],
-            'manager_email' => $validated['email'],
-            'address' => $validated['address'],
-            'postal' => $validated['postal'],
-            'lat' => 0, //Temporary set to 0
-            'lon' => 0, //Temporary set to 0
-        ]);
-
-        //Attach User Model
-        $user = $bank->users()->create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make('password'),
-        ]);
-        
-        //Assign Manager Role
-        $user->assignRole('manager');
-
-        return redirect()->route('admin.bank.create')->with('status', 'Bank Added!');
+        //
     }
 
     /**

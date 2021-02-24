@@ -39,19 +39,22 @@ class DonorController extends Controller
     public function store(DonorRequest $request)
     {
         $validated = $request->validated();
-        //dd($validated);
+        
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make('password'),
         ]);
 
+        //Assign Manager Role
+        $user->assignRole('donor'); 
+
         $user->donor()->create([
             'blood_group'   => $validated['bloodGroup'],
             'contact'       => $validated['contact'],
             'postal'        => $validated['postal'],
             'dob'           => $validated['dob'],
-            'donor_card_no' => 0, //Temporary set to zero.
+            'donor_card_no' => 'DONOR' . $user->id, //Temporary set to zero.
             'lat'           => 0, //Temporary set to zero.
             'lon'           => 0, //Temporary set to zero.
         ]);

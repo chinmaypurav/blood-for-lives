@@ -4,7 +4,7 @@ namespace App\Http\Requests\Manager;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DonorRequest extends FormRequest
+class ProcessUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,7 @@ class DonorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users,email',
-            'bloodGroup' => 'required',    
-            'contact' => 'required|numeric|digits:10',
-            'dob' => 'required|date',
-            'postal' => 'required|numeric|digits:6',
+            'action' => ''
         ];
     }
 }
