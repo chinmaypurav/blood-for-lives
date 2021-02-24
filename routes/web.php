@@ -20,11 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test/{id}', function ($id) {
-    return $id;
+Route::get('/test', function () {
+    return view('test');
+});
+Route::get('/modal', function () {
+    return view('modal');
 });
 
-Route::get('/test', [TestController::class, 'encrypt'])->name('test');
+Route::get('/roles', [TestController::class, 'roles'])->name('test');
+Route::get('/radius', [TestController::class, 'radius'])->name('radius');
 
 Route::post('/test', function () {
     return json_encode("Suucccsss");
@@ -35,21 +39,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::post('/manager/donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])->name('manager.donor.search');
 
-Route::post('/manager/donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])->name('manager.donation.search');
 
-Route::resource('/manager/donor', 'App\Http\Controllers\Manager\DonorController', 
-                ['as' => 'manager']);
 
-Route::resource('/manager/donation', 'App\Http\Controllers\Manager\DonationController', 
-['as' => 'manager']);
 
-Route::resource('/manager/process', 'App\Http\Controllers\Manager\ProcessController', 
-['as' => 'manager']);
 
-Route::resource('/manager/inventory', 'App\Http\Controllers\Manager\InventoryController', 
-['as' => 'manager']);
 
 
 Route::group([
@@ -57,7 +51,20 @@ Route::group([
     'as' => 'manager.',
     'middleware' => 'auth'
 ], function () {
+    Route::post('/donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
+        ->name('donor.search');
+        
+    Route::get('/donation/search', function(){
+        return view('manager.donation.search');
+    })->name('donation.search');
+    Route::post('/donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])
+        ->name('donation.found');
+    Route::resource('/donor', 'App\Http\Controllers\Manager\DonorController');
+    Route::resource('/donation', 'App\Http\Controllers\Manager\DonationController');
+    Route::resource('/process', 'App\Http\Controllers\Manager\ProcessController');
     Route::resource('/demand', 'App\Http\Controllers\Manager\DemandController');
+    Route::resource('/inventory', 'App\Http\Controllers\Manager\InventoryController');
+    Route::resource('/manager', 'App\Http\Controllers\Manager\ManagerController');
 });
 
 
