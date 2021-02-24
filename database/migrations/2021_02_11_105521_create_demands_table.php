@@ -45,9 +45,10 @@ class CreateDemandsTable extends Migration
             $table->enum('recipient_component',  ['whole', 'wbc', 'rbc', 'platelets', 'plasma']);
             $table->json('compatible_group');
             $table->timestamp('required_at');
+            $table->unsignedTinyInteger('required_units');
             $table->unsignedTinyInteger('buffer_time');
             $table->boolean('is_donor')->default(false);
-            $table->enum('action', ['open', 'allocated', 'success', 'failed'])->default('open');
+            $table->enum('status', ['open', 'allocated', 'success', 'failed'])->default('open');
             $table->json('logger')->default($json);
             $table->timestamps();
         });

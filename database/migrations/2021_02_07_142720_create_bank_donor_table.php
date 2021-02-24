@@ -14,17 +14,39 @@ class CreateBankDonorTable extends Migration
     public function up()
     {
         Schema::create('bank_donor', function (Blueprint $table) {
+            $json = json_encode([
+                'raw' => [
+                    'id' => null,
+                    'updated_at' => null
+                ],
+                'failed' => [
+                    'id' => null,
+                    'updated_at' => null
+                ],
+                'stored' => [
+                    'id' => null,
+                    'updated_at' => null
+                ],
+                'rejected' => [
+                    'id' => null,
+                    'updated_at' => null
+                ],
+                'transfused' => [
+                    'id' => null,
+                    'updated_at' => null
+                ],
+            ]);
+
             $table->id();
             $table->foreignId('donor_id')
                     ->constrained();
             $table->foreignId('bank_id')
                     ->constrained();
             $table->enum('blood_component', ['whole', 'plasma', 'platelets', 'wbc', 'rbc']);
-            $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
-            $table->string('editor');
             $table->timestamp('donated_at')->useCurrent();
             $table->timestamp('expiry_at')->nullable();
-            $table->timestamps();
+            $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
+            $table->json('logger')->default($json);
         });
     }
 
