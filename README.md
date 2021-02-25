@@ -1,6 +1,6 @@
 # Blood For Lives
 
-## A community project/concept aimed to help better and efficient management of Bloof Transfusion
+## A community project/concept aimed to help better and efficient management of Blood Transfusion
 
 ### Test Credentials for testing the application
 
