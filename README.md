@@ -4,7 +4,7 @@
 
 ### Test Credentials for testing the application
 
-[Test Credentials](../blob/master/readme/credentials.md)
+[Test Credentials](../blob/main/readme/credentials.md)
 
 ### Demo Application
 
