@@ -8,4 +8,4 @@
 
 ### Demo Application
 
-[Application Link](http://blood-for-lives.heroku.com/)
+[Application Link](http://blood-for-lives.herokuapp.com/)
