@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
         //User(Manager) for Bank 1-10
         for ($i=1; $i <= 10; $i++) { 
             
-            $user = \App\Models\User::factory()->create([
+            $user = \App\Models\User::create([
                 'name' => 'Manager ' . $numbers[$i],
                 'email' => 'man'.$numbers[$i].'@gmail.com',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
