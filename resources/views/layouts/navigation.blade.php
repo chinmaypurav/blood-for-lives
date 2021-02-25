@@ -93,6 +93,34 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @role('admin')
+            <x-responsive-nav-link :href="route('admin.bank.index')" :active="request()->routeIs('admin.bank.*')">
+                {{ __('Banks') }}
+            </x-responsive-nav-link>
+            @endrole
+
+            @role('manager')
+            <x-responsive-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
+                {{ __('Donors') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('manager.donation.search')" :active="request()->routeIs('manager.donation.index')">
+                {{ __('Donations') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('manager.process.index')" :active="request()->routeIs('manager.process.*')">
+                {{ __('Process') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('manager.inventory.index')" :active="request()->routeIs('manager.inventory.*')">
+                {{ __('Inventory') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('manager.demand.index')" :active="request()->routeIs('manager.demand.*')">
+                {{ __('Demand') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('manager.manager.index')" :active="request()->routeIs('manager.manager.*')">
+                {{ __('Manager Users') }}
+            </x-responsive-nav-link>
+            @endrole
         </div>
 
         <!-- Responsive Settings Options -->
