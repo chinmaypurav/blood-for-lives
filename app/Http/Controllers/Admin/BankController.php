@@ -18,7 +18,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::paginate(1);
+        $banks = Bank::paginate(5);
         return view('admin.bank.index')->with('banks', $banks);
     }
 

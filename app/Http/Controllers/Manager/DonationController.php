@@ -60,7 +60,7 @@ class DonationController extends Controller
 
         
 
-        return redirect()->route('manager.donation.index')->with('status', 'Donation Entry added!');
+        return redirect()->route('manager.donation.search')->with('status', 'Donation Entry added to process!');
         //return 1;
     }
 
