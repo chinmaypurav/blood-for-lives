@@ -31,6 +31,7 @@
                         {{-- td --}}
                         @if ($demands->count())
                             @foreach ($demands as $demand)
+                            <tr>
                                 <x-table.td>{{ $loop->iteration }}</x-table.td>
                                 <x-table.td>{{ $demand->recipient_name }}</x-table.td>
                                 <x-table.td>{{ $demand->recipient_group }}</x-table.td>
@@ -41,6 +42,7 @@
                                     @endforeach    
                                 </x-table.td>
                                 <x-table.td>{{ $demand->buffer_time }}</x-table.td>
+                            </tr>
                             @endforeach
                         @else
                             <x-table.td class="text-center" colspan="6">No Data Found</x-table.td>
