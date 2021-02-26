@@ -22,20 +22,7 @@ class DemandController extends Controller
         
         $demands = $bank->demands;
 
-        $whole = [
-            'A+' => ['A+', 'AB+'],
-            'A-' => ['A-', 'AB-'],
-            'B+' => ['B+', 'AB+'],
-            'B-' => ['B-', 'AB-'],
-            'AB+' => ['AB+'],
-            'AB-' => ['AB-'],
-            'O+' => ['A+', 'B+', 'AB+', 'O+'],
-            'O-' => ['O-'],
-        ];
-        // return response()->json($whole["A+"]);
-        // exit();
-        //dd($demands->count());
-
+        
         return view('manager.demand.index')->with('demands', $demands);
 
     }
@@ -64,14 +51,10 @@ class DemandController extends Controller
         $user = auth()->user();
         $bank = $user->bank;
 
-        
-
         $demand = $user->bank->demands();
 
-        //dd($demand);
         $compatibleGroup = CompatibilityController::recipient($request->recipientComponent, $request->recipientGroup);
 
-        //
 
         $demand = $user->bank->demands()->create([
             'guardian_name' => $request->guardianName,
@@ -79,7 +62,7 @@ class DemandController extends Controller
             'recipient_name' => $request->recipientName,
             'recipient_group' => $request->recipientGroup,
             'recipient_component' => $request->recipientComponent,
-            'compatible_group' => json_encode($compatibleGroup),
+            'compatible_group' => $compatibleGroup,
             'buffer_time' => 2,
             'required_at' => $request->requiredAt,
             'required_units' => 2,
@@ -92,17 +75,8 @@ class DemandController extends Controller
             'logger->open->updated_at' => date_format(date_create(), DATE_W3C),
         ]);
 
-        //return now();
 
-
-
-
-
-    
-        
-
-        return 23;
-
+        return redirect()->route('manager.demand.index');
 
     }
 
