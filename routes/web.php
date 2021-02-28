@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Test\TestController;
+use App\Http\Controllers\Manager\BoloController;
+use App\Http\Controllers\Setup\PostalController;
 use App\Http\Controllers\Manager\DonorController;
 
 /*
@@ -23,12 +25,21 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return view('test');
 });
+
+Route::get('/csv', function () {
+    return view('setup.postal');
+})->name('setup.postal');
+
+Route::post('/csv', [PostalController::class, 'store']);
+Route::get('/csvc', [PostalController::class, 'process']);
+
 Route::get('/modal', function () {
     return view('modal');
 });
 
 Route::get('/roles', [TestController::class, 'roles'])->name('test');
 Route::get('/radius', [TestController::class, 'radius'])->name('radius');
+Route::get('/ada', [BoloController::class, 'ada'])->name('ada');
 
 Route::post('/test', function () {
     return json_encode("Suucccsss");
@@ -51,6 +62,9 @@ Route::group([
     'as' => 'manager.',
     'middleware' => 'auth'
 ], function () {
+
+    Route::get('bolo', [App\Http\Controllers\Manager\BoloController::class, 'getCount'])->name('bolo.count');
+
     Route::post('/donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
         ->name('donor.search');
         
