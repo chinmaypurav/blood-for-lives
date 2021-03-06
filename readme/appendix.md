@@ -9,3 +9,5 @@
 | Demand       | A request for any blood component         |
 | Inventory    | Blood Component(s) Stock                  |
 | Process      | Blood Component(s) Stock                  |
+| Ada          | All Donors Alert (Notify all donors)      |
+| Bolo         | Be On the Look Out for any blood group    |
