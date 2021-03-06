@@ -39,7 +39,7 @@ class Donor extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->first();
+        return $this->belongsTo(User::class);
     }
 
     public function banks()

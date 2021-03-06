@@ -27,10 +27,15 @@ class Bank extends Model
     public function donors()
     {
         return $this->belongsToMany(Donor::class)
-        ->withPivot('id', 'donated_at', 'editor', 'blood_component', 'status_code');
+        ->withPivot('id', 'donated_at', 'blood_component', 'status');
     }
 
     public function demands()
+    {
+        return $this->hasMany(Demand::class);
+    }
+
+    public function demandOnlyBlood()
     {
         return $this->hasMany(Demand::class);
     }
