@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 class CompatibilityController
 {
-    private static $recipient = [
+    private $recipient = [
         'whole' => [
             'A+' => ['A+', 'AB+'],
             'A-' => ['A-', 'AB-'],
@@ -58,7 +58,7 @@ class CompatibilityController
     ];
 
     //No. of Days for safe donate
-    private static $safeDonate = [
+    private $safeDonate = [
         'whole' => '90',
         'platelets' => '30',
         'plasma' => '10',
@@ -66,15 +66,15 @@ class CompatibilityController
         'wbc' => '14',
     ];
 
-    public static function recipient($bloodComponent = null, $bloodGroup = null)
+    public function recipient($bloodComponent = null, $bloodGroup = null)
     {
-        return self::$recipient[$bloodComponent][$bloodGroup];
+        return $this->$recipient[$bloodComponent][$bloodGroup];
     }
 
-    public static function safeDonate($bloodComponent = null)
+    public function safeDonate($bloodComponent = null)
     {
         $date = date_create();
-        date_add($date,date_interval_create_from_date_string(self::$safeDonate[$bloodComponent] . "days"));
+        date_add($date,date_interval_create_from_date_string($this->$safeDonate[$bloodComponent] . "days"));
         return date_format($date,"Y-m-d");
     }
 }
