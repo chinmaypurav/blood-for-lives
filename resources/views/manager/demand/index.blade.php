@@ -27,6 +27,7 @@
                             <x-table.th>Recipient Component</x-table.th>
                             <x-table.th>Compatible Group</x-table.th>
                             <x-table.th>Required Between</x-table.th>
+                            <x-table.th>Action</x-table.th>
                         </x-slot>
                         {{-- td --}}
                         @if ($demands->count())
@@ -42,6 +43,14 @@
                                     @endforeach    
                                 </x-table.td>
                                 <x-table.td>{{ $demand->buffer_time }}</x-table.td>
+                                <x-table.td>
+                                    <a href="{{route('manager.demand.edit',  ['demand' => $demand->id ])}}">
+                                        Allocate Supply
+                                    </a>
+                                </x-table.td>
+
+                                
+                                
                             </tr>
                             @endforeach
                         @else
