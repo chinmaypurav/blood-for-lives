@@ -79,6 +79,7 @@ Route::group([
     Route::resource('/demand', 'App\Http\Controllers\Manager\DemandController');
     Route::resource('/inventory', 'App\Http\Controllers\Manager\InventoryController');
     Route::resource('/manager', 'App\Http\Controllers\Manager\ManagerController');
+    Route::resource('/bolo', 'App\Http\Controllers\Manager\BoloController');
 });
 
 
