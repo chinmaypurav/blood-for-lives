@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Models\Donor;
 use App\Models\Demand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Manager\CompatibilityController;
+use App\Http\Controllers\Imports\CompatibilityController;
 
 class DemandController extends Controller
 {
@@ -53,7 +54,8 @@ class DemandController extends Controller
 
         $demand = $user->bank->demands();
 
-        $compatibleGroup = CompatibilityController::recipient($request->recipientComponent, $request->recipientGroup);
+        $compatibility = new CompatibilityController();
+        $compatibleGroup = $compatibility->recipient($request->recipientComponent, $request->recipientGroup);
 
 
         $demand = $user->bank->demands()->create([
@@ -99,7 +101,27 @@ class DemandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = auth()->user();
+        $bank = $user->bank;
+
+        
+        $compatibleGroup = Demand::find($id)->compatible_group;
+
+        //dd($compatibleGroup);
+
+        $inventories = DB::table('bank_donor')
+                    ->leftJoin('donors', 'donors.id', '=', 'bank_donor.donor_id')
+                    ->select('bank_donor.*', 'donors.blood_group')
+                    ->whereIn('donors.blood_group', $compatibleGroup)
+                    //->orderBy('bank_donor.expiry_at')
+                    ->get();
+    
+
+        
+        return view('manager.demand.stock')->with([
+            'inventories' => $inventories,
+            'demandId' => $id,
+        ]);
     }
 
     /**

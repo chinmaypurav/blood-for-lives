@@ -7,7 +7,7 @@ use App\Models\Donor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manager\DonationSearchRequest;
-use App\Http\Controllers\Manager\CompatibilityController;
+use App\Http\Controllers\Imports\CompatibilityController;
 
 class DonationController extends Controller
 {
@@ -18,9 +18,10 @@ class DonationController extends Controller
      */
     public function index()
     {
-        return 1;
-        $donors = Donor::all();
-        return view('manager.donation.index')->with('donors', $donors);
+        $user = auth()->user();
+        $bank = $user->bank;
+        $donations = $bank->donors;
+        return view('manager.donation.index')->with('donations', $donations);
     }
 
     /**
@@ -52,7 +53,9 @@ class DonationController extends Controller
             //'editor' => $user->email,
         ]);
 
-        $safeDonate = CompatibilityController::safeDonate($request->bloodComponent);
+        $compatibility = new CompatibilityController();
+
+        $safeDonate = $compatibility->safeDonate($request->bloodComponent);
 
 
         Donor::where('id', $donor->id)
@@ -61,7 +64,6 @@ class DonationController extends Controller
         
 
         return redirect()->route('manager.donation.search')->with('status', 'Donation Entry added to process!');
-        //return 1;
     }
 
     /**
@@ -145,7 +147,7 @@ class DonationController extends Controller
         $diff = date_diff(date_create($donor->safe_donate_at), date_create());
 
 
-        if ($diff->format('%a') > 0) {
+        if ($diff->format('%a') < 0) {
 
 
             return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at);
