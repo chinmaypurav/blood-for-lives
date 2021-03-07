@@ -63,7 +63,9 @@ Route::group([
     'middleware' => 'auth'
 ], function () {
 
-    Route::get('bolo', [App\Http\Controllers\Manager\BoloController::class, 'getCount'])->name('bolo.count');
+    Route::get('ada/{id}', [App\Http\Controllers\Manager\AdaController::class, 'create'])->name('ada.create');
+    Route::post('ada', [App\Http\Controllers\Manager\AdaController::class, 'store'])->name('ada.store');
+    Route::get('batch', [App\Http\Controllers\Manager\AdaController::class, 'status']);
 
     Route::post('/donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
         ->name('donor.search');
