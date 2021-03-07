@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Imports;
 
 class CompatibilityController
 {
@@ -68,13 +68,13 @@ class CompatibilityController
 
     public function recipient($bloodComponent = null, $bloodGroup = null)
     {
-        return $this->$recipient[$bloodComponent][$bloodGroup];
+        return $this->recipient[$bloodComponent][$bloodGroup];
     }
 
     public function safeDonate($bloodComponent = null)
     {
         $date = date_create();
-        date_add($date,date_interval_create_from_date_string($this->$safeDonate[$bloodComponent] . "days"));
+        date_add($date,date_interval_create_from_date_string($this->safeDonate[$bloodComponent] . "days"));
         return date_format($date,"Y-m-d");
     }
 }

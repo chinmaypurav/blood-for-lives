@@ -7,6 +7,7 @@ use App\Models\Demand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Imports\CompatibilityController;
 
 class DemandController extends Controller
 {
@@ -114,9 +115,7 @@ class DemandController extends Controller
                     ->whereIn('donors.blood_group', $compatibleGroup)
                     //->orderBy('bank_donor.expiry_at')
                     ->get();
-    
-
-        
+            
         return view('manager.demand.stock')->with([
             'inventories' => $inventories,
             'demandId' => $id,
