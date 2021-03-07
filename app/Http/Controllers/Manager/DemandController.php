@@ -36,7 +36,6 @@ class DemandController extends Controller
     public function create()
     {
         return view('manager.demand.create');
-        return CompatibilityController::recipient('whole', 'A+');
     }
 
     /**
@@ -47,13 +46,11 @@ class DemandController extends Controller
      */
     public function store(Request $request)
     {
-        DB::connection()->enableQueryLog();
-
         $user = auth()->user();
         $bank = $user->bank;
 
         $demand = $user->bank->demands();
-
+        
         $compatibility = new CompatibilityController();
         $compatibleGroup = $compatibility->recipient($request->recipientComponent, $request->recipientGroup);
 
@@ -74,7 +71,7 @@ class DemandController extends Controller
         Demand::where('id', $demand->id)
             ->update([
             'logger->open->id' => $user->id,
-            'logger->open->updated_at' => date_format(date_create(), DATE_W3C),
+            'logger->open->updated_at' => now(),
         ]);
 
 

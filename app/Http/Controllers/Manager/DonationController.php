@@ -144,17 +144,13 @@ class DonationController extends Controller
         }
         
         //If found, check for status_code and last donated;
-        $diff = date_diff(date_create($donor->safe_donate_at), date_create());
 
+        // dd($diff, now()->toDateTimeString(), now()->tzName,$donor->safe_donate_at->toDateTimeString(), $donor->safe_donate_at->tzName);
 
-        if ($diff->format('%a') < 0) {
-
-
-            return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at);
-            
+        if (now()->lessThan($donor->safe_donate_at)) {
+            return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
         }
 
-        
         return view('manager.donation.found')->with('donor', $donor);
     }
 }

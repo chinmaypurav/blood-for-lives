@@ -96,7 +96,6 @@ class AdaController extends Controller
 
 
         
-        //dd($pincodes);
 
 
         $donors = Donor::whereIn('postal', $postal)
