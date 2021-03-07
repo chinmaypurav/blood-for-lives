@@ -27,5 +27,6 @@ class Demand extends Model
         'guardian_contact' => 'encrypted',
         'compatible_group' => 'array',
         'logger' => 'array',
+        'required_at' => 'datetime:Y-m-d',
     ];
 }
