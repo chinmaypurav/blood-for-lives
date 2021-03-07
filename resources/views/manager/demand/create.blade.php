@@ -84,7 +84,8 @@
                             <x-input id="requiredAt" class="block mt-1 w-full" 
                                     type="date" 
                                     name="requiredAt" 
-                                    :value="old('requiredAt')" required />
+                                    :min="today()->toDateString()"
+                                    :value="today()->toDateString()" required />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">        

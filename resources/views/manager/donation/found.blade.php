@@ -23,7 +23,7 @@
                             <x-input id="name" class="block mt-1 w-full" 
                                                 type="text" 
                                                 name="name" 
-                                                value="{{ $donor->user()->name }}" readonly />
+                                                value="{{ $donor->user->name }}" readonly />
                         </div>
 
                         <!-- Blood Group -->
