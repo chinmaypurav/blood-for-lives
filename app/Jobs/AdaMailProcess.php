@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\AdaMail;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -13,7 +14,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class AdaMailProcess implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $donors;
     private $groups;
