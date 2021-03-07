@@ -27,6 +27,7 @@
                             <x-table.th>Recipient Component</x-table.th>
                             <x-table.th>Compatible Group</x-table.th>
                             <x-table.th>Required Between</x-table.th>
+                            <x-table.th>Ada Request</x-table.th>
                             <x-table.th>Action</x-table.th>
                         </x-slot>
                         {{-- td --}}
@@ -42,7 +43,11 @@
                                         {{ $loop->last ? $item : $item . ', ' }}
                                     @endforeach    
                                 </x-table.td>
-                                <x-table.td>{{ $demand->buffer_time }}</x-table.td>
+                                <x-table.td>{{ 
+                                    $demand->required_at->toDateString() . " - " .
+                                    $demand->required_at->addDays($demand->buffer_time)->toDateString()
+                                }}</x-table.td>
+                                <x-table.td>{{ $demand->ada_range }}</x-table.td>
                                 <x-table.td>
                                     <a href="{{route('manager.demand.edit',  ['demand' => $demand->id ])}}">
                                         Allocate Supply

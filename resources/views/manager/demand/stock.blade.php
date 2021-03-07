@@ -54,17 +54,19 @@
 
                     <hr>
                     <div class="mt-4">
-                        <h4 class="text-center">BOLO for Blood new</h4>
+                        <h4 class="text-center">Ada for Blood new</h4>
+
+                        <a href="{{route('manager.ada.create', ["id" => $demandId])}}">ADA Create</a>
 
                         <form action="{{route('manager.bolo.store')}}" method="POST">
                             @csrf
                             <x-input id="demandId" type="hidden" name="demandId" :value="$demandId" />
 
-                            <x-table.td>
-                                <x-button>
-                                    {{ __('Ada') }}
-                                </x-button>
-                            </x-table.td>
+                            
+                            <x-button>
+                                {{ __('Ada') }}
+                            </x-button>
+                        
 
                         </form>
 
