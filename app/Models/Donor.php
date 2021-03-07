@@ -33,7 +33,7 @@ class Donor extends Model
     protected $casts = [
         'dob' => 'date',
         'contact' => 'encrypted',
-        //'safe_donate_at' => 'date',
+        'safe_donate_at' => 'datetime:Y-m-d',
         //'contact' => Encrypt::class,
     ];
 
