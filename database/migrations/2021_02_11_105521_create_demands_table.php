@@ -50,6 +50,7 @@ class CreateDemandsTable extends Migration
             $table->boolean('is_donor')->default(false);
             $table->enum('status', ['open', 'allocated', 'success', 'failed'])->default('open');
             $table->json('logger')->default($json);
+            $table->unsignedTinyInteger('ada_range')->default(0);
             $table->timestamps();
         });
     }
