@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
         }
 
         //Donors 1 - 100
-        for ($i=1; $i <= 100; $i++) { 
+        for ($i=11; $i <= 110; $i++) { 
             DB::table('users')->insert([
                 'name' => 'User ' . $i,
                 'email' => 'user'.$i.'@gmail.com',
