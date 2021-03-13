@@ -39,7 +39,6 @@ Route::get('/modal', function () {
 
 Route::get('/roles', [TestController::class, 'roles'])->name('test');
 Route::get('/radius', [TestController::class, 'radius'])->name('radius');
-Route::get('/ada', [BoloController::class, 'ada'])->name('ada');
 
 Route::post('/test', function () {
     return json_encode("Suucccsss");
@@ -82,6 +81,7 @@ Route::group([
     Route::resource('/inventory', 'App\Http\Controllers\Manager\InventoryController');
     Route::resource('/manager', 'App\Http\Controllers\Manager\ManagerController');
     Route::resource('/bolo', 'App\Http\Controllers\Manager\AdaController');
+    Route::resource('/camp', 'App\Http\Controllers\Manager\CampController');
 });
 
 

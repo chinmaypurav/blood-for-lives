@@ -19,6 +19,11 @@ class Bank extends Model
         'lon',
     ];
 
+    public function camps()
+    {
+        return $this->hasMany(Camp::class);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);
