@@ -17,7 +17,7 @@ class RadiusController extends Controller
             pi()/180 / 2), 2) )) as distance";
 
             $pincodes = DB::table('postal_codes')
-                ->select(DB::raw($raw ))
+                ->select(DB::raw($raw))
                 ->get();
 
         return $pincodes;

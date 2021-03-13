@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Setup;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Jobs\PostalCsvProcess;
+use App\Http\Controllers\Controller;
 
 class PostalController extends Controller
 {
@@ -39,19 +40,19 @@ class PostalController extends Controller
         $csv = array_map('str_getcsv', file($request->csv));
 
         if ($request->has('csv')) {
-            //return file($request->mycsv);
             $data = file($request->csv);
-            // $header = $data[0];
-            // unset($data[0]);
 
             //Chunk 1000 records per file
-            $chunks = array_chunk($data, 1000);
+            $chunks = array_chunk($data, 500);
 
-            //Convert 1000 records into a new csv file
             foreach ($chunks as $key => $chunk) {
-                $name = "/tmp{$key}.csv";
-                $path = resource_path("temp");
-                file_put_contents($path . $name, $chunk);
+                $data = array_map('str_getcsv', $chunk);
+
+                if ($key === 0) {
+                    $header = $data[0];
+                    unset($data[0]);
+                }
+                PostalCsvProcess::dispatch($data, $header);
             }
             
             dd(count($chunks));
@@ -73,19 +74,11 @@ class PostalController extends Controller
         // $header = [];
 
         foreach ($files as $key => $file) {
-            $data = array_map('str_getcsv', file($file));
-            if ($key === 0) {
-                $header = $data[0];
-                unset($data[0]);
-            }
-
-            foreach ($data as $postal) {
-                $row = array_combine($header, $postal);
-                dd($row);
-            }
-
+            
+            unlink($file);
 
         }
+        return "Dispatched";
 
         return 123;
     }

@@ -100,7 +100,7 @@ class DemandController extends Controller
     {
         $user = auth()->user();
         $bank = $user->bank;
-
+        
         
         $compatibleGroup = Demand::find($id)->compatible_group;
 
@@ -128,7 +128,11 @@ class DemandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sam = $request->path();
+        $u = $request->url();
+        $o = $request->headers->get('origin');
+        $referer = request()->headers->get('referer');
+        dd(rtrim($referer, 'edit'), $u , $request);
     }
 
     /**

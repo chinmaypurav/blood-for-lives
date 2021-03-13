@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use App\Models\User;
 use App\Models\Donor;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manager\DonationSearchRequest;
@@ -11,6 +12,19 @@ use App\Http\Controllers\Imports\CompatibilityController;
 
 class DonationController extends Controller
 {
+    private $user;
+    private $bank;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next){
+            $this->user = auth()->user();
+            $this->bank = $this->user->bank;
+            
+            return $next($request);
+        });
+       
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +32,8 @@ class DonationController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $bank = $user->bank;
-        $donations = $bank->donors;
+        // dd(Donation::first()->donor->id);
+        $donations = $this->bank->donors;
         return view('manager.donation.index')->with('donations', $donations);
     }
 
@@ -43,12 +56,11 @@ class DonationController extends Controller
     public function store(Request $request)
     {
         //$validated = $request->validated();
-        $user = auth()->user();
-        $bank = $user->bank;
+
     
         $donor = Donor::find($request->donorId);
 
-        $donor->banks()->attach($bank->id, [
+        $donor->banks()->attach($this->bank->id, [
             'blood_component' => $request->bloodComponent,
             //'editor' => $user->email,
         ]);
@@ -57,11 +69,8 @@ class DonationController extends Controller
 
         $safeDonate = $compatibility->safeDonate($request->bloodComponent);
 
-
         Donor::where('id', $donor->id)
             ->update(['safe_donate_at' => $safeDonate]);
-
-        
 
         return redirect()->route('manager.donation.search')->with('status', 'Donation Entry added to process!');
     }

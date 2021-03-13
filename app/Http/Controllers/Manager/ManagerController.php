@@ -22,7 +22,6 @@ class ManagerController extends Controller
                 abort(403);
             }
         });
-       
     }
 
     /**
@@ -62,6 +61,7 @@ class ManagerController extends Controller
             'email' => $validated['email'],
             'password' => bcrypt('password'),
         ]);
+        $user->assignRole('manager');
         return redirect()->route('manager.manager.index');
     }
 

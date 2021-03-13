@@ -20,19 +20,9 @@ class InventoryController extends Controller
         $user = auth()->user();
         $bank = $user->bank;
 
-        $inventories = DB::table('bank_donor')
-            ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
-            ->select(
-                DB::raw('count(*) as unit_count, bank_donor.blood_component, donors.blood_group')
-                )
-            ->where([
-                'bank_donor.bank_id'=> $bank->id,
-                'bank_donor.status'=> 'stored',
-                ])
-            ->groupBy('bank_donor.blood_component', 'donors.blood_group')
-            ->get();
+        $banks = Bank::paginate(10);
 
-        return view('manager.inventory.index')->with('inventories', $inventories);
+        return view('manager.inventory.index')->with('banks', $banks);
     }
 
     /**
@@ -64,7 +54,22 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = auth()->user();
+        $bank = Bank::findOrFail($id);
+
+        $inventories = DB::table('bank_donor')
+            ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
+            ->select(
+                DB::raw('count(*) as unit_count, bank_donor.blood_component, donors.blood_group')
+                )
+            ->where([
+                'bank_donor.bank_id'=> $bank->id,
+                'bank_donor.status'=> 'stored',
+                ])
+            ->groupBy('bank_donor.blood_component', 'donors.blood_group')
+            ->get();
+
+        return view('manager.inventory.show')->with('inventories', $inventories);
     }
 
     /**

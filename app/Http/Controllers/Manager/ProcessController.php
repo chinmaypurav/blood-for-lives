@@ -88,7 +88,6 @@ class ProcessController extends Controller
      */
     public function update(ProcessUpdateRequest $request, $id)
     {
-
         $validated = $request->validated();
         //dd($validated['action']);
 

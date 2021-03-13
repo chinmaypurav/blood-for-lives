@@ -92,8 +92,10 @@ class AdaController extends Controller
             // dd($pincodes);
             $minRadius += 5;
             $maxRadius += 5;
-        } while (count($pincodes) === 0);
+            echo $minRadius . "<br/>";
+        } while (count($pincodes) === 0 && $minRadius < 100);
 
+        exit;
 
         
 
