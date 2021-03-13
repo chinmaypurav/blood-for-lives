@@ -32,8 +32,9 @@
                                 <x-table.td>{{ $inventory->expiry_at }}</x-table.td>
                                 
 
-                                <form action="{{route('manager.demand.update', ['demand' => $inventory->id ])}}" method="post">
+                                <form action="{{route('manager.demand.update', ['demand' => $demandId ])}}" method="post">
                                     @csrf
+                                    @method('put')
                                     <x-table.td>
                                         <x-button>
                                             {{ __('Allocate') }}

@@ -25,7 +25,10 @@
                     <x-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
                         {{ __('Donors') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.donation.search')" :active="request()->routeIs('manager.donation.index')">
+                    <x-nav-link :href="route('manager.camp.index')" :active="request()->routeIs('manager.camp.*')">
+                        {{ __('Camps') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manager.donation.search')" :active="request()->routeIs('manager.donation.*')">
                         {{ __('Donations') }}
                     </x-nav-link>
                     <x-nav-link :href="route('manager.process.index')" :active="request()->routeIs('manager.process.*')">

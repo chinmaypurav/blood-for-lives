@@ -13,29 +13,25 @@
                     
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
-                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Component</th>
-                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Group</th>
-                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Units Available</th>
-                            
+                            <x-table.th>Bank id</x-table.th>
+                            <x-table.th>Bank Name</x-table.th>
+                            <x-table.th>Bank Code</x-table.th>                          
+                            <x-table.th>Action</x-table.th>                          
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($inventories as $inventory)
-                            
+                            @foreach ($banks as $bank)
                                 <tr>
-                                    <td class="px-6 py-4 uppercase whitespace-nowrap text-center">{{$inventory->blood_component}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{$inventory->blood_group}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{$inventory->unit_count}}</td>
-
+                                    <x-table.td class="uppercase">{{$bank->id}}</x-table.td>
+                                    <x-table.td class="uppercase">{{$bank->name}}</x-table.td>
+                                    <x-table.td class="uppercase">{{$bank->bank_code}}</x-table.td>
+                                    <x-table.td>
+                                        <a href="{{route('manager.inventory.show', ['inventory' => $bank->id])}}">View</a>
+                                    </x-table.td>
                                 </tr>
-                            
                             @endforeach
                         </tbody>
                     </table>
-                    
-                    
-                   
-
-                    
+                    {{ $banks->links() }}                  
 
                 </div>
             </div>

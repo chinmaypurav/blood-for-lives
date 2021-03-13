@@ -20,7 +20,7 @@
                     @if (count($donations))
                         @foreach ($donations as $donation)
                             <p>
-                                {{$donation->user()->name}} 
+                                {{$donation->user->name}} 
                                 {{$donation->donor_card_no}}
                                 {{$donation->pivot->blood_component}}
                                 {{$donation->pivot->status}} 
