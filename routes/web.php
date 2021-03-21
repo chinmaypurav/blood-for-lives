@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Services\CompatibilityService;
 use App\Http\Controllers\Test\TestController;
 use App\Http\Controllers\Manager\BoloController;
 use App\Http\Controllers\Setup\PostalController;
@@ -19,49 +20,17 @@ use App\Http\Controllers\Manager\DonorController;
 
 Route::get('/', function () {
     return redirect()->route('login');
-    return view('welcome');
 });
-
-Route::get('/test', function () {
-    return view('test');
-});
-
-Route::get('/csv', function () {
-    return view('setup.postal');
-})->name('setup.postal');
-
-Route::post('/csv', [PostalController::class, 'store']);
-Route::get('/csvc', [PostalController::class, 'process']);
-
-Route::get('/modal', function () {
-    return view('modal');
-});
-
-Route::get('/roles', [TestController::class, 'roles'])->name('test');
-Route::get('/radius', [TestController::class, 'radius'])->name('radius');
-
-Route::post('/test', function () {
-    return json_encode("Suucccsss");
-})->name('test');
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
-
-
-
-
-
-
 
 Route::group([
     'prefix' => 'manager',
     'as' => 'manager.',
     'middleware' => 'auth'
 ], function () {
-
     Route::get('ada/{id}', [App\Http\Controllers\Manager\AdaController::class, 'create'])->name('ada.create');
     Route::post('ada', [App\Http\Controllers\Manager\AdaController::class, 'store'])->name('ada.store');
     Route::get('batch', [App\Http\Controllers\Manager\AdaController::class, 'status']);
@@ -80,12 +49,26 @@ Route::group([
     Route::resource('/demand', 'App\Http\Controllers\Manager\DemandController');
     Route::resource('/inventory', 'App\Http\Controllers\Manager\InventoryController');
     Route::resource('/manager', 'App\Http\Controllers\Manager\ManagerController');
-    Route::resource('/bolo', 'App\Http\Controllers\Manager\AdaController');
+    Route::resource('/ada', 'App\Http\Controllers\Manager\AdaController');
     Route::resource('/camp', 'App\Http\Controllers\Manager\CampController');
+    
+    Route::prefix('c')->group(function () {
+        Route::resource('/donation', 'App\Http\Controllers\Manager\CampDonationController', ['as' => 'camp'])
+            ->names([
+                // 'index' => 'camp.donation.index',
+                // 'create' => 'camp.donation.create',
+                // 'store' => 'camp.donation.store',
+                // 'show' => 'camp.donation.show',
+                // 'update' => 'camp.donation.update',
+            ])
+            ->parameters([
+                'donation' => 'donor'
+            ]);
+    });
 });
 
 
 Route::resource('/admin/bank', 'App\Http\Controllers\Admin\BankController', 
-['as' => 'admin']);
+    ['as' => 'admin']);
 
 require __DIR__.'/auth.php';
