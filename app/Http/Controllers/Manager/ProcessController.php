@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Models\Bank;
+use App\Models\Donation;
 use App\Models\BankDonor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manager\ProcessUpdateRequest;
@@ -88,6 +88,7 @@ class ProcessController extends Controller
      */
     public function update(ProcessUpdateRequest $request, $id)
     {
+        dd($id);
         $validated = $request->validated();
         //dd($validated['action']);
 
@@ -102,7 +103,7 @@ class ProcessController extends Controller
               ->update([
                   'status' => $state,
                   'logger->' . $state . '->id' => auth()->user()->id,
-                  'logger->' . $state . '->updated_at' => Carbon::now(),
+                  'logger->' . $state . '->updated_at' => now(),
                   ]);
 
         });

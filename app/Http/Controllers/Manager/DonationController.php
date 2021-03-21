@@ -7,6 +7,10 @@ use App\Models\Donor;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\DonorSearchService;
+use App\Services\DonationStoreService;
+use App\Http\Requests\Manager\DonorRequest;
+use App\Http\Requests\Manager\DonationRequest;
 use App\Http\Requests\Manager\DonationSearchRequest;
 use App\Http\Controllers\Imports\CompatibilityController;
 
@@ -53,25 +57,12 @@ class DonationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DonationRequest $request)
     {
-        //$validated = $request->validated();
+        // dd($request);
+        $validated = $request->validated();
 
-    
-        $donor = Donor::find($request->donorId);
-
-        $donor->banks()->attach($this->bank->id, [
-            'blood_component' => $request->bloodComponent,
-            //'editor' => $user->email,
-        ]);
-
-        $compatibility = new CompatibilityController();
-
-        $safeDonate = $compatibility->safeDonate($request->bloodComponent);
-
-        Donor::where('id', $donor->id)
-            ->update(['safe_donate_at' => $safeDonate]);
-
+        DonationStoreService::run($validated, $this->bank);
         return redirect()->route('manager.donation.search')->with('status', 'Donation Entry added to process!');
     }
 
@@ -114,7 +105,7 @@ class DonationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DonationRequest $request, $id)
     {
         //
     }
@@ -139,23 +130,11 @@ class DonationController extends Controller
     public function search(DonationSearchRequest $request)
     {
         $validated = $request->validated();
-
-        if ($validated["donorCardNo"] ?? false) {
-            $donor = Donor::where('donor_card_no', $validated["donorCardNo"])->first();
-        } elseif($validated["email"] ?? false) {
-            $donor = User::where('email', $validated["email"])->first();
-            $donor = $donor ? $donor->donor : null;
-        }
-
+        $donor = DonorSearchService::run($validated);
 
         if (!$donor) {
             return back()->with('status', 'Invalid donor details');
         }
-        
-        //If found, check for status_code and last donated;
-
-        // dd($diff, now()->toDateTimeString(), now()->tzName,$donor->safe_donate_at->toDateTimeString(), $donor->safe_donate_at->tzName);
-
         if (now()->lessThan($donor->safe_donate_at)) {
             return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
         }

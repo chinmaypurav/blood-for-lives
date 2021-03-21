@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Models\User;
+use App\Models\Donor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\DonorCreateService;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Manager\DonorRequest;
 
@@ -39,25 +41,9 @@ class DonorController extends Controller
     public function store(DonorRequest $request)
     {
         $validated = $request->validated();
+
+        (new DonorCreateService($validated))->createUser()->createDonor();
         
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make('password'),
-        ]);
-
-        //Assign Manager Role
-        $user->assignRole('donor'); 
-
-        $user->donor()->create([
-            'blood_group'   => $validated['bloodGroup'],
-            'contact'       => $validated['contact'],
-            'postal'        => $validated['postal'],
-            'dob'           => $validated['dob'],
-            'donor_card_no' => 'DONOR' . $user->id, //Temporary set to zero.
-            'lat'           => 0, //Temporary set to zero.
-            'lon'           => 0, //Temporary set to zero.
-        ]);
         return redirect()->route('manager.donor.create')->with('status', 'Donor Added!');
     }
 
@@ -67,9 +53,9 @@ class DonorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Donor $donor)
     {
-        //
+        return view('manager.donor.show', ['donor' => $donor]);
     }
 
     /**

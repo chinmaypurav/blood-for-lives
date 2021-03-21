@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Bus;
 use App\Http\Controllers\Controller;
+use App\Services\RadiusAlertService;
 use App\Http\Controllers\Manager\CompatibilityController;
 
 class AdaController extends Controller
@@ -61,11 +62,10 @@ class AdaController extends Controller
         $user = auth()->user();
         $bank = $user->bank;
 
-        $demand = Demand::find($request->demandId);
-        $breakCount = $demand->required_units;
-
-        $lat = $bank->lat;
-        $lon = $bank->lon;
+        RadiusAlertService::dispatch($bank, Demand::find($request->demandId));
+        
+        exit;
+        
 
         $raw = "3956 * 2 * ASIN(SQRT(
             POWER(SIN(($lat - abs(postal_codes.lat)) * pi()/180 / 2),
@@ -77,47 +77,9 @@ class AdaController extends Controller
         $maxRadius = ++$demand->ada_range * 5 / 1.6;
         //dd($pincodes);
         
-        do {
-            
-            $pincodes = DB::table('postal_codes')
-                ->select(DB::raw($raw))
-                ->orderBy('distance')
-                ->havingBetween('distance', [$minRadius, $maxRadius])
-                //->havingRaw('distance >= ?', [5])
-                ->get();
-            
-            foreach ($pincodes as $key => $pincode) {
-                $postal[] = $pincode->pincode;
-            }
-            // dd($pincodes);
-            $minRadius += 5;
-            $maxRadius += 5;
-            echo $minRadius . "<br/>";
-        } while (count($pincodes) === 0 && $minRadius < 100);
+        
 
         exit;
-
-        
-
-
-        $donors = Donor::whereIn('postal', $postal)
-                        ->whereIn('blood_group', $demand->compatible_group)
-                        ->where('safe_donate_at', '>=', now())
-                        ->with('user')
-                        ->get();
-
-        $batch = Bus::batch([
-            new AdaMailProcess($donors, $demand->compatible_group, $demand->recipient_component),
-        ])->dispatch();
-
-        Demand::where('id', $request->demandId)
-                ->update(['ada_range' => $minRadius / 5]);
-        //$batch->add();
-
-        return $batch;
-        
-
-        dd(count($donors));
     }
 
     public function status()

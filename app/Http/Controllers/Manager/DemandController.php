@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use App\Models\Donor;
 use App\Models\Demand;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -128,11 +129,34 @@ class DemandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $sam = $request->path();
-        $u = $request->url();
-        $o = $request->headers->get('origin');
-        $referer = request()->headers->get('referer');
-        dd(rtrim($referer, 'edit'), $u , $request);
+
+        $demand = Donation::find($id);
+
+        dd($demand->logger);
+
+        DB::transaction(function () use (&$id, $request) {
+            try {
+                //Demand Model
+                $demand = Demand::find($id);
+                $demand->status = 'allocated';
+                //logger
+                $demand->save();
+                $state = 'stored';
+
+                //Donation Pivot
+                $donation = Donation::find($request->donation_id);
+                // $donation->demand_id = $id;
+                $donation->{'logger->' . $state . '->updated_at'} = now();
+                $donation->save();
+            } catch (\Exception $th) {
+                dd($th);
+            }
+        });
+
+
+        dd($request);
+
+
     }
 
     /**

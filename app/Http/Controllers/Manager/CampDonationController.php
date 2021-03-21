@@ -2,26 +2,14 @@
 
 namespace App\Http\Controllers\Manager;
 
-use App\Models\Camp;
+use App\Models\Donor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Manager\CampRequest;
+use App\Services\DonorSearchService;
+use App\Http\Requests\Manager\DonationSearchRequest;
 
-class CampController extends Controller
+class CampDonationController extends Controller
 {
-    private $user;
-    private $bank;
-
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next){
-            $this->user = auth()->user();
-            $this->bank = $this->user->bank;
-            
-            return $next($request);
-        });
-       
-    }
     /**
      * Display a listing of the resource.
      *
@@ -29,8 +17,8 @@ class CampController extends Controller
      */
     public function index()
     {
-        $camps = auth()->user()->bank->camps;
-        return view('manager.camp.index')->with('camps', $camps);
+        //search bardd
+        return view('manager.camp.donation.index');
     }
 
     /**
@@ -40,19 +28,28 @@ class CampController extends Controller
      */
     public function create()
     {
-        return view('manager.camp.create');
+        //create form
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\CampRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CampRequest $request)
+    public function store(DonationSearchRequest $request)
     {
-        $this->bank->camps()->create($request->validated());
-        return redirect()->route('manager.camp.index')->with('status', 'Camp Added Successfully');
+        $validated = $request->validated();
+        $donor = DonorSearchService::run($validated);
+
+        if (!$donor) {
+            return back()->with('status', 'Invalid donor details');
+        }
+        if (now()->lessThan($donor->safe_donate_at)) {
+            return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
+        }
+
+        return view('manager.camp.donation.found')->with('donor', $donor);
     }
 
     /**
@@ -61,9 +58,9 @@ class CampController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Camp $camp)
+    public function show($id)
     {
-        return view('manager.camp.show', ['camp' => $camp]);
+        dd($id);
     }
 
     /**
@@ -84,9 +81,9 @@ class CampController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Donor $id)
     {
-        //
+        dd($id, $request);
     }
 
     /**

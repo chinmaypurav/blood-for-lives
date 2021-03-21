@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Bank;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\BankCreateService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\BankRequest;
@@ -42,27 +43,9 @@ class BankController extends Controller
     {
         $validated = $request->validated();
 
-        //Create Bank Model
-        $bank = Bank::create([
-            'name' => $validated['bankName'],
-            'bank_code' => $validated['bankCode'],
-            'manager_email' => $validated['email'],
-            'address' => $validated['address'],
-            'postal' => $validated['postal'],
-            'lat' => 0, //Temporary set to 0
-            'lon' => 0, //Temporary set to 0
-        ]);
-
-        //Attach User Model
-        $user = $bank->users()->create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make('password'),
-        ]);
+        $bankService = new BankCreateService($validated);
+        $bankService->createBank()->createUser();
         
-        //Assign Manager Role
-        $user->assignRole('manager');
-
         return redirect()->route('admin.bank.create')->with('status', 'Bank Added!');
     }
 
@@ -72,9 +55,9 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Bank $bank)
     {
-        //
+        return view('admin.bank.show')->with('bank', $bank);
     }
 
     /**

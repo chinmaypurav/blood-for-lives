@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manager\ManagerRequest;
@@ -16,7 +17,7 @@ class ManagerController extends Controller
         $this->middleware(function ($request, $next){
             $this->user = auth()->user();
             $this->bank = $this->user->bank;
-            if ($this->user->email === $this->bank->manager_email) {
+            if ($this->user->hasRole('head-manager')) {
                 return $next($request);
             } else {
                 abort(403);
@@ -31,7 +32,6 @@ class ManagerController extends Controller
      */
     public function index()
     {
-
         $managers = $this->bank->users;
         return view('manager.manager.index')->with('managers', $managers); 
     }
@@ -49,20 +49,19 @@ class ManagerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ManagerRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ManagerRequest $request)
     {
-        $validated = $request->validated();
+        //Validate and add password to the array
+        $validated = Arr::add($request->validated(), 'password', bcrypt('password'));
 
-        $user = $this->bank->users()->create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => bcrypt('password'),
-        ]);
+        //Create User under this->bank and assign Role manager
+        $user = $this->bank->users()->create($validated);
         $user->assignRole('manager');
-        return redirect()->route('manager.manager.index');
+
+        return redirect()->route('manager.manager.index')->with('status', 'Manager Added Successfully!');
     }
 
     /**
