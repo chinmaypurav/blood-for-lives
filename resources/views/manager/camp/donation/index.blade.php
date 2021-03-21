@@ -1,22 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Donation') }}
+            {{ __('Camp Donation Index') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-md mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">                
                 <div class="p-6 bg-white border-b border-gray-200">
+                    
+                    <!-- Session Status -->
+                    @if (session('status'))
+                        <div class="text-red-500">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
                     <!-- Session Status -->
                     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                    <!-- Validation Errors -->
-                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-                    <form method="POST" action="{{ route('manager.donation.search') }}" 
+                    <form method="post" action="{{ route('manager.camp.donation.store') }}" 
                         x-data>
                         @csrf
 
@@ -38,13 +42,13 @@
 
                         <!-- Donor Card No -->
                         <div>
-                            <x-label for="donor_card_no" :value="__('Donor Card No')" />
+                            <x-label for="donorCardNo" :value="__('Donor Card No')" />
 
                             <x-input id="donor_card_no" class="block mt-1 w-full" 
                                     type="text" 
                                     name="donor_card_no" 
                                     x-ref="donor_card_no" 
-                                    @input="$refs.donorCardNo.value ? $refs.email.disabled = true : $refs.email.disabled = false; $refs.email.value || $refs.donor_card_no.value ? $refs.search.disabled = false : $refs.search.disabled = true"
+                                    @input="$refs.donor_card_no.value ? $refs.email.disabled = true : $refs.email.disabled = false; $refs.email.value || $refs.donor_card_no.value ? $refs.search.disabled = false : $refs.search.disabled = true"
                                     autocomplete="off" />
                         </div>
 
@@ -57,6 +61,8 @@
 
                     </form>                   
 
+
+                    
                 </div>
             </div>
         </div>

@@ -18,6 +18,7 @@
                             <x-table.th>Bank Name</x-table.th>
                             <x-table.th>Bank Address</x-table.th>
                             <x-table.th>Bank Postal</x-table.th>
+                            <x-table.th></x-table.th>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @if ($banks->count())
@@ -28,6 +29,9 @@
                                         <x-table.td>{{ $bank->name }}</x-table.td>
                                         <x-table.td>{{ $bank->address }}</x-table.td>
                                         <x-table.td>{{ $bank->postal }}</x-table.td>
+                                        <x-table.td>
+                                            <a href="{{route('admin.bank.show', ['bank' => $bank->id])}}">View</a>
+                                        </x-table.td>
                                     </tr>
                                 @endforeach
                             @endif

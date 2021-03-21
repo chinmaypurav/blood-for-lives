@@ -13,7 +13,8 @@
                     <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     
-                    <form method="POST" action="{{ route('manager.donation.store') }}">
+                    <form method="POST" action="{{ route('manager.camp.donation.update', ['donor' => $donor->id]) }}">
+                        @method('put')
                         @csrf
                         <x-input id="donor_id" type="hidden" name="donor_id" value="{{$donor->id}}" readonly />
                         <!-- Name -->
@@ -33,21 +34,6 @@
                             <x-input id="blood_group" class="block mt-1 w-full" type="text" name="blood_group" value="{{$donor->blood_group}}" readonly />
                         </div>
 
-                        {{-- Last Donated At --
-                        <div class="mt-4">
-                            <x-label for="donatedAt" :value="__('Last Donated At')" />
-                            @if ($donor->donated_at)
-                                <x-input id="donatedAt" class="block mt-1 w-full" 
-                                                        type="date" 
-                                                        name="donatedAt" 
-                                value="{{Carbon\Carbon::parse($donor->safe_donate_at)->format('Y-m-d')}}" readonly />
-                            @else
-                                <x-input id="donatedAt" class="block mt-1 w-full" 
-                                                        type="text" 
-                                                        name="donatedAt" 
-                                                        value="Never Donated Before" readonly />
-                            @endif
-                        </div> --}}
 
                         <div class="mt-4">
                             <x-label for="blood_component" :value="__('Component to Donate')" />

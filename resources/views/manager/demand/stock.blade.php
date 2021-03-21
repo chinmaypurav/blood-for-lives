@@ -35,6 +35,7 @@
                                 <form action="{{route('manager.demand.update', ['demand' => $demandId ])}}" method="post">
                                     @csrf
                                     @method('put')
+                                    <input type="hidden" name="donation_id" value="{{$inventory->id}}">
                                     <x-table.td>
                                         <x-button>
                                             {{ __('Allocate') }}

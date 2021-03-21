@@ -24,35 +24,35 @@
 
                         <!-- Name -->
                         <div>
-                            <x-label for="name" :value="__('Name')" />
+                            <x-label for="user_name" :value="__('Name')" />
 
-                            <x-input id="name" class="block mt-1 w-full" 
+                            <x-input id="user_name" class="block mt-1 w-full" 
                                                 type="text" 
-                                                name="name" 
+                                                name="user_name" 
                                                 autocomplete="off"
-                                                :value="old('name')" 
+                                                :value="old('user_name')" 
                                                 required autofocus />
                         </div>
 
                         <!-- Email Address -->
                         <div class="mt-4">
-                            <x-label for="email" :value="__('Email')" />
+                            <x-label for="manager_email" :value="__('Email')" />
 
-                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                            <x-input id="manager_email" class="block mt-1 w-full" type="email" name="manager_email" :value="old('manager_email')" required />
                         </div>
 
                         <!-- Bank Name -->
                         <div class="mt-4">
-                            <x-label for="bankName" :value="__('Bank Name')" />
+                            <x-label for="name" :value="__('Bank Name')" />
 
-                            <x-input id="bankName" class="block mt-1 w-full" type="text" name="bankName" :value="old('bankName')" required />
+                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
                         </div>
 
                         <!-- Bank Code -->
                         <div class="mt-4">
-                            <x-label for="bankCode" :value="__('Bank Code')" />
+                            <x-label for="bank_code" :value="__('Bank Code')" />
 
-                            <x-input id="bankCode" class="block mt-1 w-full" type="text" name="bankCode" :value="old('bankCode')" required />
+                            <x-input id="bank_code" class="block mt-1 w-full" type="text" name="bank_code" :value="old('bank_code')" required />
                         </div>
 
                         <!-- Address -->

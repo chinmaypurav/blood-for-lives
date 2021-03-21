@@ -40,11 +40,11 @@
 
                         <!-- required at -->
                         <div class="mt-4">
-                            <x-label for="eventDate" :value="__('Event Date')" />
+                            <x-label for="camp_at" :value="__('Event Date')" />
 
-                            <x-input id="requiredAt" class="block mt-1 w-full" 
+                            <x-input id="camp_at" class="block mt-1 w-full" 
                                     type="date" 
-                                    name="requiredAt" 
+                                    name="camp_at" 
                                     :min="today()->toDateString()"
                                     :value="today()->toDateString()" required />
                         </div>

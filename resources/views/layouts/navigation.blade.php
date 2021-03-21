@@ -21,7 +21,7 @@
                     </x-nav-link>
                     @endrole
 
-                    @role('manager')
+                    @hasanyrole('manager|head-manager')
                     <x-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
                         {{ __('Donors') }}
                     </x-nav-link>
@@ -44,7 +44,7 @@
                     <x-nav-link :href="route('manager.manager.index')" :active="request()->routeIs('manager.manager.*')">
                         {{ __('Manager Users') }}
                     </x-nav-link>
-                    @endrole
+                    @endhasanyrole
                 </div>
             </div>
 
