@@ -24,10 +24,10 @@ class BankRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users,email',
-            'bankName' => 'required',    
-            'bankCode' => 'required',
+            'user_name' => 'required|max:255',
+            'manager_email' => 'required|unique:users,email',
+            'name' => 'required|max:255',    
+            'bank_code' => 'required|unique:banks,bank_code',
             'address' => 'required',
             'postal' => 'required',
         ];

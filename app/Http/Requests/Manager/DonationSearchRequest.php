@@ -24,8 +24,10 @@ class DonationSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required_without_all:donorCardNo,',
-            'donorCardNo' => 'required_without_all:email',
+            // 'email' => 'required_without_all:donorCardNo,',
+            // 'donor_card_no' => 'required_without_all:email',
+            'email' => 'nullable',
+            'donor_card_no' => 'nullable',
         ];
     }
 }
