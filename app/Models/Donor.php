@@ -18,11 +18,11 @@ class Donor extends Model
         'blood_group',
         'contact',
         'postal',
-        'dob',
-        'lat',
-        'lon',
+        'date_of_birth',
+        'latitude',
+        'longitude',
         'donor_card_no',
-        'last_donated_at',
+        'safe_donate_at',
     ];
 
     /**
@@ -48,5 +48,12 @@ class Donor extends Model
                 ->withPivot('donated_at', 'editor')
                 ->orderByDesc('donated_at');
                 //->using(Donor::class);
+    }
+
+    public function donations()
+    {
+        return $this->belongsToMany(Bank::class)
+                ->withPivot('blood_component', 'donated_at')
+                ->orderByDesc('donated_at');
     }
 }

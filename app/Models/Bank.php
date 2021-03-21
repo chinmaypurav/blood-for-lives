@@ -15,8 +15,8 @@ class Bank extends Model
         'manager_email',
         'address',
         'postal',
-        'lat',
-        'lon',
+        'latitude',
+        'longitude',
     ];
 
     public function camps()
@@ -25,6 +25,11 @@ class Bank extends Model
     }
 
     public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function admin()
     {
         return $this->hasMany(User::class);
     }

@@ -19,10 +19,10 @@ class CreateDonorsTable extends Migration
                     ->constrained();
             $table->enum('blood_group', ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'HH']);
             $table->string('contact');
-            $table->date('dob');
+            $table->date('date_of_birth');
             $table->string('postal');
-            $table->decimal('lat', 8, 5);
-            $table->decimal('lon', 8, 5);
+            $table->decimal('latitude', 9, 6)->nullable();
+            $table->decimal('longitude', 9, 6)->nullable();
             $table->unsignedTinyInteger('status_code')->default(0);
             $table->boolean('entry_self')->default(false);
             $table->string('donor_card_no')->default(0); //Set Default to 0 for now

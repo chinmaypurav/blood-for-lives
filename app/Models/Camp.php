@@ -14,5 +14,15 @@ class Camp extends Model
         'address',
         'lat',
         'lon',
+        'camp_at',
     ];
+
+    protected $casts = [
+        'camp_at' => 'datetime:Y-m-d'
+    ];
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 }

@@ -11,6 +11,16 @@ class Donation extends Model
 
     protected $table = 'bank_donor';
 
+    // protected $primaryKey = 'id';
+
+    protected $casts = [
+        // 'logger' => 'array'
+    ];
+
+    protected $fillable = [
+        'logger',
+    ];
+
     public function donor()
     {
         return $this->belongsTo(Donor::class);

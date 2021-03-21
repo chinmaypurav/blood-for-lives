@@ -46,6 +46,8 @@ class CreateBankDonorTable extends Migration
             $table->timestamp('donated_at')->useCurrent();
             $table->foreignId('camp_id')
                     ->nullable();
+            $table->foreignId('demand_id')
+                    ->nullable();
             $table->timestamp('expiry_at')->nullable();
             $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
             $table->string('notes')->nullable();

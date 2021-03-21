@@ -20,9 +20,10 @@ class CreateBanksTable extends Migration
             $table->string('manager_email');
             $table->string('address');
             $table->string('postal');
-            $table->decimal('lat', 8, 5);
-            $table->decimal('lon', 8, 5);
-            $table->unsignedTinyInteger('status_code')->default(0);
+            $table->decimal('latitude', 9, 6)->nullable();
+            $table->decimal('longitude', 9, 6)->nullable();
+            $table->unsignedTinyInteger('status')->default(0);
+            $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });
     }

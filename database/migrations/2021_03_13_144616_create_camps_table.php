@@ -19,8 +19,9 @@ class CreateCampsTable extends Migration
                     ->constrained();
             $table->string('name');
             $table->string('address');
-            $table->decimal('lat', 9, 6)->default(0);
-            $table->decimal('lon', 9, 6)->default(0);
+            $table->decimal('latitude', 9, 6)->default(0);
+            $table->decimal('longitude', 9, 6)->default(0);
+            $table->timestamp('camp_at');
             $table->timestamps();
         });
     }
