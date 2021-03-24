@@ -9,10 +9,6 @@ class Donation extends Model
 {
     use HasFactory;
 
-    protected $table = 'bank_donor';
-
-    // protected $primaryKey = 'id';
-
     protected $casts = [
         // 'logger' => 'array'
     ];
@@ -26,5 +22,8 @@ class Donation extends Model
         return $this->belongsTo(Donor::class);
     }
 
-
+    public function banks()
+    {
+        return $this->belongsToMany(Bank::class);
+    }
 }

@@ -18,7 +18,7 @@
                     <form method="POST" action="{{ route('manager.camp.store') }}">
                         @csrf
 
-                        <!-- Guardian Name -->
+                        <!-- Camp Name -->
                         <div>
                             <x-label for="name" :value="__('Camp Name')" />
 
@@ -26,16 +26,26 @@
                                     type="text" 
                                     name="name" 
                                     :value="old('name')" required autofocus />
-                        </div class="mt-4">
+                        </div>
 
-                         <!-- Guardian Contact -->
-                         <div class="mt-4">
+                        <!-- Address -->
+                        <div class="mt-4">
                             <x-label for="address" :value="__('Address')" />
 
                             <x-input id="address" class="block mt-1 w-full" 
                                     type="text" 
                                     name="address" 
                                     :value="old('address')" required />
+                        </div>
+
+                        <!-- Postal -->
+                        <div class="mt-4">
+                            <x-label for="postal" :value="__('Pincode')" />
+
+                            <x-input id="postal" class="block mt-1 w-full" 
+                                    type="text" 
+                                    name="postal" 
+                                    :value="old('postal')" required />
                         </div>
 
                         <!-- required at -->

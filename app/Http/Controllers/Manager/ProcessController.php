@@ -22,17 +22,22 @@ class ProcessController extends Controller
         $user = auth()->user();
         $bank = $user->bank;
 
-        $donations = DB::table('bank_donor')
-            ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
-            ->select('bank_donor.*', 'donors.donor_card_no', 'donors.blood_group')
-            ->where([
-                'bank_donor.bank_id'=> $bank->id,
-                'bank_donor.status'=> 'raw',
-                ])
-            ->orderBy('bank_donor.donated_at')
-            ->paginate(10);
+        $donations = Donation::whereHas('banks', function($query) use ($bank){
+            $query->where('banks.id', $bank->id);
+        })->paginate(5);
 
-        return view('manager.process.index')->with('donations', $donations);
+
+        // $donations = DB::table('bank_donor')
+        //     ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
+        //     ->select('bank_donor.*', 'donors.donor_card_no', 'donors.blood_group')
+        //     ->where([
+        //         'bank_donor.bank_id'=> $bank->id,
+        //         'bank_donor.status'=> 'raw',
+        //         ])
+        //     ->orderBy('bank_donor.donated_at')
+        //     ->paginate(10);
+
+        return view('manager.process.index', ['donations' => $donations]);
     }
 
     /**

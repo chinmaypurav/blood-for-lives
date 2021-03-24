@@ -34,10 +34,9 @@ class Bank extends Model
         return $this->hasMany(User::class);
     }
 
-    public function donors()
+    public function donations()
     {
-        return $this->belongsToMany(Donor::class)
-        ->withPivot('id', 'donated_at', 'blood_component', 'status');
+        return $this->belongsToMany(Donation::class);
     }
 
     public function demands()
@@ -45,8 +44,8 @@ class Bank extends Model
         return $this->hasMany(Demand::class);
     }
 
-    public function demandOnlyBlood()
+    public function inventories()
     {
-        return $this->hasMany(Demand::class);
+        return $this->hasMany(Inventory::class);
     }
 }

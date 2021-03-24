@@ -11,37 +11,36 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Index</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Donor Card No</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Component</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Blood Group</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Donated At</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                    <x-table.table>
+                        <x-slot name="thead">
+                            <x-table.th>Index</x-table.th>
+                            <x-table.th>Donor Card</x-table.th>
+                            <x-table.th>Component</x-table.th>
+                            <x-table.th>Group</x-table.th>
+                            <x-table.th>Donated At</x-table.th>
+                            <x-table.th>Status</x-table.th>
+                            <x-table.th>Action</x-table.th>
+                        </x-slot>
+                        {{-- td --}}
+                        @if ($donations->count())
                             @foreach ($donations as $donation)
-                            
-                            
                             <form method="POST" 
                                 action="{{ route('manager.process.update',  ['process' => $donation->id ]) }}">
                                 @csrf
-                                <input type="hidden" name="_method" value="PUT">
+                                @method('put')
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ ($donations->currentPage() - 1) * 10 + $loop->index + 1}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$donation->donor_card_no}}</td>
-                                    <td class="px-6 py-4 uppercase whitespace-nowrap">{{$donation->blood_component}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$donation->blood_group}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{$donation->donated_at}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <x-table.td>{{ $loop->iteration }}</x-table.td>
+                                    <x-table.td>{{ $donation->donor->donor_card_no }}</x-table.td>
+                                    <x-table.td class="uppercase">{{ $donation->blood_component }}</x-table.td>
+                                    <x-table.td class="uppercase">{{ $donation->donor->blood_group }}</x-table.td>
+                                    <x-table.td>{{ $donation->donated_at }}</x-table.td>
+                                    <x-table.td>
                                         <x-select class="uppercase" name="action">
                                             <option></option>
                                             <option value="stored">store</option>
                                             <option value="failed">Fail</option>
                                         </x-select>
-                                    </td>
+                                    </x-table.td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <input type="hidden" name="donor_id" value="{{$donation->id}}" />
                                         <input type="hidden" name="donated_at" value="{{$donation->donated_at}}" />
@@ -55,8 +54,9 @@
                                 </tr>
                             </form>
                             @endforeach
-                        </tbody>
-                    </table>
+                            @endif
+
+                    </x-table.table>
                     {{ $donations->links()}}
                     
                     

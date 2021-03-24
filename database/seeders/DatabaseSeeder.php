@@ -21,7 +21,11 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             AdminSeeder::class,
             BanksSeeder::class,
+            CampsSeeder::class,
             DonorsSeeder::class,
+            DonationsSeeder::class,
+            DemandsSeeder::class,
+            BankDonationSeeder::class,
         ]);
     }
 }

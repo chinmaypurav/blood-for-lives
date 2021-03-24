@@ -17,18 +17,41 @@
                         </div>
                     </div>
 
-                    @if (count($donations))
-                        @foreach ($donations as $donation)
-                            <p>
-                                {{$donation->user->name}} 
-                                {{$donation->donor_card_no}}
-                                {{$donation->pivot->blood_component}}
-                                {{$donation->pivot->status}} 
-                                {{$donation->pivot->donated_at}} 
-                            </p>
-                        @endforeach
-                    @endif
+
+                    <x-table.table>
+                        <x-slot name="thead">
+                            <x-table.th>Index</x-table.th>
+                            <x-table.th>Donor Name</x-table.th>
+                            <x-table.th>Donor Card</x-table.th>
+                            <x-table.th>Blood Component</x-table.th>
+                            <x-table.th>Status</x-table.th>
+                            <x-table.th>Donated At</x-table.th>
+                            <x-table.th></x-table.th>
+                        </x-slot>
+                        {{-- td --}}
+                        @if ($donations->count())
+                            @foreach ($donations as $donation)
+                            <tr>
+                                <x-table.td>{{ $loop->iteration }}</x-table.td>
+                                <x-table.td>{{ $donation->donor->user->name }}</x-table.td>
+                                <x-table.td>{{ $donation->donor->donor_card_no }}</x-table.td>
+                                <x-table.td class="uppercase">{{ $donation->blood_component }}</x-table.td>
+                                <x-table.td class="uppercase">{{ $donation->status }}</x-table.td>
+                                <x-table.td>{{ $donation->donated_at }}</x-table.td>
+                                
+                                <x-table.td>
+                                    <a href="{{route('manager.donation.edit',  ['donation' => $donation->id ])}}">
+                                        Edit
+                                    </a>
+                                </x-table.td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <x-table.td colspan="7">No Data Found</x-table.td>
+                        @endif
+                    </x-table.table>
                     
+                        
                 </div>
             </div>
         </div>

@@ -10,6 +10,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
+                    <a href="{{route('manager.inventory.show', ['inventory' => $thisBank->id])}}">This Bank</a>
+
                     
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -31,7 +33,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $banks->links() }}                  
+                    {{ $banks->links() }}     
 
                 </div>
             </div>

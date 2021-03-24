@@ -11,22 +11,39 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                    <x-table.table>
+                        <x-slot name="thead">
                             <x-table.th>Blood Component</x-table.th>
                             <x-table.th>Blood Group</x-table.th>
                             <x-table.th>Units Available</x-table.th>                            
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($inventories as $inventory)
+                        </x-slot>
+                        {{-- td --}}
+                        @if ($inventories->count())
+                            {{-- @foreach ($inventories as $keyComponent => $component)
+                                @foreach ($component as $keyGroup => $group) 
                                 <tr>
-                                    <x-table.td class="uppercase">{{$inventory->blood_component}}</x-table.td>
-                                    <x-table.td class="uppercase">{{$inventory->blood_group}}</x-table.td>
-                                    <x-table.td class="uppercase">{{$inventory->unit_count}}</x-table.td>
+                                    <x-table.td class="uppercase">{{$keyComponent}}</x-table.td>
+                                    <x-table.td class="uppercase">{{$keyGroup}}</x-table.td>
+                                    <x-table.td class="uppercase">{{$group->count()}}</x-table.td>
                                 </tr>
+                                @endforeach
+                            @endforeach --}}
+
+                            @foreach ($inventories as $inventory)
+                            <tr>
+                                <x-table.td class="uppercase">{{$inventory->blood_component}}</x-table.td>
+                                <x-table.td class="uppercase">{{$inventory->blood_group}}</x-table.td>
+                                <x-table.td class="uppercase">{{$inventory->units}}</x-table.td>
+                            </tr>
                             @endforeach
-                        </tbody>
-                    </table>               
+
+
+                        @else
+                            <tr>
+                                <x-table.td colspan="3" class="text-center">No Data Found</x-table.td>
+                            </tr>
+                        @endif
+                    </x-table.table>               
                 </div>
             </div>
         </div>

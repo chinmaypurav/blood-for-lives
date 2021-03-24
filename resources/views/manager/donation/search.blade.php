@@ -44,7 +44,7 @@
                                     type="text" 
                                     name="donor_card_no" 
                                     x-ref="donor_card_no" 
-                                    @input="$refs.donorCardNo.value ? $refs.email.disabled = true : $refs.email.disabled = false; $refs.email.value || $refs.donor_card_no.value ? $refs.search.disabled = false : $refs.search.disabled = true"
+                                    @input="$refs.donor_card_no.value ? $refs.email.disabled = true : $refs.email.disabled = false; $refs.email.value || $refs.donor_card_no.value ? $refs.search.disabled = false : $refs.search.disabled = true"
                                     autocomplete="off" />
                         </div>
 

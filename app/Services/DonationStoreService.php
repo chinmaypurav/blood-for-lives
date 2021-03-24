@@ -20,6 +20,8 @@ class DonationStoreService
         self::$validated = $validated;
 
         $donor = Donor::find($validated['donor_id']);
+        dd($validated);
+        $donation = Donation::create($validated);
 
         $donor->banks()->attach($bank->id, [
             'blood_component' => $validated['blood_component'],

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBankUserTable extends Migration
+class CreateInventoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateBankUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('bank_user', function (Blueprint $table) {
-            $table->foreignId('user_id')
-                    ->constrained();
+        Schema::create('inventories', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('bank_id')
                     ->constrained();
+            $table->string('blood_component');
+            $table->string('blood_group');
+            $table->unsignedBigInteger('units')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -28,6 +31,6 @@ class CreateBankUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_user');
+        Schema::dropIfExists('inventories');
     }
 }

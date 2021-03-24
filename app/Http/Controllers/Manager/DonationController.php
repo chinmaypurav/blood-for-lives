@@ -23,7 +23,7 @@ class DonationController extends Controller
     {
         $this->middleware(function ($request, $next){
             $this->user = auth()->user();
-            $this->bank = $this->user->bank;
+            // $this->bank = $this->user->bank;
             
             return $next($request);
         });
@@ -36,9 +36,14 @@ class DonationController extends Controller
      */
     public function index()
     {
-        // dd(Donation::first()->donor->id);
-        $donations = $this->bank->donors;
-        return view('manager.donation.index')->with('donations', $donations);
+        $donations = $this->user->bank->donations;
+        $id = $this->user->bank->id;
+        $donations = Donation::whereHas('banks', function($query) use (&$id){
+            $query->where('banks.id', $id);
+        })
+        ->with(['donor', 'donor.user'])
+        ->paginate(5);
+        return view('manager.donation.index', ['donations' => $donations]);
     }
 
     /**
@@ -59,7 +64,6 @@ class DonationController extends Controller
      */
     public function store(DonationRequest $request)
     {
-        // dd($request);
         $validated = $request->validated();
 
         DonationStoreService::run($validated, $this->bank);
@@ -84,7 +88,7 @@ class DonationController extends Controller
             $donation = null;
         }
     
-        return view('manager.donation.show')->with(['donor' => $donor, 'donatedAt' => $donation]);
+        return view('manager.donation.show')->with(['donor' => $donor, 'donated_at' => $donation]);
     }
 
     /**

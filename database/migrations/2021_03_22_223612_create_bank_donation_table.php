@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCampsTable extends Migration
+class CreateBankDonationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateCampsTable extends Migration
      */
     public function up()
     {
-        Schema::create('camps', function (Blueprint $table) {
+        Schema::create('bank_donation', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bank_id')
                     ->constrained();
-            $table->string('name');
-            $table->string('address');
-            $table->string('postal');
-            $table->decimal('latitude', 9, 6)->default(0);
-            $table->decimal('longitude', 9, 6)->default(0);
-            $table->timestamp('camp_at');
+            $table->foreignId('donation_id')
+                    ->constrained();
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateCampsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('camps');
+        Schema::dropIfExists('donation_banks');
     }
 }

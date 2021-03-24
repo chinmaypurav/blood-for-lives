@@ -1,30 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Donor;
 
-use Illuminate\Support\Arr;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Manager\ManagerRequest;
 
-class ManagerController extends Controller
+class DonationController extends Controller
 {
-    private $user;
-    private $bank;
-
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next){
-            $this->user = auth()->user();
-            $this->bank = $this->user->bank;
-            if ($this->user->hasRole('head-manager')) {
-                return $next($request);
-            } else {
-                abort(403);
-            }
-        });
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -32,8 +15,17 @@ class ManagerController extends Controller
      */
     public function index()
     {
-        $managers = $this->bank->users;
-        return view('manager.manager.index', compact('managers')); 
+        $donations = Donation::where('donor_id', auth()->user()->donor->id)
+        // ->with('banks')
+                    ->paginate(5)->load('banks');
+
+                    foreach ($donations[0]->banks() as $key => $value) {
+                       dd($value);
+                    }
+                    exit;
+                    dd(auth()->user()->donor->id,$donations[0]->banks);
+        
+        return view('donor.donation.index', compact('donations'));
     }
 
     /**
@@ -43,25 +35,18 @@ class ManagerController extends Controller
      */
     public function create()
     {
-        return view('manager.manager.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\ManagerRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ManagerRequest $request)
+    public function store(Request $request)
     {
-        //Validate and add password to the array
-        $validated = Arr::add($request->validated(), 'password', bcrypt('password'));
-
-        //Create User under this->bank and assign Role manager
-        $user = $this->bank->users()->create($validated);
-        $user->assignRole('manager');
-
-        return redirect()->route('manager.manager.index')->with('status', 'Manager Added Successfully!');
+        //
     }
 
     /**

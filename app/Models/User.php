@@ -47,6 +47,16 @@ class User extends Authenticatable
         return $this->hasOne(Donor::class);
     }
 
+    /**
+     * Get all of the donations for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function donations()
+    {
+        return $this->hasManyThrough(Donation::class, Donor::class);
+    }
+
     public function bank()
     {
         return $this->belongsTo(Bank::class);

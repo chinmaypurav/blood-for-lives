@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBankDonorTable extends Migration
+class CreateDonationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBankDonorTable extends Migration
      */
     public function up()
     {
-        Schema::create('bank_donor', function (Blueprint $table) {
+        Schema::create('donations', function (Blueprint $table) {
             $json = json_encode([
                 'raw' => [
                     'id' => null,
@@ -40,8 +40,8 @@ class CreateBankDonorTable extends Migration
             $table->id();
             $table->foreignId('donor_id')
                     ->constrained();
-            $table->foreignId('bank_id')
-                    ->constrained();
+            // $table->foreignId('bank_id')
+            //         ->constrained();
             $table->enum('blood_component', ['whole', 'plasma', 'platelets', 'wbc', 'rbc']);
             $table->timestamp('donated_at')->useCurrent();
             $table->foreignId('camp_id')
@@ -52,6 +52,7 @@ class CreateBankDonorTable extends Migration
             $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
             $table->string('notes')->nullable();
             $table->json('logger')->default($json);
+            $table->timestamps();
         });
     }
 
@@ -62,6 +63,6 @@ class CreateBankDonorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_donor');
+        Schema::dropIfExists('donations');
     }
 }

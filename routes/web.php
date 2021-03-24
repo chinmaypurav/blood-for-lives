@@ -67,6 +67,13 @@ Route::group([
     });
 });
 
+Route::group([
+    'prefix' => 'donor',
+    'as' => 'donor.',
+    'middleware' => 'auth'
+], function(){
+    Route::resource('/donation', 'App\Http\Controllers\Donor\DonationController');
+});
 
 Route::resource('/admin/bank', 'App\Http\Controllers\Admin\BankController', 
     ['as' => 'admin']);

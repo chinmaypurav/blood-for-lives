@@ -60,7 +60,7 @@
 
                         <a href="{{route('manager.ada.create', ["id" => $demandId])}}">ADA Create</a>
 
-                        <form action="{{route('manager.bolo.store')}}" method="POST">
+                        <form action="{{route('manager.ada.store')}}" method="POST">
                             @csrf
                             <x-input id="demandId" type="hidden" name="demandId" :value="$demandId" />
 

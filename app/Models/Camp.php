@@ -12,14 +12,20 @@ class Camp extends Model
     protected $fillable = [
         'name',
         'address',
-        'lat',
-        'lon',
+        'postal',
+        'latitude',
+        'longitude',
         'camp_at',
     ];
 
     protected $casts = [
         'camp_at' => 'datetime:Y-m-d'
     ];
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
 
     public function donations()
     {

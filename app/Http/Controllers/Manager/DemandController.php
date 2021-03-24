@@ -20,12 +20,10 @@ class DemandController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $bank = $user->bank;
-        
+        $bank = $user->bank;        
         $demands = $bank->demands;
-
         
-        return view('manager.demand.index')->with('demands', $demands);
+        return view('manager.demand.index', compact('demands'));
 
     }
 
@@ -97,10 +95,11 @@ class DemandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Demand $demand)
     {
         $user = auth()->user();
         $bank = $user->bank;
+        dd($demand);
         
         
         $compatibleGroup = Demand::find($id)->compatible_group;
