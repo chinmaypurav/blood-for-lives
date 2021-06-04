@@ -24,9 +24,9 @@ class Bank extends Model
         return $this->hasMany(Camp::class);
     }
 
-    public function users()
+    public function managers()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Manager::class);
     }
 
     public function admin()

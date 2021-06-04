@@ -57,22 +57,16 @@
                         <div class="mt-4">
                             <x-label for="dob" :value="__('Date of Birth')" />
 
-                            <x-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')" required />
+                            <x-input id="dob" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('dob')" required />
                         </div>
 
                         {{-- Blood Group --}}
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="bloodGroup" class="block text-sm font-medium text-gray-700">Blood Group</label>
-                            <select id="bloodGroup" name="bloodGroup" autocomplete="bloodGroup" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option>A+</option>
-                                <option>A-</option>
-                                <option>B+</option>
-                                <option>B-</option>
-                                <option>AB+</option>
-                                <option>AB-</option>
-                                <option>O+</option>
-                                <option>O-</option>
-                                <option>HH</option>
+                            <select id="bloodGroup" name="blood_group_id" autocomplete="bloodGroup" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                @foreach ($bloodGroups as $bloodGroup)
+                                    <option value="{{$bloodGroup->id}}">{{$bloodGroup->blood_group}}</option>
+                                @endforeach
                             </select>
                         </div>
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BloodGroup;
 use App\Models\User;
 use App\Models\Donor;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -38,9 +39,7 @@ class DonorFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create()->id,
-            'blood_group' => $this->faker->randomElement([
-                                'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH'
-                            ]),
+            'blood_group_id' => \mt_rand(1, 9),
             'contact' => mt_rand(7000000000, 9999999999),
             'postal' => $this->faker->postcode,
             'date_of_birth' => $this->faker->dateTimeBetween('-30 years', '-18 years'),

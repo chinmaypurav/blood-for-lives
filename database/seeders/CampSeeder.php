@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Camp;
 use Illuminate\Database\Seeder;
 
-class CampsSeeder extends Seeder
+class CampSeeder extends Seeder
 {
     /**
      * Run the database seeds.

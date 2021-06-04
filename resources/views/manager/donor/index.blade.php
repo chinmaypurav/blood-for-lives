@@ -12,6 +12,42 @@
                     <p><a href="{{ route('manager.donor.create') }}">Create</a></p>
                     <p><a href="{{ route('manager.donor.index') }}">Index</a></p>
                     <p><a href="{{ route('manager.donation.index') }}">Index</a></p>
+                    <br>
+                    <div class="mb-2"><span class="bg-pink-600">New</span></div>
+                    <x-table.table>
+                        <x-slot name="thead">
+                            <tr>
+                                <x-table.th>Index</x-table.th>
+                                <x-table.th>Donor Name</x-table.th>
+                                <x-table.th>Camp Name</x-table.th>
+                                <x-table.th>Address</x-table.th>
+                                <x-table.th>Action</x-table.th>
+                            </tr>
+                        </x-slot>
+                        {{-- td --}}
+                        @forelse ($donors as $donor)
+                            <tr>
+                                <x-table.td>{{ $loop->iteration }}</x-table.td>
+                                <x-table.td>{{ $donor->camp_at }}</x-table.td>
+                                <x-table.td>{{ $donor->name }}</x-table.td>
+                                <x-table.td>{{ $donor->address }}</x-table.td>
+                                
+                                <x-table.td>
+                                    <a href="{{route('manager.camp.show',  ['camp' => $donor->id ])}}">
+                                        Show
+                                    </a>
+                                </x-table.td>
+
+                                
+                                
+                            </tr>
+                        @empty
+                            <x-table.td class="text-center" colspan="6">No Data Found</x-table.td>
+                        @endforelse
+
+                        
+
+                    </x-table.table>
                 </div>
             </div>
         </div>

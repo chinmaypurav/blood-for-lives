@@ -13,6 +13,7 @@ use App\Http\Requests\Manager\DonorRequest;
 use App\Http\Requests\Manager\DonationRequest;
 use App\Http\Requests\Manager\DonationSearchRequest;
 use App\Http\Controllers\Imports\CompatibilityController;
+use App\Models\BloodComponent;
 
 class DonationController extends Controller
 {
@@ -21,13 +22,12 @@ class DonationController extends Controller
 
     public function __construct()
     {
-        $this->middleware(function ($request, $next){
+        $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
             // $this->bank = $this->user->bank;
-            
+
             return $next($request);
         });
-       
     }
     /**
      * Display a listing of the resource.
@@ -38,11 +38,11 @@ class DonationController extends Controller
     {
         $donations = $this->user->bank->donations;
         $id = $this->user->bank->id;
-        $donations = Donation::whereHas('banks', function($query) use (&$id){
+        $donations = Donation::whereHas('banks', function ($query) use (&$id) {
             $query->where('banks.id', $id);
         })
-        ->with(['donor', 'donor.user'])
-        ->paginate(5);
+            ->with(['donor', 'donor.user'])
+            ->paginate(5);
         return view('manager.donation.index', ['donations' => $donations]);
     }
 
@@ -65,8 +65,10 @@ class DonationController extends Controller
     public function store(DonationRequest $request)
     {
         $validated = $request->validated();
-
-        DonationStoreService::run($validated, $this->bank);
+        // dd($validated);
+        $donationStore = new DonationStoreService($validated);
+        $donationStore->store();
+        // DonationStoreService::run($validated, $this->user->manager->bank);
         return redirect()->route('manager.donation.search')->with('status', 'Donation Entry added to process!');
     }
 
@@ -87,7 +89,7 @@ class DonationController extends Controller
         } else {
             $donation = null;
         }
-    
+
         return view('manager.donation.show')->with(['donor' => $donor, 'donated_at' => $donation]);
     }
 
@@ -143,6 +145,7 @@ class DonationController extends Controller
             return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
         }
 
-        return view('manager.donation.found')->with('donor', $donor);
+        $bloodComponents = BloodComponent::all();
+        return view('manager.donation.found', compact('bloodComponents', 'donor'));
     }
 }

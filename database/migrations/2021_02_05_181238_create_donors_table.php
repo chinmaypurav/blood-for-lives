@@ -16,8 +16,9 @@ class CreateDonorsTable extends Migration
         Schema::create('donors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
-                    ->constrained();
-            $table->enum('blood_group', ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'HH']);
+                ->constrained();
+            $table->foreignId('blood_group_id');
+            // $table->string('name');
             $table->string('contact');
             $table->date('date_of_birth');
             $table->string('postal');

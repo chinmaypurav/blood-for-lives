@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-class RolesSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,5 +20,8 @@ class RolesSeeder extends Seeder
         Role::create(['name' => 'manager']);
         Role::create(['name' => 'donor']);
         Role::create(['name' => 'recipient']);
+
+        //Admin create
+        // User::factory()->superAdmin()->create();
     }
 }

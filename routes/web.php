@@ -6,6 +6,7 @@ use App\Http\Controllers\Test\TestController;
 use App\Http\Controllers\Manager\BoloController;
 use App\Http\Controllers\Setup\PostalController;
 use App\Http\Controllers\Manager\DonorController;
+use App\Http\Controllers\Test\TestApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('test/', [App\Http\Controllers\Test\TestController::class, 'test']);
+
+Route::apiResource('testapi', TestApiController::class);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -37,8 +42,8 @@ Route::group([
 
     Route::post('/donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
         ->name('donor.search');
-        
-    Route::get('/donation/search', function(){
+
+    Route::get('/donation/search', function () {
         return view('manager.donation.search');
     })->name('donation.search');
     Route::post('/donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])
@@ -51,7 +56,7 @@ Route::group([
     Route::resource('/manager', 'App\Http\Controllers\Manager\ManagerController');
     Route::resource('/ada', 'App\Http\Controllers\Manager\AdaController');
     Route::resource('/camp', 'App\Http\Controllers\Manager\CampController');
-    
+
     Route::prefix('c')->group(function () {
         Route::resource('/donation', 'App\Http\Controllers\Manager\CampDonationController', ['as' => 'camp'])
             ->names([
@@ -71,11 +76,14 @@ Route::group([
     'prefix' => 'donor',
     'as' => 'donor.',
     'middleware' => 'auth'
-], function(){
+], function () {
     Route::resource('/donation', 'App\Http\Controllers\Donor\DonationController');
 });
 
-Route::resource('/admin/bank', 'App\Http\Controllers\Admin\BankController', 
-    ['as' => 'admin']);
+Route::resource(
+    '/admin/bank',
+    'App\Http\Controllers\Admin\BankController',
+    ['as' => 'admin']
+);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

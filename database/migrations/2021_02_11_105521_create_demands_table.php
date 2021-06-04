@@ -15,7 +15,7 @@ class CreateDemandsTable extends Migration
     {
 
         Schema::create('demands', function (Blueprint $table) {
-            
+
             $json = json_encode([
                 'open' => [
                     'id' => null,
@@ -34,15 +34,15 @@ class CreateDemandsTable extends Migration
                     'updated_at' => null
                 ],
             ]);
-            
+
             $table->id();
             $table->foreignId('bank_id')
-                    ->constrained();
+                ->constrained();
             $table->string('guardian_name');
             $table->string('guardian_contact');
             $table->string('recipient_name');
-            $table->enum('recipient_group', ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'HH']);
-            $table->enum('recipient_component',  ['whole', 'wbc', 'rbc', 'platelets', 'plasma']);
+            $table->foreignId('blood_group_id');
+            $table->foreignId('blood_component_id');
             $table->json('compatible_group');
             $table->timestamp('required_at');
             $table->unsignedTinyInteger('required_units');

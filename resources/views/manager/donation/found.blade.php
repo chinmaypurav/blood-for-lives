@@ -30,7 +30,7 @@
                         <div class="mt-4">
                             <x-label for="blood_group" :value="__('Blood Group')" />
 
-                            <x-input id="blood_group" class="block mt-1 w-full" type="text" name="blood_group" value="{{$donor->blood_group}}" readonly />
+                            <x-input id="blood_group" class="block mt-1 w-full" type="text" name="blood_group" value="{{$donor->bloodGroup->blood_group}}" readonly />
                         </div>
 
                         {{-- Last Donated At --
@@ -52,9 +52,9 @@
                         <div class="mt-4">
                             <x-label for="blood_component" :value="__('Component to Donate')" />
                             <x-select id="blood_component" name="blood_component" class="uppercase">
-                                <option>whole</option>
-                                <option>wbc</option>
-                                <option>rbc</option>
+                                @foreach ($bloodComponents as $bloodComponent)
+                                    <option value="{{$bloodComponent->id}}">{{$bloodComponent->blood_component}}</option>
+                                @endforeach
                             </x-select>
                     
                         </div>

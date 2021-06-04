@@ -3,32 +3,39 @@
 namespace App\Services;
 
 use App\Models\Bank;
+use App\Models\BloodComponent;
 use App\Models\Donor;
+use App\Models\Donation;
+use Illuminate\Support\Facades\DB;
 use App\Services\CompatibilityService;
 
 class DonationStoreService
 {
-    private static $validated;
 
-    public function __construct(array $validated)
+    public function __construct(private $validated)
     {
-        $this->$validated = $validated;
     }
 
-    public static function run(array $validated, Bank $bank)
+    public function store(): void
     {
-        self::$validated = $validated;
+        DB::transaction(function () {
+            $manager = auth()->user()->manager;
 
-        $donor = Donor::find($validated['donor_id']);
-        dd($validated);
-        $donation = Donation::create($validated);
+            $donation = new Donation();
+            $donation->donor()->associate($this->validated['donor_id']);
+            $donation->bank()->associate($manager->bank_id);
+            $donation->bloodComponent()->associate($this->validated['blood_component']);
+            $donation->save();
+            //Temp Patch
+            $bloodComponent = BloodComponent::find($this->validated['blood_component'])->blood_component;
+            // dd($this->validated);
+            $safeDonateAt = CompatibilityService::safeDonateAt($bloodComponent);
 
-        $donor->banks()->attach($bank->id, [
-            'blood_component' => $validated['blood_component'],
-        ]);
-        $safeDonateAt = CompatibilityService::safeDonateAt($validated['blood_component']);
+            $donor = Donor::find($this->validated['donor_id']);
+            $donor->safe_donate_at = $safeDonateAt;
+            $donor->save();
+        });
 
-        $donor->update(['safe_donate_at' => $safeDonateAt]);
         return;
     }
 }

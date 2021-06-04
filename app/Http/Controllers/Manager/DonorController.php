@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Services\DonorCreateService;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Manager\DonorRequest;
+use App\Models\BloodGroup;
 
 class DonorController extends Controller
 {
@@ -19,7 +20,10 @@ class DonorController extends Controller
      */
     public function index()
     {
-        return view('manager.donor.index');
+        // $user = auth()->user()->manager()->bank()->id;
+        $donors = Donor::paginate(10);
+        // dd($donors);
+        return view('manager.donor.index', compact('donors'));
     }
 
     /**
@@ -29,7 +33,8 @@ class DonorController extends Controller
      */
     public function create()
     {
-        return view('manager.donor.create');
+        $bloodGroups = BloodGroup::all();
+        return view('manager.donor.create', \compact('bloodGroups'));
     }
 
     /**
@@ -42,8 +47,8 @@ class DonorController extends Controller
     {
         $validated = $request->validated();
 
-        (new DonorCreateService($validated))->createUser()->createDonor();
-        
+        (new DonorCreateService($validated))->create();
+
         return redirect()->route('manager.donor.create')->with('status', 'Donor Added!');
     }
 

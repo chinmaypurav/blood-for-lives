@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Donor;
+namespace App\Http\Controllers\Test;
 
-use App\Models\Donation;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-class DonationController extends Controller
+class TestApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,21 +15,9 @@ class DonationController extends Controller
      */
     public function index()
     {
-        $donations = Donation::where('donor_id', auth()->user()->donor->id)
-                    ->with('bank')
-                    ->paginate(5);
-        
-        return view('donor.donation.index', compact('donations'));
-    }
+        $users = User::paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($users);
     }
 
     /**
@@ -50,17 +38,6 @@ class DonationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Test;
 
 use App\Models\Bank;
+use App\Models\User;
 use App\Models\Donor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -92,5 +93,16 @@ class TestController extends Controller
         $role1 = Role::create(['name' => 'writer']);
 
         dd($role1);
+    }
+
+    public function test()
+    {
+        $users = User::select('name', 'email')->where('id', '1')->get();
+        // dd($users);
+        session()->put('ses1', 'value of session 1');
+        session()->put('ses2', 'value of session 2');
+        // session()->invalidate();
+        $sv = 'session var';
+        return view('test', compact('users', 'sv'));
     }
 }

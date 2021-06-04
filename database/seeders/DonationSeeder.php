@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Manager;
+use App\Models\Bank;
+use App\Models\Donation;
 use Illuminate\Database\Seeder;
 
-class AdminSeeder extends Seeder
+class DonationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,6 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->superAdmin()->create();
-        Manager::factory()->managerOne()->create();
+        Donation::factory(1000)->create();
     }
 }

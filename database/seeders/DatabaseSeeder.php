@@ -18,14 +18,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            RolesSeeder::class,
+            RoleSeeder::class,
+            BloodDataSeeder::class,
             AdminSeeder::class,
-            BanksSeeder::class,
-            CampsSeeder::class,
-            DonorsSeeder::class,
-            DonationsSeeder::class,
-            DemandsSeeder::class,
-            BankDonationSeeder::class,
+            // ManagerSeeder::class,
+            // BankSeeder::class,
+            // CampSeeder::class,
+            DonorSeeder::class,
+            // DonationSeeder::class,
+            // DemandSeeder::class,
+            // BankDonationSeeder::class,
         ]);
     }
 }

@@ -14,13 +14,12 @@ class CampController extends Controller
 
     public function __construct()
     {
-        $this->middleware(function ($request, $next){
+        $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
-            $this->bank = $this->user->bank;
-            
+            $this->bank = $this->user->manager->bank;
+
             return $next($request);
         });
-       
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +28,7 @@ class CampController extends Controller
      */
     public function index()
     {
-        $camps = auth()->user()->bank->camps;
+        $camps = $this->user->manager->bank->camps;
         return view('manager.camp.index')->with('camps', $camps);
     }
 

@@ -22,7 +22,7 @@
                             <x-table.th>Action</x-table.th>
                         </x-slot>
                         {{-- td --}}
-                        @if ($donations->count())
+                        
                             @foreach ($donations as $donation)
                             <form method="POST" 
                                 action="{{ route('manager.process.update',  ['process' => $donation->id ]) }}">
@@ -30,9 +30,9 @@
                                 @method('put')
                                 <tr>
                                     <x-table.td>{{ $loop->iteration }}</x-table.td>
-                                    <x-table.td>{{ $donation->donor->donor_card_no }}</x-table.td>
+                                    <x-table.td>{{ $donation->donor_card_no }}</x-table.td>
                                     <x-table.td class="uppercase">{{ $donation->blood_component }}</x-table.td>
-                                    <x-table.td class="uppercase">{{ $donation->donor->blood_group }}</x-table.td>
+                                    <x-table.td class="uppercase">{{ $donation->blood_group }}</x-table.td>
                                     <x-table.td>{{ $donation->donated_at }}</x-table.td>
                                     <x-table.td>
                                         <x-select class="uppercase" name="action">
@@ -54,7 +54,7 @@
                                 </tr>
                             </form>
                             @endforeach
-                            @endif
+                        
 
                     </x-table.table>
                     {{ $donations->links()}}

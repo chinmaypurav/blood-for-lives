@@ -17,7 +17,7 @@ class CreateBanksTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('bank_code')->unique();
-            $table->string('manager_email');
+            $table->string('manager_email')->nullable();
             $table->string('address');
             $table->string('postal');
             $table->decimal('latitude', 9, 6)->nullable();

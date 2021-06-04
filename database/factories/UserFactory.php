@@ -30,4 +30,41 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
+
+    /**
+     * Define the model's super admin state.
+     *
+     * @return array
+     */
+    public function superAdmin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'Admin Wolf',
+                'email' => 'admin@gmail.com',
+            ];
+        })->afterCreating(function (User $user) {
+            $user->assignRole('admin');
+        });
+    }
+
+    /**
+     * Define the model's manager state.
+     *
+     * @return array
+     */
+    public function manager()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => $this->faker->name,
+                'email' => $this->faker->unique()->safeEmail,
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
+            ];
+        })->afterCreating(function (User $user) {
+            $user->assignRole('manager');
+        });
+    }
 }

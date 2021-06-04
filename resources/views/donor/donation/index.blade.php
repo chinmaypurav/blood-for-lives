@@ -21,7 +21,7 @@
                         {{-- td --}}
                             @foreach ($donations as $donation)
                                 <tr>
-                                    <x-table.td class="uppercase">{{$donation->banks->name}}</x-table.td>
+                                    <x-table.td class="uppercase">{{$donation->bank->name}}</x-table.td>
                                     <x-table.td class="uppercase">{{$donation->blood_component}}</x-table.td>
                                     <x-table.td class="uppercase">{{$donation->donated_at}}</x-table.td>
                                     <x-table.td>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -60,5 +61,15 @@ class User extends Authenticatable
     public function bank()
     {
         return $this->belongsTo(Bank::class);
+    }
+
+    /**
+     * Get the manager associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function manager(): HasOne
+    {
+        return $this->hasOne(Manager::class);
     }
 }

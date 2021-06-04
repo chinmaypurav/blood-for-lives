@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Imports\CompatibilityController;
+use App\Models\BloodComponent;
+use App\Models\BloodGroup;
 
 class DemandController extends Controller
 {
@@ -20,11 +22,10 @@ class DemandController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $bank = $user->bank;        
-        $demands = $bank->demands;
-        
-        return view('manager.demand.index', compact('demands'));
+        $bank = $user->manager->bank;
+        $demands = $bank->demands()->paginate();
 
+        return view('manager.demand.index', compact('demands'));
     }
 
     /**
@@ -34,7 +35,9 @@ class DemandController extends Controller
      */
     public function create()
     {
-        return view('manager.demand.create');
+        $bloodComponents = BloodComponent::all();
+        $bloodGroups = BloodGroup::all();
+        return view('manager.demand.create', compact('bloodComponents', 'bloodGroups'));
     }
 
     /**
@@ -46,12 +49,14 @@ class DemandController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        $bank = $user->bank;
+        // $bank = $user->bank;
 
         $demand = $user->bank->demands();
-        
+
         $compatibility = new CompatibilityController();
         $compatibleGroup = $compatibility->recipient($request->recipientComponent, $request->recipientGroup);
+
+        $demand = new Demand();
 
 
         $demand = $user->bank->demands()->create([
@@ -65,17 +70,16 @@ class DemandController extends Controller
             'required_at' => $request->requiredAt,
             'required_units' => 2,
         ]);
-        
+
 
         Demand::where('id', $demand->id)
             ->update([
-            'logger->open->id' => $user->id,
-            'logger->open->updated_at' => now(),
-        ]);
+                'logger->open->id' => $user->id,
+                'logger->open->updated_at' => now(),
+            ]);
 
 
         return redirect()->route('manager.demand.index');
-
     }
 
     /**
@@ -100,19 +104,19 @@ class DemandController extends Controller
         $user = auth()->user();
         $bank = $user->bank;
         dd($demand);
-        
-        
+
+
         $compatibleGroup = Demand::find($id)->compatible_group;
 
         //dd($compatibleGroup);
 
         $inventories = DB::table('bank_donor')
-                    ->leftJoin('donors', 'donors.id', '=', 'bank_donor.donor_id')
-                    ->select('bank_donor.*', 'donors.blood_group')
-                    ->whereIn('donors.blood_group', $compatibleGroup)
-                    //->orderBy('bank_donor.expiry_at')
-                    ->get();
-            
+            ->leftJoin('donors', 'donors.id', '=', 'bank_donor.donor_id')
+            ->select('bank_donor.*', 'donors.blood_group')
+            ->whereIn('donors.blood_group', $compatibleGroup)
+            //->orderBy('bank_donor.expiry_at')
+            ->get();
+
         return view('manager.demand.stock')->with([
             'inventories' => $inventories,
             'demandId' => $id,
@@ -154,8 +158,6 @@ class DemandController extends Controller
 
 
         dd($request);
-
-
     }
 
     /**

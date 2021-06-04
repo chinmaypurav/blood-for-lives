@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Demand;
+use App\Models\Bank;
 use Illuminate\Database\Seeder;
 
-class DemandsSeeder extends Seeder
+class BankSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,6 @@ class DemandsSeeder extends Seeder
      */
     public function run()
     {
-        //Recipient Seed
-        Demand::factory(100)->create();
+        // Bank::factory()->create();
     }
 }

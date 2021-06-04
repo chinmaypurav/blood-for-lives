@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Models\Bank;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,12 +11,12 @@ use App\Http\Requests\Manager\ManagerRequest;
 
 class ManagerController extends Controller
 {
-    private $user;
-    private $bank;
+    private User $user;
+    private Bank $bank;
 
     public function __construct()
     {
-        $this->middleware(function ($request, $next){
+        $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
             $this->bank = $this->user->bank;
             if ($this->user->hasRole('head-manager')) {
@@ -33,7 +35,7 @@ class ManagerController extends Controller
     public function index()
     {
         $managers = $this->bank->users;
-        return view('manager.manager.index', compact('managers')); 
+        return view('manager.manager.index', compact('managers'));
     }
 
     /**

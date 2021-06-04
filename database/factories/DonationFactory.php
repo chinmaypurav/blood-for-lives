@@ -23,6 +23,7 @@ class DonationFactory extends Factory
     {
         return [
             'donor_id' => mt_rand(1,200),
+            'bank_id' => mt_rand(1,20),
             'blood_component' => $this->faker->randomElement([
                 'whole', 'plasma', 'wbc'
             ]),

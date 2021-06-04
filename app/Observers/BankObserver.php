@@ -14,11 +14,11 @@ class BankObserver
      */
     public function created(Bank $bank)
     {
-        $bank->inventories()->createMany([
-            ['blood_group' => 'A+', 'blood_component' => 'whole'],
-            ['blood_group' => 'A-', 'blood_component' => 'whole'],
-            ['blood_group' => 'B+', 'blood_component' => 'whole'],
-        ]);
+        // $bank->inventories()->createMany([
+        //     ['blood_group' => 'A+', 'blood_component' => 'whole'],
+        //     ['blood_group' => 'A-', 'blood_component' => 'whole'],
+        //     ['blood_group' => 'B+', 'blood_component' => 'whole'],
+        // ]);
         // Inventory::create([]);
     }
 

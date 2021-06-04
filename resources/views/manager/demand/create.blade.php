@@ -53,15 +53,10 @@
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="recipientGroup" class="block text-sm font-medium text-gray-700">Blood Group</label>
                             <select id="recipientGroup" name="recipientGroup" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option>A+</option>
-                                <option>A-</option>
-                                <option>B+</option>
-                                <option>B-</option>
-                                <option>AB+</option>
-                                <option>AB-</option>
-                                <option>O+</option>
-                                <option>O-</option>
-                                <option>HH</option>
+                                @foreach ($bloodGroups as $group)
+                                <option value="{{$group->id}}">{{$group->blood_group}}</option>
+                                @endforeach
+
                             </select>
                         </div>
 
@@ -69,11 +64,9 @@
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="recipientComponent" class="block text-sm font-medium text-gray-700">Blood Group</label>
                             <select id="recipientComponent" name="recipientComponent" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm uppercase">
-                                <option>whole</option>
-                                <option>wbc</option>
-                                <option>rbc</option>
-                                <option>plasma</option>
-                                <option>platelets</option>
+                                @foreach ($bloodComponents as $component)
+                                    <option value="{{$component->id}}">{{$component->blood_component}}</option>
+                                @endforeach
                             </select>
                         </div>
 

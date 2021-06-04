@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Donor extends Model
@@ -44,16 +45,23 @@ class Donor extends Model
 
     public function banks()
     {
-        return $this->belongsToMany(Bank::class)
-                ->withPivot('donated_at', 'editor')
-                ->orderByDesc('donated_at');
-                //->using(Donor::class);
+        return $this->hasManyThrough(Bank::class, Donation::class);
     }
 
     public function donations()
     {
         return $this->belongsToMany(Bank::class)
-                ->withPivot('blood_component', 'donated_at')
-                ->orderByDesc('donated_at');
+            ->withPivot('blood_component', 'donated_at')
+            ->orderByDesc('donated_at');
+    }
+
+    /**
+     * Get the bloodGroup that owns the Donor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bloodGroup(): BelongsTo
+    {
+        return $this->belongsTo(BloodGroup::class);
     }
 }

@@ -20,13 +20,32 @@ class ProcessController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $bank = $user->bank;
+        $manager = $user->manager;
+        // dd($manager->bank_id);
+        // $donations = Donation::whereHas('banks', function ($query) use ($bank) {
+        //     $query->where('banks.id', $bank->id);
+        // })->paginate(5);
 
-        $donations = Donation::whereHas('banks', function($query) use ($bank){
-            $query->where('banks.id', $bank->id);
-        })->paginate(5);
+        // $donations = Donation::where('bank_id', $manager->bank_id)
+        //     ->with('bloodComponent', 'donor.bloodGroup')
+        //     ->paginate();
 
+        $donations = Donation::where('bank_id', $manager->bank_id)
+            ->where('donations.status', 'raw')
+            ->join('blood_components', function ($join) {
+                $join->on('donations.blood_component_id', 'blood_components.id');
+            })
+            ->join('donors', function ($join) {
+                $join->on('donations.donor_id', 'donors.id');
+            })
+            ->join('blood_groups', function ($join) {
+                $join->on('donors.blood_group_id', 'blood_groups.id');
+            })
+            ->select('donations.*', 'blood_components.*', 'donors.*', 'blood_groups.blood_group')
+            // ->with('donor.bloodGroup')
+            ->paginate();
 
+        // dd($donations);
         // $donations = DB::table('bank_donor')
         //     ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
         //     ->select('bank_donor.*', 'donors.donor_card_no', 'donors.blood_group')
@@ -59,7 +78,7 @@ class ProcessController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        
+
     }
 
     /**
@@ -98,23 +117,22 @@ class ProcessController extends Controller
         //dd($validated['action']);
 
         $state = $validated['action'];
-        
+
         $donation = BankDonor::find($id);
         //dd($donation);
 
         DB::transaction(function () use (&$id, $donation, $state) {
             DB::table('bank_donor')
-              ->where('id', $id)
-              ->update([
-                  'status' => $state,
-                  'logger->' . $state . '->id' => auth()->user()->id,
-                  'logger->' . $state . '->updated_at' => now(),
-                  ]);
-
+                ->where('id', $id)
+                ->update([
+                    'status' => $state,
+                    'logger->' . $state . '->id' => auth()->user()->id,
+                    'logger->' . $state . '->updated_at' => now(),
+                ]);
         });
 
-        
-        
+
+
         return redirect()->route('manager.process.index');
     }
 

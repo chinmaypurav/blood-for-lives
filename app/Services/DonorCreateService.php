@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\Demand;
+use Illuminate\Support\Facades\DB;
 
 class DonorCreateService
 {
@@ -17,31 +18,42 @@ class DonorCreateService
 
     public function createUser()
     {
-        $this->user = User::create([
-            'name' => $this->validated['name'],
-            'email' => $this->validated['email'],
-            'password' =>bcrypt('password'),
-        ]);
-        //AssignRole
-        $this->user->assignRole('donor'); 
-        return $this;
     }
 
     public function createDonor()
     {
         $validated = $this->validated;
-        
-        $this->user->donor()->create([
-            'blood_group'   => $validated['bloodGroup'],
-            'contact'       => $validated['contact'],
-            'postal'        => $validated['postal'],
-            'dob'           => $validated['dob'],
-            'donor_card_no' => 'DONOR' . $this->user->id, //Temporary set to zero.
-            'lat'           => 0, //Temporary set to zero.
-            'lon'           => 0, //Temporary set to zero.
-        ]);
+
         return $this;
     }
 
-    
+    public function create()
+    {
+
+        DB::transaction(function () {
+            try {
+                $user = User::create([
+                    'name' => $this->validated['name'],
+                    'email' => $this->validated['email'],
+                    'password' => bcrypt('password'),
+                ]);
+                //AssignRole
+                $user->assignRole('donor');
+
+                $user->donor()->create([
+                    'blood_group_id'    => $this->validated['blood_group'],
+                    'contact'           => $this->validated['contact'],
+                    'postal'            => $this->validated['postal'],
+                    'date_of_birth'     => $this->validated['date_of_birth'],
+                    'donor_card_no'     => 'DONOR' . $this->user->id, //Temporary set to zero.
+                    'lat'               => 0, //Temporary set to zero.
+                    'lon'               => 0, //Temporary set to zero.
+                ]);
+            } catch (\Exception $e) {
+                //throw $th;
+            }
+        });
+
+        return $this;
+    }
 }
