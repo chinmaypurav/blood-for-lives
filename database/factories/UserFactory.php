@@ -28,6 +28,13 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+
+            'blood_group_id' => \mt_rand(1, 9),
+            'phone' => mt_rand(7000000000, 9999999999),
+            'postcode' => $this->faker->postcode,
+            'date_of_birth' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
+            'donor_card_no' => $this->faker->postcode,
+            'safe_donate_at' => now(),
         ];
     }
 
@@ -41,7 +48,8 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'name' => 'Admin Wolf',
-                'email' => 'admin@gmail.com',
+                'email' => 'admin@wolf.com',
+
             ];
         })->afterCreating(function (User $user) {
             $user->assignRole('admin');

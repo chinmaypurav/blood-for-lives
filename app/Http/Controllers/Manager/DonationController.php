@@ -14,6 +14,7 @@ use App\Http\Requests\Manager\DonationRequest;
 use App\Http\Requests\Manager\DonationSearchRequest;
 use App\Http\Controllers\Imports\CompatibilityController;
 use App\Models\BloodComponent;
+use Illuminate\Contracts\View\View;
 
 class DonationController extends Controller
 {
@@ -29,12 +30,8 @@ class DonationController extends Controller
             return $next($request);
         });
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(): View
     {
         $donations = $this->user->bank->donations;
         $id = $this->user->bank->id;

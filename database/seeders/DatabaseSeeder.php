@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             // ManagerSeeder::class,
             // BankSeeder::class,
             // CampSeeder::class,
-            DonorSeeder::class,
+            // DonorSeeder::class,
             // DonationSeeder::class,
             // DemandSeeder::class,
             // BankDonationSeeder::class,

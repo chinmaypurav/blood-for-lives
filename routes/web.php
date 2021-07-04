@@ -31,6 +31,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('bank/register/{bank}', [App\Http\Controllers\Admin\BankController::class, 'register'])
+    ->middleware('signed')
+    ->name('bank.register');
+
+// Route::view('bank/register/{bank}', 'bank.register')->middleware('signed')->name('bank.register');
+
 Route::group([
     'prefix' => 'manager',
     'as' => 'manager.',
@@ -57,6 +63,9 @@ Route::group([
     Route::resource('/ada', 'App\Http\Controllers\Manager\AdaController');
     Route::resource('/camp', 'App\Http\Controllers\Manager\CampController');
 
+    Route::group([], function () {
+    });
+
     Route::prefix('c')->group(function () {
         Route::resource('/donation', 'App\Http\Controllers\Manager\CampDonationController', ['as' => 'camp'])
             ->names([
@@ -80,10 +89,18 @@ Route::group([
     Route::resource('/donation', 'App\Http\Controllers\Donor\DonationController');
 });
 
-Route::resource(
-    '/admin/bank',
-    'App\Http\Controllers\Admin\BankController',
-    ['as' => 'admin']
-);
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => 'auth'
+], function () {
+    Route::resource(
+        'banks',
+        'App\Http\Controllers\Admin\BankController',
+        // ['as' => 'admin']
+    );
+});
+
+
 
 require __DIR__ . '/auth.php';

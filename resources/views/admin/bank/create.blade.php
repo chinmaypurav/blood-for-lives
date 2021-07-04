@@ -36,9 +36,9 @@
 
                         <!-- Email Address -->
                         <div class="mt-4">
-                            <x-label for="manager_email" :value="__('Email')" />
+                            <x-label for="email" :value="__('Email')" />
 
-                            <x-input id="manager_email" class="block mt-1 w-full" type="email" name="manager_email" :value="old('manager_email')" required />
+                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                         </div>
 
                         <!-- Bank Name -->

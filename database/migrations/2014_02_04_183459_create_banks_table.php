@@ -17,12 +17,14 @@ class CreateBanksTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('bank_code')->unique();
-            $table->string('manager_email')->nullable();
+            $table->string('email')->nullable();
             $table->string('address');
             $table->string('postal');
             $table->decimal('latitude', 9, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
             $table->unsignedTinyInteger('status')->default(0);
+            $table->boolean('is_active')->default(false);
+            $table->string('signature')->nullable();
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });

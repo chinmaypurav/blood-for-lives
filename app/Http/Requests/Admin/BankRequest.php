@@ -25,8 +25,8 @@ class BankRequest extends FormRequest
     {
         return [
             'user_name' => 'required|max:255',
-            'manager_email' => 'required|unique:users,email',
-            'name' => 'required|max:255',    
+            'email' => 'required|unique:users,email',
+            'name' => 'required|max:255',
             'bank_code' => 'required|unique:banks,bank_code',
             'address' => 'required',
             'postal' => 'required',

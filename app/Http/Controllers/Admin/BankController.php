@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Bank;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\BankRegistrationMail;
 use App\Services\BankCreateService;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Admin\BankRequest;
+use App\Models\BloodGroup;
 
 class BankController extends Controller
 {
@@ -43,10 +47,12 @@ class BankController extends Controller
     {
         $validated = $request->validated();
 
+
+
         $bankService = new BankCreateService($validated);
-        $bankService->createBank()->createUser();
-        
-        return redirect()->route('admin.bank.create')->with('status', 'Bank Added!');
+        $bankService->createBank();
+
+        return redirect()->route('admin.banks.create')->with('status', 'Bank Added!');
     }
 
     /**
@@ -83,14 +89,17 @@ class BankController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Bank $bank)
     {
-        //
+        $bank->delete();
+
+        return redirect()->route('admin.banks.index')->with('status', 'Bank Deleted!');
+    }
+
+
+    public function register()
+    {
+        $bloodGroups = BloodGroup::all();
+        return view('bank.register', compact('bloodGroups'));
     }
 }

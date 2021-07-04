@@ -17,9 +17,21 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->unique();
+            $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->foreignId('blood_group_id');
+            $table->date('date_of_birth');
+            $table->string('postcode')->index();
+            $table->decimal('latitude', 9, 6)->nullable();
+            $table->decimal('longitude', 9, 6)->nullable();
+            $table->unsignedTinyInteger('status_code')->default(0);
+            $table->boolean('entry_self')->default(false);
+            $table->string('donor_card_no')->default(0); //Set Default to 0 for now
+            $table->timestamp('safe_donate_at')->default(now());
+            $table->softDeletes('deleted_at', 0);
             $table->foreignId('bank_id')
                 ->nullable();
             $table->timestamps();

@@ -12,7 +12,7 @@ class Bank extends Model
     protected $fillable = [
         'name',
         'bank_code',
-        'manager_email',
+        'email',
         'address',
         'postal',
         'latitude',
@@ -24,9 +24,9 @@ class Bank extends Model
         return $this->hasMany(Camp::class);
     }
 
-    public function managers()
+    public function users()
     {
-        return $this->hasMany(Manager::class);
+        return $this->hasMany(User::class);
     }
 
     public function admin()

@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @role('admin')
-                    <x-nav-link :href="route('admin.bank.index')" :active="request()->routeIs('admin.bank.*')">
+                    <x-nav-link :href="route('admin.banks.index')" :active="request()->routeIs('admin.banks.*')">
                         {{ __('Banks') }}
                     </x-nav-link>
                     @endrole
@@ -104,7 +104,7 @@
             </x-responsive-nav-link>
 
             @role('admin')
-            <x-responsive-nav-link :href="route('admin.bank.index')" :active="request()->routeIs('admin.bank.*')">
+            <x-responsive-nav-link :href="route('admin.banks.index')" :active="request()->routeIs('admin.banks.*')">
                 {{ __('Banks') }}
             </x-responsive-nav-link>
             @endrole

@@ -16,6 +16,6 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::factory()->superAdmin()->create();
-        Manager::factory()->managerOne()->create();
+        // Manager::factory()->managerOne()->create();
     }
 }
