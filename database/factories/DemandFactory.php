@@ -31,9 +31,9 @@ class DemandFactory extends Factory
         $compatibleGroup = CompatibilityService::recipient($recipientComponent, $recipientGroup);
         return [
             'bank_id' => mt_rand(1, 10),
-            'guardian_name' => $this->faker->name,
-            'guardian_contact' => $this->faker->name,
-            'recipient_name' => $this->faker->name,
+            'guardian_name' => $this->faker->name(),
+            'guardian_contact' => $this->faker->name(),
+            'recipient_name' => $this->faker->name(),
             'recipient_group' => $recipientGroup,
             'recipient_component' => $recipientComponent,
             'compatible_group' => $compatibleGroup,

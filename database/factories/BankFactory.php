@@ -23,13 +23,13 @@ class BankFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company,
-            'manager_email' => $this->faker->unique()->safeEmail,
+            'name' => $this->faker->company(),
+            'manager_email' => $this->faker->unique()->safeEmail(),
             'bank_code' => $this->faker->unique()->numerify('BB###'),
-            'address' => $this->faker->address,
-            'postal' => $this->faker->postcode,
-            'latitude' => $this->faker->latitude,
-            'longitude' => $this->faker->longitude,
+            'address' => $this->faker->address(),
+            'postal' => $this->faker->postcode(),
+            'latitude' => $this->faker->latitude(),
+            'longitude' => $this->faker->longitude(),
         ];
     }
 }

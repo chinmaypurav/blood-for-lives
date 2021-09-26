@@ -41,9 +41,9 @@ class DonorFactory extends Factory
             'user_id' => User::factory()->create()->id,
             'blood_group_id' => \mt_rand(1, 9),
             'contact' => mt_rand(7000000000, 9999999999),
-            'postal' => $this->faker->postcode,
+            'postal' => $this->faker->postcode(),
             'date_of_birth' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
-            'donor_card_no' => $this->faker->postcode,
+            'donor_card_no' => $this->faker->postcode(),
             'safe_donate_at' => now(),
         ];
     }
