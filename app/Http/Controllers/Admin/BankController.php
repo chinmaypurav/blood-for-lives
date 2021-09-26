@@ -38,7 +38,7 @@ class BankController extends Controller
 
     public function show(Bank $bank)
     {
-        return view('admin.banks.show')->with('bank', $bank);
+        return view('admin.bank.show')->with('bank', $bank);
     }
 
     public function edit(Bank $bank)
@@ -54,7 +54,7 @@ class BankController extends Controller
     public function destroy(Bank $bank)
     {
         $this->bankService->destroy($bank);
-        return redirect()->route('admin.banks.index')->with('status', 'Bank Deleted!');
+        return redirect()->route('admin.bank.index')->with('status', 'Bank Deleted!');
     }
 
 
