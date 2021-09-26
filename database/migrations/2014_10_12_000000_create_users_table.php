@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('safe_donate_at')->default(now());
             $table->softDeletes('deleted_at', 0);
             $table->foreignId('bank_id')
+                ->constrained()
                 ->nullable();
             $table->timestamps();
         });

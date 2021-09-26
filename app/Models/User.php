@@ -22,6 +22,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'blood_group',
+        'phone',
+        'postal',
+        'date_of_birth',
+        'latitude',
+        'longitude',
+        'donor_card_no',
+        'safe_donate_at',
     ];
 
     /**
@@ -43,16 +51,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function donor()
-    {
-        return $this->hasOne(Donor::class);
-    }
-
-    /**
-     * Get all of the donations for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
     public function donations()
     {
         return $this->hasManyThrough(Donation::class, Donor::class);
@@ -63,11 +61,6 @@ class User extends Authenticatable
         return $this->belongsTo(Bank::class);
     }
 
-    /**
-     * Get the manager associated with the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function manager(): HasOne
     {
         return $this->hasOne(Manager::class);
