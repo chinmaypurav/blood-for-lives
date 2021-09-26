@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }}
+{
+    public function __construct()
+    {
+        // 
+    }
+
+    public function index(): Collection
+    {
+        //
+    }
+
+    public function store(): Model
+    {
+        //
+    }
+
+    public function show(): Model
+    {
+        //
+    }
+
+    public function update(): Model
+    {
+        //
+    }
+
+    public function destroy(): Model
+    {
+        //
+    }
+}
