@@ -33,8 +33,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('safe_donate_at')->default(now());
             $table->softDeletes('deleted_at', 0);
             $table->foreignId('bank_id')
-                ->constrained()
-                ->nullable();
+                ->nullable()
+                ->constrained();
             $table->timestamps();
         });
     }

@@ -6,7 +6,6 @@ use App\Models\Bank;
 use App\Models\BloodGroup;
 use Illuminate\Http\Request;
 use App\Services\Admin\BankService;
-use App\Services\BankCreateService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BankRequest;
@@ -33,12 +32,7 @@ class BankController extends Controller
 
     public function store(BankRequest $request)
     {
-        $banks = $this->bankService->store($request->validated());
-
-
-        $bankService = new BankCreateService($request->validated());
-        $bankService->createBank();
-
+        $this->bankService->store($request->validated());
         return redirect()->route('admin.banks.create')->with('status', 'Bank Added!');
     }
 
@@ -47,20 +41,19 @@ class BankController extends Controller
         return view('admin.banks.show')->with('bank', $bank);
     }
 
-    public function edit($id)
+    public function edit(Bank $bank)
     {
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $bank)
     {
         //
     }
 
     public function destroy(Bank $bank)
     {
-        $bank->delete();
-
+        $this->bankService->destroy($bank);
         return redirect()->route('admin.banks.index')->with('status', 'Bank Deleted!');
     }
 
