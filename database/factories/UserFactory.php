@@ -53,6 +53,7 @@ class UserFactory extends Factory
             ];
         })->afterCreating(function (User $user) {
             $user->assignRole('super-admin');
+            $user->assignRole('admin');
         });
     }
 
