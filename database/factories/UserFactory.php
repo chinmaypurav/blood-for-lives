@@ -47,12 +47,12 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'name' => 'Admin Wolf',
-                'email' => 'admin@wolf.com',
+                'name' => 'Super Admin',
+                'email' => 'admin@bloodforlives.org',
 
             ];
         })->afterCreating(function (User $user) {
-            $user->assignRole('admin');
+            $user->assignRole('super-admin');
         });
     }
 

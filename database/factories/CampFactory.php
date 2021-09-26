@@ -23,7 +23,7 @@ class CampFactory extends Factory
     {
         return [
             'name' => 'Camp '. mt_rand(1, 100),
-            'bank_id' => mt_rand(1, 10),
+            'bank_id' => mt_rand(1, 2),
             'address' => $this->faker->address(),
             'postal' => $this->faker->postcode(),
             'latitude' => $this->faker->latitude(),

@@ -14,6 +14,6 @@ class ManagerSeeder extends Seeder
      */
     public function run()
     {
-        Manager::factory()->managerOne()->create();
+        // Manager::factory()->managerOne()->create();
     }
 }

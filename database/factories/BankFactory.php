@@ -24,7 +24,7 @@ class BankFactory extends Factory
     {
         return [
             'name' => $this->faker->company(),
-            'manager_email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->unique()->safeEmail(),
             'bank_code' => $this->faker->unique()->numerify('BB###'),
             'address' => $this->faker->address(),
             'postal' => $this->faker->postcode(),
