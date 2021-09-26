@@ -3,87 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Bank;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Mail\BankRegistrationMail;
-use App\Services\BankCreateService;
-use Illuminate\Support\Facades\URL;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\Admin\BankRequest;
 use App\Models\BloodGroup;
+use Illuminate\Http\Request;
+use App\Services\Admin\BankService;
+use App\Services\BankCreateService;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BankRequest;
 
 class BankController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $bankService;
+
+    public function __construct(BankService $bankService)
     {
-        $banks = Bank::paginate(5);
-        return view('admin.bank.index')->with('banks', $banks);
+        $this->bankService = $bankService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(): View
+    {
+        $banks = $this->bankService->index();
+        return view('admin.bank.index', compact('banks'));
+    }
+
+    public function create(): View
     {
         return view('admin.bank.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(BankRequest $request)
     {
-        $validated = $request->validated();
+        $banks = $this->bankService->store($request->validated());
 
 
-
-        $bankService = new BankCreateService($validated);
+        $bankService = new BankCreateService($request->validated());
         $bankService->createBank();
 
         return redirect()->route('admin.banks.create')->with('status', 'Bank Added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Bank $bank)
     {
-        return view('admin.bank.show')->with('bank', $bank);
+        return view('admin.banks.show')->with('bank', $bank);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
