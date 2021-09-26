@@ -22,9 +22,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->foreignId('blood_group_id');
-            $table->date('date_of_birth');
-            $table->string('postcode')->index();
+            $table->foreignId('blood_group_id')->nullable()->constrained();
+            $table->date('date_of_birth')->nullable();
+            $table->string('postcode')->nullable()->index();
             $table->decimal('latitude', 9, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
             $table->unsignedTinyInteger('status_code')->default(0);
