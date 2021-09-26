@@ -14,29 +14,6 @@ class CreateDonationsTable extends Migration
     public function up()
     {
         Schema::create('donations', function (Blueprint $table) {
-            $json = json_encode([
-                'raw' => [
-                    'id' => null,
-                    'updated_at' => null
-                ],
-                'failed' => [
-                    'id' => null,
-                    'updated_at' => null
-                ],
-                'stored' => [
-                    'id' => null,
-                    'updated_at' => null
-                ],
-                'rejected' => [
-                    'id' => null,
-                    'updated_at' => null
-                ],
-                'transfused' => [
-                    'id' => null,
-                    'updated_at' => null
-                ],
-            ]);
-
             $table->id();
             $table->foreignId('user_id')
                 ->constrained();
@@ -51,7 +28,6 @@ class CreateDonationsTable extends Migration
             // $table->timestamp('expiry_at')->nullable();
             $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
             $table->string('notes')->nullable();
-            $table->json('logger')->default($json);
             $table->timestamps();
         });
     }
