@@ -1,11 +1,11 @@
 # Blood For Lives
 
-## A community project/concept aimed to help better and efficient management of Blood Transfusion
+## Index
 
-### Test Credentials for testing the application
+Here goes the index
 
-[Test Credentials](../main/readme/credentials.md)
+## Phase 1
 
-### Demo Application
+### Admin adds banks
 
-[Application Link](http://blood-for-lives.herokuapp.com/)
+1. Admin Created an entry for banks
