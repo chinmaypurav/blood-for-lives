@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->belongsTo(Bank::class);
     }
 
+    public function banks()
+    {
+        return $this->belongsToMany(Bank::class, 'donations');
+    }
+
     public function manager(): HasOne
     {
         return $this->hasOne(Manager::class);

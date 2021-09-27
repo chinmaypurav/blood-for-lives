@@ -16,6 +16,21 @@ class UserFactory extends Factory
     protected $model = User::class;
 
     /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (User $user) {
+            //
+        })->afterCreating(function (User $user) {
+            $user->assignRole('donor');
+            $user->assignRole('recipient');
+        });
+    }
+
+    /**
      * Define the model's default state.
      *
      * @return array
@@ -93,6 +108,7 @@ class UserFactory extends Factory
                 'remember_token' => Str::random(10),
             ];
         })->afterCreating(function (User $user) {
+            $user->assignRole('manager');
             $user->assignRole('manager-admin');
         });
     }
