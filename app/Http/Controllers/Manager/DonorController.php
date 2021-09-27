@@ -4,47 +4,41 @@ namespace App\Http\Controllers\Manager;
 
 use App\Models\User;
 use App\Models\Donor;
+use App\Models\BloodGroup;
 use Illuminate\Http\Request;
+use App\Services\Bank\DonorService;
 use App\Http\Controllers\Controller;
 use App\Services\DonorCreateService;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Manager\DonorRequest;
-use App\Models\BloodGroup;
 
 class DonorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $donorService;
+
+    public function __construct(DonorService $donorService)
+    {
+        $this->donorService = $donorService;
+    }
+
     public function index()
     {
         // $user = auth()->user()->manager()->bank()->id;
-        $donors = Donor::paginate(10);
+        $donors = $this->donorService->index();
         // dd($donors);
         return view('manager.donor.index', compact('donors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $bloodGroups = BloodGroup::all();
-        return view('manager.donor.create', \compact('bloodGroups'));
+        return view('manager.donor.create', compact('bloodGroups'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(DonorRequest $request)
     {
+        $this->donorService->store($request->validated());
+
         $validated = $request->validated();
 
         (new DonorCreateService($validated))->create();

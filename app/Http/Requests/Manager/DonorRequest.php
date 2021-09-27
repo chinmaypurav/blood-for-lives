@@ -24,12 +24,12 @@ class DonorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users,email',
-            'blood_group_id' => 'exists:blood_groups,id',
-            'contact' => 'required|numeric|digits:10',
-            'date_of_birth' => 'required|date',
-            'postal' => 'required|numeric|digits:6',
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'unique:users,email'],
+            'blood_group_id' => ['exists:blood_groups,id'],
+            'contact' => ['required', 'numeric', 'digits:10'],
+            'date_of_birth' => ['required', 'date'],
+            'postal' => ['required', 'numeric', 'digits:6'],
         ];
     }
 }
