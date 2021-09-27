@@ -3,6 +3,7 @@
 namespace App\Services\Bank;
 
 use App\Models\Donor;
+use App\Models\User;
 use App\Traits\UserTrait;
 use Illuminate\Support\Arr;
 
@@ -15,7 +16,7 @@ class DonorService
         return Donor::paginate(10);
     }
 
-    public function store(array $validated)
+    public function store(array $validated): User
     {
         $user = $this->create(Arr::only($validated, ['name', 'email', 'password']));
 
@@ -31,5 +32,7 @@ class DonorService
 
         $user->assignRole('donor');
         $user->assignRole('recipient');
+
+        return $user;
     }
 }

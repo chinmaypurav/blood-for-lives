@@ -26,13 +26,13 @@ class DonorController extends Controller
         // $user = auth()->user()->manager()->bank()->id;
         $donors = $this->donorService->index();
         // dd($donors);
-        return view('manager.donor.index', compact('donors'));
+        return view('bank.donor.index', compact('donors'));
     }
 
     public function create()
     {
-        $bloodGroups = BloodGroup::all();
-        return view('manager.donor.create', compact('bloodGroups'));
+        $bloodGroups = BloodGroup::all(['id', 'blood_group']);
+        return view('bank.donor.create', compact('bloodGroups'));
     }
 
     public function store(DonorRequest $request)
@@ -46,46 +46,21 @@ class DonorController extends Controller
         return redirect()->route('manager.donor.create')->with('status', 'Donor Added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Donor $donor)
     {
-        return view('manager.donor.show', ['donor' => $donor]);
+        return view('bank.donor.show', compact('donor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
