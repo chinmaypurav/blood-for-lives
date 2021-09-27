@@ -87,7 +87,7 @@ Route::group([
     'as' => 'donor.',
     'middleware' => 'auth'
 ], function () {
-    Route::resource('/donation', 'App\Http\Controllers\Donor\DonationController');
+    Route::resource('donations', App\Http\Controllers\Donor\DonationController::class);
 });
 
 Route::group([

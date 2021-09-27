@@ -8,6 +8,6 @@ class CampDonationService
 {
     public function index(Camp $camp)
     {
-        return $camp->donations()->with(['donations'])->paginate();
+        return $camp->donations()->with(['donor'])->paginate();
     }
 }

@@ -64,20 +64,20 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <x-table.th>Sr No</x-table.th>
-                            <x-table.th>Bank id</x-table.th>
-                            <x-table.th>Bank Name</x-table.th>
+                            <x-table.th>Donor ID</x-table.th>
+                            <x-table.th>Donor Name</x-table.th>
                             <x-table.th>Bank Code</x-table.th>                          
                             <x-table.th>Action</x-table.th>                          
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse ($donations as $donation)
                             <tr>
-                                <x-table.td class="uppercase">{{$loop}}</x-table.td>
-                                <x-table.td class="uppercase">{{$donation->id}}</x-table.td>
-                                <x-table.td class="uppercase">{{$donation->bloodComponent->blood_component}}</x-table.td>
+                                <x-table.td class="uppercase">{{$loop->iteration}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->donor}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->name}}</x-table.td>
                                 <x-table.td class="uppercase">{{$donation->blood_group}}</x-table.td>
                                 <x-table.td>
-                                    <a href="{{route('bank.inventories.show', ['inventory' => $bank->id])}}">View</a>
+                                    <a href="{{route('bank.inventories.show', ['inventory' => $camp->id])}}">View</a>
                                 </x-table.td>
                             </tr>
                             @empty
