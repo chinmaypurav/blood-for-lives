@@ -1,57 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Bank;
 
 use App\Models\Camp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manager\CampRequest;
+use App\Services\Bank\CampService;
 
 class CampController extends Controller
 {
-    private $user;
-    private $bank;
+    private $campService;
 
-    public function __construct()
+    public function __construct(CampService $campService)
     {
+        $this->campService = $campService;
         $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
-            $this->bank = $this->user->manager->bank;
+            $this->bank = $this->user->bank;
 
             return $next($request);
         });
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $camps = $this->user->manager->bank->camps;
-        return view('manager.camp.index')->with('camps', $camps);
+        $camps = $this->campService->index(auth()->user()->bank);
+        return view('bank.camp.index', compact('camps'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('manager.camp.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\CampRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(CampRequest $request)
     {
         $this->bank->camps()->create($request->validated());
-        return redirect()->route('manager.camp.index')->with('status', 'Camp Added Successfully');
+        return redirect()->route('bank.camps.index')->with('status', 'Camp Added Successfully');
     }
 
     /**

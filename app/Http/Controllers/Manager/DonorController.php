@@ -39,11 +39,11 @@ class DonorController extends Controller
     {
         $this->donorService->store($request->validated());
 
-        $validated = $request->validated();
+        // $validated = $request->validated();
 
-        (new DonorCreateService($validated))->create();
+        // (new DonorCreateService($validated))->create();
 
-        return redirect()->route('manager.donor.create')->with('status', 'Donor Added!');
+        return redirect()->route('bank.donor.create')->with('status', 'Donor Added!');
     }
 
     public function show(Donor $donor)

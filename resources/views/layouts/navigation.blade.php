@@ -28,26 +28,26 @@
                     @endrole
 
                     @hasanyrole('manager|head-manager')
-                    <x-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
+                    <x-nav-link :href="route('bank.donors.index')" :active="request()->routeIs('bank.donor.*')">
                         {{ __('Donors') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.camp.index')" :active="request()->routeIs('manager.camp.*')">
+                    <x-nav-link :href="route('bank.camps.index')" :active="request()->routeIs('bank.camps.*')">
                         {{ __('Camps') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.donation.search')" :active="request()->routeIs('manager.donation.*')">
+                    <x-nav-link :href="route('bank.donations.search')" :active="request()->routeIs('bank.donation.*')">
                         {{ __('Donations') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.process.index')" :active="request()->routeIs('manager.process.*')">
+                    <x-nav-link :href="route('bank.process.index')" :active="request()->routeIs('bank.process.*')">
                         {{ __('Process') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.inventory.index')" :active="request()->routeIs('manager.inventory.*')">
+                    <x-nav-link :href="route('bank.inventory.index')" :active="request()->routeIs('bank.inventory.*')">
                         {{ __('Inventory') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('manager.demand.index')" :active="request()->routeIs('manager.demand.*')">
+                    <x-nav-link :href="route('bank.demand.index')" :active="request()->routeIs('bank.demand.*')">
                         {{ __('Demand') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('manager.manager.index')" :active="request()->routeIs('manager.manager.*')">
+                    <x-nav-link :href="route('bank.manager.index')" :active="request()->routeIs('bank.manager.*')">
                         {{ __('Manager Users') }}
                     </x-nav-link>
                     @endhasanyrole
@@ -110,23 +110,23 @@
             @endrole
 
             @role('manager')
-            <x-responsive-nav-link :href="route('manager.donor.index')" :active="request()->routeIs('manager.donor.*')">
+            <x-responsive-nav-link :href="route('bank.donors.index')" :active="request()->routeIs('bank.donors.*')">
                 {{ __('Donors') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('manager.donation.search')" :active="request()->routeIs('manager.donation.index')">
+            <x-responsive-nav-link :href="route('bank.donations.search')" :active="request()->routeIs('bank.donations.index')">
                 {{ __('Donations') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('manager.process.index')" :active="request()->routeIs('manager.process.*')">
+            <x-responsive-nav-link :href="route('bank.process.index')" :active="request()->routeIs('bank.process.*')">
                 {{ __('Process') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('manager.inventory.index')" :active="request()->routeIs('manager.inventory.*')">
+            <x-responsive-nav-link :href="route('bank.inventory.index')" :active="request()->routeIs('bank.inventory.*')">
                 {{ __('Inventory') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('manager.demand.index')" :active="request()->routeIs('manager.demand.*')">
+            <x-responsive-nav-link :href="route('bank.demand.index')" :active="request()->routeIs('bank.demand.*')">
                 {{ __('Demand') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('manager.manager.index')" :active="request()->routeIs('manager.manager.*')">
+            <x-responsive-nav-link :href="route('bank.manager.index')" :active="request()->routeIs('bank.manager.*')">
                 {{ __('Manager Users') }}
             </x-responsive-nav-link>
             @endrole

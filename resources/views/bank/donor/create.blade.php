@@ -20,7 +20,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     
                     Add Donor Registration
-                    <form method="POST" action="{{ route('manager.donor.store') }}">
+                    <form method="POST" action="{{ route('bank.donor.store') }}">
                         @csrf
 
                         <!-- Name -->
@@ -39,25 +39,25 @@
 
                         <!-- Contact -->
                         <div class="mt-4">
-                            <x-label for="contact" :value="__('Contact')" />
+                            <x-label for="phone" :value="__('Phone')" />
 
-                            <x-input id="contact" class="block mt-1 w-full" 
+                            <x-input id="phone" class="block mt-1 w-full" 
                                             type="text" 
-                                            name="contact" :value="old('contact')" required />
+                                            name="contact" :value="old('phone')" required />
                         </div>
 
                         <!-- Postal -->
                         <div class="mt-4">
-                            <x-label for="postal" :value="__('Postal')" />
+                            <x-label for="postcode" :value="__('Postal')" />
 
-                            <x-input id="postal" class="block mt-1 w-full" type="text" name="postal" :value="old('postal')" required />
+                            <x-input id="postcode" class="block mt-1 w-full" type="text" name="postcode" :value="old('postcode')" required />
                         </div>
 
                         <!-- DOB -->
                         <div class="mt-4">
-                            <x-label for="dob" :value="__('Date of Birth')" />
+                            <x-label for="date_of_birth" :value="__('Date of Birth')" />
 
-                            <x-input id="dob" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('dob')" required />
+                            <x-input id="date_of_birth" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('date_of_birth')" required />
                         </div>
 
                         {{-- Blood Group --}}

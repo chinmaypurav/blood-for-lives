@@ -29,7 +29,7 @@ class DonorRequest extends FormRequest
             'blood_group_id' => ['exists:blood_groups,id'],
             'contact' => ['required', 'numeric', 'digits:10'],
             'date_of_birth' => ['required', 'date'],
-            'postal' => ['required', 'numeric', 'digits:6'],
+            'postcode' => ['required', 'numeric', 'digits:6'],
         ];
     }
 }

@@ -13,22 +13,17 @@ class DonorService
 
     public function index()
     {
-        return Donor::paginate(10);
+        return $user = User::role('donor')->get();
+        return User::query()
+            ->get();
     }
 
     public function store(array $validated): User
     {
-        $user = $this->create(Arr::only($validated, ['name', 'email', 'password']));
+        $password = 'password';
+        $validated['password'] = $password;
+        $user = $this->create($validated);
 
-        $user->update([
-            'blood_group_id'    => $this->validated['blood_group'],
-            'contact'           => $this->validated['contact'],
-            'postal'            => $this->validated['postal'],
-            'date_of_birth'     => $this->validated['date_of_birth'],
-            'donor_card_no'     => 'DONOR' . $user->id, //Temporary set to zero.
-            'lat'               => 0, //Temporary set to zero.
-            'lon'               => 0, //Temporary set to zero.
-        ]);
 
         $user->assignRole('donor');
         $user->assignRole('recipient');

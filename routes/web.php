@@ -27,7 +27,7 @@ Route::get('test/', [App\Http\Controllers\Test\TestController::class, 'test']);
 
 Route::apiResource('testapi', TestApiController::class);
 
-Route::get('/dashboard', function () {
+Route::get('dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
@@ -38,30 +38,30 @@ Route::get('bank/register/{bank}', [App\Http\Controllers\Admin\BankController::c
 // Route::view('bank/register/{bank}', 'bank.register')->middleware('signed')->name('bank.register');
 
 Route::group([
-    'prefix' => 'manager',
-    'as' => 'manager.',
+    'prefix' => 'bank',
+    'as' => 'bank.',
     'middleware' => 'auth'
 ], function () {
     Route::get('ada/{id}', [App\Http\Controllers\Manager\AdaController::class, 'create'])->name('ada.create');
     Route::post('ada', [App\Http\Controllers\Manager\AdaController::class, 'store'])->name('ada.store');
     Route::get('batch', [App\Http\Controllers\Manager\AdaController::class, 'status']);
 
-    Route::post('/donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
+    Route::post('donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
         ->name('donor.search');
 
-    Route::get('/donation/search', function () {
+    Route::get('donation/search', function () {
         return view('manager.donation.search');
-    })->name('donation.search');
-    Route::post('/donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])
+    })->name('donations.search');
+    Route::post('donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])
         ->name('donation.found');
-    Route::resource('/donor', 'App\Http\Controllers\Manager\DonorController');
-    Route::resource('/donation', 'App\Http\Controllers\Manager\DonationController');
-    Route::resource('/process', 'App\Http\Controllers\Manager\ProcessController');
-    Route::resource('/demand', 'App\Http\Controllers\Manager\DemandController');
-    Route::resource('/inventory', 'App\Http\Controllers\Manager\InventoryController');
-    Route::resource('/manager', 'App\Http\Controllers\Manager\ManagerController');
-    Route::resource('/ada', 'App\Http\Controllers\Manager\AdaController');
-    Route::resource('/camp', 'App\Http\Controllers\Manager\CampController');
+    Route::resource('donors', 'App\Http\Controllers\Manager\DonorController');
+    Route::resource('donations', 'App\Http\Controllers\Manager\DonationController');
+    Route::resource('process', 'App\Http\Controllers\Manager\ProcessController');
+    Route::resource('demand', 'App\Http\Controllers\Manager\DemandController');
+    Route::resource('inventory', 'App\Http\Controllers\Manager\InventoryController');
+    Route::resource('manager', 'App\Http\Controllers\Manager\ManagerController');
+    Route::resource('ada', 'App\Http\Controllers\Manager\AdaController');
+    Route::resource('camps', App\Http\Controllers\Bank\CampController::class);
 
     Route::group([], function () {
     });

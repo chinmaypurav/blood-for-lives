@@ -24,12 +24,12 @@ class CampRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'address' => 'required|max:255',
-            'postal' => 'required|max:255',
-            'camp_at' => 'date',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'name' => ['required', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'postal' => ['required', 'max:255'],
+            'camp_at' => ['date'],
+            'latitude' => ['nullable'],
+            'longitude' => ['nullable'],
         ];
     }
 }
