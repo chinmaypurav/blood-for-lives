@@ -6,6 +6,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -49,11 +50,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'dob' => 'date',
+        'safe_donate_at' => 'datetime:Y-m-d',
     ];
 
     public function donations()
     {
-        return $this->hasManyThrough(Donation::class, Donor::class);
+        return $this->hasMany(Donation::class);
     }
 
     public function bank()
@@ -64,5 +67,10 @@ class User extends Authenticatable
     public function manager(): HasOne
     {
         return $this->hasOne(Manager::class);
+    }
+
+    public function bloodGroup(): BelongsTo
+    {
+        return $this->belongsTo(BloodGroup::class);
     }
 }
