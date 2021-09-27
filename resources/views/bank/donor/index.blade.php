@@ -9,9 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <p><a href="{{ route('bank.donor.create') }}">Create</a></p>
-                    <p><a href="{{ route('bank.donor.index') }}">Index</a></p>
-                    <p><a href="{{ route('bank.donation.index') }}">Index</a></p>
+                    <p><a href="{{ route('bank.donors.create') }}">Create</a></p>
+                    <p><a href="{{ route('bank.donors.index') }}">Index</a></p>
+                    <p><a href="{{ route('bank.donations.index') }}">Index</a></p>
                     <br>
                     <div class="mb-2"><span class="bg-pink-600">New</span></div>
                     <x-table.table>
@@ -33,7 +33,7 @@
                                 <x-table.td>{{ $donor->address }}</x-table.td>
                                 
                                 <x-table.td>
-                                    <a href="{{route('bank.camp.show',  ['camp' => $donor->id ])}}">
+                                    <a href="{{route('bank.camps.show',  ['camp' => $donor->id ])}}">
                                         Show
                                     </a>
                                 </x-table.td>
