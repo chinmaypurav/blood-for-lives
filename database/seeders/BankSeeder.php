@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Bank;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class BankSeeder extends Seeder
@@ -14,6 +15,13 @@ class BankSeeder extends Seeder
      */
     public function run()
     {
-        // Bank::factory()->create();
+        $bank = Bank::factory()
+            ->has(User::factory()->count(mt_rand(0, 5))->manager())
+            ->create();
+
+        $user = User::factory()
+            ->for($bank)
+            ->managerAdmin()
+            ->create();
     }
 }
