@@ -62,23 +62,24 @@ Route::group([
     Route::resource('manager', 'App\Http\Controllers\Manager\ManagerController');
     Route::resource('ada', 'App\Http\Controllers\Manager\AdaController');
     Route::resource('camps', App\Http\Controllers\Bank\CampController::class);
+    Route::resource('camps.donations', App\Http\Controllers\Bank\CampDonationController::class);
 
     Route::group([], function () {
     });
 
-    Route::prefix('c')->group(function () {
-        Route::resource('/donation', 'App\Http\Controllers\Manager\CampDonationController', ['as' => 'camp'])
-            ->names([
-                // 'index' => 'camp.donation.index',
-                // 'create' => 'camp.donation.create',
-                // 'store' => 'camp.donation.store',
-                // 'show' => 'camp.donation.show',
-                // 'update' => 'camp.donation.update',
-            ])
-            ->parameters([
-                'donation' => 'donor'
-            ]);
-    });
+    // Route::prefix('c')->group(function () {
+    //     Route::resource('/donation', 'App\Http\Controllers\Manager\CampDonationController', ['as' => 'camp'])
+    //         ->names([
+    //             // 'index' => 'camp.donation.index',
+    //             // 'create' => 'camp.donation.create',
+    //             // 'store' => 'camp.donation.store',
+    //             // 'show' => 'camp.donation.show',
+    //             // 'update' => 'camp.donation.update',
+    //         ])
+    //         ->parameters([
+    //             'donation' => 'donor'
+    //         ]);
+    // });
 });
 
 Route::group([

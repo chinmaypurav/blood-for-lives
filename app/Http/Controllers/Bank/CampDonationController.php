@@ -1,43 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Bank;
 
 use App\Models\Donor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\DonorSearchService;
 use App\Http\Requests\Manager\DonationSearchRequest;
+use App\Models\Camp;
 
 class CampDonationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Camp $camp)
     {
         //search bardd
-        return view('manager.camp.donation.index');
+        return view('bank.camp.donation.index', compact('camp'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Camp $camp)
     {
         //create form
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(DonationSearchRequest $request)
+    public function store(DonationSearchRequest $request, Camp $camp)
     {
         $validated = $request->validated();
         $donor = DonorSearchService::run($validated);
@@ -49,7 +34,7 @@ class CampDonationController extends Controller
             return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
         }
 
-        return view('manager.camp.donation.found')->with('donor', $donor);
+        return view('bank.camp.donation.found')->with('donor', $donor);
     }
 
     /**

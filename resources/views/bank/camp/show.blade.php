@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">                
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <a href="{{route('manager.camp.donation.index')}}">Donation</a>
+                    <a href="{{route('bank.camps.donations.index', ['camp' => $camp->id])}}">Donation</a>
                     
                     <br>
                     <br>

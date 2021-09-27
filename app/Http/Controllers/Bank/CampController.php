@@ -31,56 +31,33 @@ class CampController extends Controller
 
     public function create()
     {
-        return view('manager.camp.create');
+        return view('bank.camp.create');
     }
 
 
     public function store(CampRequest $request)
     {
-        $this->bank->camps()->create($request->validated());
+        $camps = $this->campService->store(auth()->user()->bank, $request->validated());
+
         return redirect()->route('bank.camps.index')->with('status', 'Camp Added Successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Camp $camp)
     {
-        return view('manager.camp.show', ['camp' => $camp]);
+        $camp = $this->campService->show($camp);
+        return view('bank.camp.show', compact('camp'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

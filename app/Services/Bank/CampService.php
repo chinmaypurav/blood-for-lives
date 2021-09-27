@@ -3,6 +3,7 @@
 namespace App\Services\Bank;
 
 use App\Models\Bank;
+use App\Models\Camp;
 
 class CampService
 {
@@ -11,8 +12,13 @@ class CampService
         return $bank->camps()->paginate();
     }
 
-    public function store()
+    public function store(Bank $bank, array $validated)
     {
-        # code...
+        return $bank->camps()->create($validated);
+    }
+
+    public function show(Camp $camp)
+    {
+        return $camp;
     }
 }

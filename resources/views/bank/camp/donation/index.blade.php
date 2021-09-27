@@ -20,7 +20,7 @@
                     <!-- Session Status -->
                     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                    <form method="post" action="{{ route('manager.camp.donation.store') }}" 
+                    <form method="post" action="{{ route('bank.camps.donations.store', ['camp' => $camp]) }}" 
                         x-data>
                         @csrf
 
