@@ -22,7 +22,7 @@
                     @endrole
 
                     @role('donor')
-                    <x-nav-link :href="route('donor.donation.index')" :active="request()->routeIs('donor.donation.*')">
+                    <x-nav-link :href="route('donor.donations.index')" :active="request()->routeIs('donor.donations.*')">
                         {{ __('Donation') }}
                     </x-nav-link>
                     @endrole
@@ -37,17 +37,17 @@
                     <x-nav-link :href="route('bank.donations.search')" :active="request()->routeIs('bank.donation.*')">
                         {{ __('Donations') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('bank.process.index')" :active="request()->routeIs('bank.process.*')">
+                    <x-nav-link :href="route('bank.processes.index')" :active="request()->routeIs('bank.processes.*')">
                         {{ __('Process') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('bank.inventory.index')" :active="request()->routeIs('bank.inventory.*')">
+                    <x-nav-link :href="route('bank.inventories.index')" :active="request()->routeIs('bank.inventories.*')">
                         {{ __('Inventory') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('bank.demand.index')" :active="request()->routeIs('bank.demand.*')">
+                    <x-nav-link :href="route('bank.demands.index')" :active="request()->routeIs('bank.demands.*')">
                         {{ __('Demand') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('bank.manager.index')" :active="request()->routeIs('bank.manager.*')">
+                    <x-nav-link :href="route('bank.managers.index')" :active="request()->routeIs('bank.managers.*')">
                         {{ __('Manager Users') }}
                     </x-nav-link>
                     @endhasanyrole
@@ -116,17 +116,17 @@
             <x-responsive-nav-link :href="route('bank.donations.search')" :active="request()->routeIs('bank.donations.index')">
                 {{ __('Donations') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('bank.process.index')" :active="request()->routeIs('bank.process.*')">
+            <x-responsive-nav-link :href="route('bank.processes.index')" :active="request()->routeIs('bank.processes.*')">
                 {{ __('Process') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('bank.inventory.index')" :active="request()->routeIs('bank.inventory.*')">
+            <x-responsive-nav-link :href="route('bank.inventories.index')" :active="request()->routeIs('bank.inventories.*')">
                 {{ __('Inventory') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('bank.demand.index')" :active="request()->routeIs('bank.demand.*')">
+            <x-responsive-nav-link :href="route('bank.demands.index')" :active="request()->routeIs('bank.demands.*')">
                 {{ __('Demand') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('bank.manager.index')" :active="request()->routeIs('bank.manager.*')">
+            <x-responsive-nav-link :href="route('bank.managers.index')" :active="request()->routeIs('bank.managers.*')">
                 {{ __('Manager Users') }}
             </x-responsive-nav-link>
             @endrole

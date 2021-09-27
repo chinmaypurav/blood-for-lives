@@ -14,6 +14,8 @@ class Donation extends Model
         // 'logger' => 'array'
     ];
 
+    public $with = ['bloodComponent'];
+
     protected $fillable = [
         'logger',
     ];

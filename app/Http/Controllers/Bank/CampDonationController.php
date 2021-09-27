@@ -8,13 +8,21 @@ use App\Http\Controllers\Controller;
 use App\Services\DonorSearchService;
 use App\Http\Requests\Manager\DonationSearchRequest;
 use App\Models\Camp;
+use App\Services\Bank\CampDonationService;
 
 class CampDonationController extends Controller
 {
+    private $campDonationService;
+
+    public function __construct(CampDonationService $campDonationService)
+    {
+        $this->campDonationService = $campDonationService;
+    }
+
     public function index(Camp $camp)
     {
-        //search bardd
-        return view('bank.camp.donation.index', compact('camp'));
+        $donations = $this->campDonationService->index($camp);
+        return view('bank.camp.donation.index', compact('camp', 'donations'));
     }
 
     public function create(Camp $camp)

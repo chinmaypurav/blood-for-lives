@@ -60,8 +60,34 @@
                         </div>
 
                     </form>                   
-
-
+                    <h4>Donations</h4>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <x-table.th>Sr No</x-table.th>
+                            <x-table.th>Bank id</x-table.th>
+                            <x-table.th>Bank Name</x-table.th>
+                            <x-table.th>Bank Code</x-table.th>                          
+                            <x-table.th>Action</x-table.th>                          
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @forelse ($donations as $donation)
+                            <tr>
+                                <x-table.td class="uppercase">{{$loop}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->id}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->bloodComponent->blood_component}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->blood_group}}</x-table.td>
+                                <x-table.td>
+                                    <a href="{{route('bank.inventories.show', ['inventory' => $bank->id])}}">View</a>
+                                </x-table.td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <x-table.td colspan="5" class="text-center">No Data Found</x-table.td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    {{ $donations->links() }}     
                     
                 </div>
             </div>

@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <a href="{{route('manager.inventory.show', ['inventory' => $thisBank->id])}}">This Bank</a>
+                    <a href="{{route('bank.inventories.show', ['inventory' => $thisBank->id])}}">This Bank</a>
 
                     
                     <table class="min-w-full divide-y divide-gray-200">
@@ -21,16 +21,20 @@
                             <x-table.th>Action</x-table.th>                          
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($banks as $bank)
-                                <tr>
-                                    <x-table.td class="uppercase">{{$bank->id}}</x-table.td>
-                                    <x-table.td class="uppercase">{{$bank->name}}</x-table.td>
-                                    <x-table.td class="uppercase">{{$bank->bank_code}}</x-table.td>
-                                    <x-table.td>
-                                        <a href="{{route('manager.inventory.show', ['inventory' => $bank->id])}}">View</a>
-                                    </x-table.td>
-                                </tr>
-                            @endforeach
+                            @forelse ($banks as $bank)
+                            <tr>
+                                <x-table.td class="uppercase">{{$bank->id}}</x-table.td>
+                                <x-table.td class="uppercase">{{$bank->name}}</x-table.td>
+                                <x-table.td class="uppercase">{{$bank->bank_code}}</x-table.td>
+                                <x-table.td>
+                                    <a href="{{route('bank.inventories.show', ['inventory' => $bank->id])}}">View</a>
+                                </x-table.td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <x-table.td colspan="4" class="text-center">No Data Found</x-table.td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $banks->links() }}     
