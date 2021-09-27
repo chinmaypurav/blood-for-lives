@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Bank;
 
 use App\Models\Bank;
 use App\Models\Donation;

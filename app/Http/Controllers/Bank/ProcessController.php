@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Bank;
 
 use App\Models\Bank;
 use App\Models\Donation;
@@ -12,11 +12,7 @@ use App\Http\Requests\Manager\ProcessUpdateRequest;
 
 class ProcessController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         $user = auth()->user();

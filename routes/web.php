@@ -54,13 +54,13 @@ Route::group([
     })->name('donations.search');
     Route::post('donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])
         ->name('donation.found');
-    Route::resource('donors', 'App\Http\Controllers\Manager\DonorController');
-    Route::resource('donations', 'App\Http\Controllers\Manager\DonationController');
-    Route::resource('process', 'App\Http\Controllers\Manager\ProcessController');
-    Route::resource('demand', 'App\Http\Controllers\Manager\DemandController');
-    Route::resource('inventory', 'App\Http\Controllers\Manager\InventoryController');
-    Route::resource('manager', 'App\Http\Controllers\Manager\ManagerController');
-    Route::resource('ada', 'App\Http\Controllers\Manager\AdaController');
+    Route::resource('donors', App\Http\Controllers\Bank\DonorController::class);
+    Route::resource('donations', App\Http\Controllers\Bank\DonationController::class);
+    Route::resource('processes', App\Http\Controllers\Bank\ProcessController::class);
+    Route::resource('demands', 'App\Http\Controllers\Bank\DemandController');
+    Route::resource('inventories', App\Http\Controllers\Bank\InventoryController::class);
+    Route::resource('managers', App\Http\Controllers\Bank\ManagerController::class);
+    Route::resource('ada', App\Http\Controllers\Bank\AdaController::class);
     Route::resource('camps', App\Http\Controllers\Bank\CampController::class);
     Route::resource('camps.donations', App\Http\Controllers\Bank\CampDonationController::class);
 
