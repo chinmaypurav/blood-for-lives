@@ -10,4 +10,9 @@ class CampService
     {
         return $bank->camps()->paginate();
     }
+
+    public function store()
+    {
+        # code...
+    }
 }
