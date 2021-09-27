@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Bank;
-use App\Models\User;
+use App\Models\Camp;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BankFactory extends Factory
@@ -14,6 +14,20 @@ class BankFactory extends Factory
      * @var string
      */
     protected $model = Bank::class;
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (Bank $bank) {
+            //
+        })->afterCreating(function (Bank $bank) {
+            Camp::factory(mt_rand(0,5))->for($bank)->create();
+        });
+    }
 
     /**
      * Define the model's default state.
