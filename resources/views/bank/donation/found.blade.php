@@ -13,7 +13,7 @@
                     <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     
-                    <form method="POST" action="{{ route('manager.donation.store') }}">
+                    <form method="POST" action="{{ route('bank.donations.store') }}">
                         @csrf
                         <x-input id="donor_id" type="hidden" name="donor_id" value="{{$donor->id}}" readonly />
                         <!-- Name -->
@@ -23,7 +23,7 @@
                             <x-input id="name" class="block mt-1 w-full" 
                                                 type="text" 
                                                 name="name" 
-                                                value="{{ $donor->user->name }}" readonly />
+                                                value="{{ $donor->name }}" readonly />
                         </div>
 
                         <!-- Blood Group -->

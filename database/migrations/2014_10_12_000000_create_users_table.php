@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->foreignId('blood_group_id')->nullable()->constrained();
+            $table->enum('blood_group', [
+                'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH'
+            ])->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('postcode')->nullable()->index();
             $table->decimal('latitude', 9, 6)->nullable();

@@ -40,12 +40,12 @@ class DonationController extends Controller
 
     public function store(DonationRequest $request)
     {
-        $validated = $request->validated();
+        $this->donationService->store(auth()->user(), $request->validated());
         // dd($validated);
-        $donationStore = new DonationStoreService($validated);
-        $donationStore->store();
+        // $donationStore = new DonationStoreService($validated);
+        // $donationStore->store();
         // DonationStoreService::run($validated, $this->user->manager->bank);
-        return redirect()->route('manager.donation.search')->with('status', 'Donation Entry added to process!');
+        return redirect()->route('bank.donations.search')->with('status', 'Donation Entry added to process!');
     }
 
     public function show($id)
@@ -91,6 +91,6 @@ class DonationController extends Controller
         }
 
         $bloodComponents = BloodComponent::all();
-        return view('manager.donation.found', compact('bloodComponents', 'donor'));
+        return view('bank.donation.found', compact('bloodComponents', 'donor'));
     }
 }

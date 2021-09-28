@@ -22,7 +22,7 @@ class Donation extends Model
 
     public function donor(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function bank(): BelongsTo

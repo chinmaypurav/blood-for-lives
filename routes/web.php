@@ -50,9 +50,9 @@ Route::group([
         ->name('donor.search');
 
     Route::get('donation/search', function () {
-        return view('manager.donation.search');
+        return view('bank.donation.search');
     })->name('donations.search');
-    Route::post('donation/search', [App\Http\Controllers\Manager\DonationController::class, 'search'])
+    Route::post('donation/search', [App\Http\Controllers\Bank\DonationController::class, 'search'])
         ->name('donation.found');
     Route::resource('donors', App\Http\Controllers\Bank\DonorController::class);
     Route::resource('donations', App\Http\Controllers\Bank\DonationController::class);

@@ -12,8 +12,10 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="my-4">
                         <div class="inline-block">
-                            <div class="mx-4 inline"><a href="{{route('manager.donation.search')}}">New Entry</a></div>
-                            <div class="mx-4 inline">Create</div>
+                            <div class="mx-4 inline"><a href="{{route('bank.donations.search')}}">New Entry</a></div>
+                            <div class="mx-4 inline">
+                                <a href="{{route('bank.donations.create')}}">Create</a>
+                            </div>
                         </div>
                     </div>
 
@@ -29,26 +31,27 @@
                             <x-table.th></x-table.th>
                         </x-slot>
                         {{-- td --}}
-                        @if ($donations->count())
-                            @foreach ($donations as $donation)
-                            <tr>
-                                <x-table.td>{{ $loop->iteration }}</x-table.td>
-                                <x-table.td>{{ $donation->donor->user->name }}</x-table.td>
-                                <x-table.td>{{ $donation->donor->donor_card_no }}</x-table.td>
-                                <x-table.td class="uppercase">{{ $donation->blood_component }}</x-table.td>
-                                <x-table.td class="uppercase">{{ $donation->status }}</x-table.td>
-                                <x-table.td>{{ $donation->donated_at }}</x-table.td>
-                                
-                                <x-table.td>
-                                    <a href="{{route('manager.donation.edit',  ['donation' => $donation->id ])}}">
-                                        Edit
-                                    </a>
-                                </x-table.td>
-                            </tr>
-                            @endforeach
-                        @else
-                            <x-table.td colspan="7">No Data Found</x-table.td>
-                        @endif
+                        @forelse ($donations as $donation)
+                        <tr>
+                            <x-table.td>{{ $loop->iteration }}</x-table.td>
+                            <x-table.td>{{ $donation->donor->name }}</x-table.td>
+                            <x-table.td>{{ $donation->donor->donor_card_no }}</x-table.td>
+                            <x-table.td class="uppercase">{{ $donation->blood_component }}</x-table.td>
+                            <x-table.td class="uppercase">{{ $donation->status }}</x-table.td>
+                            <x-table.td>{{ $donation->donated_at }}</x-table.td>
+                            
+                            <x-table.td>
+                                <a href="{{route('bank.donations.edit',  ['donation' => $donation->id ])}}">
+                                    Edit
+                                </a>
+                            </x-table.td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <x-table.td colspan="7" class="text-center">No Data Found</x-table.td>
+                        </tr>
+                        @endforelse
+                        
                     </x-table.table>
                     
                         

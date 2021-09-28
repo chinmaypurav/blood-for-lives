@@ -19,7 +19,7 @@ class CreateDonationsTable extends Migration
                 ->constrained();
             $table->foreignId('bank_id')
                 ->constrained();
-            $table->foreignId('blood_component_id')->constrained();
+            $table->string('blood_component')->nullable()->index();
             $table->timestamp('donated_at')->useCurrent();
             $table->foreignId('camp_id')
                 ->nullable();
@@ -27,7 +27,7 @@ class CreateDonationsTable extends Migration
             //     ->nullable();
             // $table->timestamp('expiry_at')->nullable();
             $table->enum('status', ['raw', 'failed', 'stored', 'rejected', 'transfused'])->default('raw');
-            $table->string('notes')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
