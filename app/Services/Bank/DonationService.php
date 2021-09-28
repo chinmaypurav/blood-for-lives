@@ -29,12 +29,11 @@ class DonationService
             $donation = new Donation();
             $donation->donor()->associate($validated['donor_id']);
             $donation->bank()->associate($user->bank_id);
-            $donation->bloodComponent()->associate($validated['blood_component']);
+            $donation->blood_component = ($validated['blood_component']);
             $donation->save();
             //Temp Patch
-            $bloodComponent = BloodComponent::find($validated['blood_component'])->blood_component;
             // dd($this->validated);
-            $safeDonateAt = CompatibilityService::safeDonateAt($bloodComponent);
+            $safeDonateAt = CompatibilityService::safeDonateAt($validated['blood_component']);
 
             $user->safe_donate_at = $safeDonateAt;
             $user->save();

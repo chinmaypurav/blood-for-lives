@@ -90,7 +90,7 @@ class DonationController extends Controller
             return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
         }
 
-        $bloodComponents = BloodComponent::all();
+        $bloodComponents = config('project.blood_components');
         return view('bank.donation.found', compact('bloodComponents', 'donor'));
     }
 }

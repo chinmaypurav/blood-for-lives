@@ -73,9 +73,9 @@
                             @forelse ($donations as $donation)
                             <tr>
                                 <x-table.td class="uppercase">{{$loop->iteration}}</x-table.td>
-                                <x-table.td class="uppercase">{{$donation->donor}}</x-table.td>
-                                <x-table.td class="uppercase">{{$donation->name}}</x-table.td>
-                                <x-table.td class="uppercase">{{$donation->blood_group}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->donor->donor_card_no}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->donor->name}}</x-table.td>
+                                <x-table.td class="uppercase">{{$donation->donor->blood_group}}</x-table.td>
                                 <x-table.td>
                                     <a href="{{route('bank.inventories.show', ['inventory' => $camp->id])}}">View</a>
                                 </x-table.td>

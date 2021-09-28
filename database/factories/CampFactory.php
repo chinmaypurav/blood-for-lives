@@ -32,7 +32,7 @@ class CampFactory extends Factory
                 ->hasAttached($camp->bank, [
                     'bank_id' => $camp->bank->id,
                     'camp_id' => $camp->id,
-                    'blood_component' => array_rand(config('project.blood_component')),
+                    'blood_component' => array_rand(config('project.blood_components')),
                     'donated_at' => $this->faker->datetimeBetween('-1 year', '+1 year'),
                     // 'expiry_at' => $this->faker->datetimeBetween('+1 year', '+2 year'),
                     'status' => $this->faker->randomElement([
