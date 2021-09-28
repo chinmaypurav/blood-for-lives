@@ -74,8 +74,4 @@ class User extends Authenticatable
         return $this->hasOne(Manager::class);
     }
 
-    public function bloodGroup(): BelongsTo
-    {
-        return $this->belongsTo(BloodGroup::class);
-    }
 }

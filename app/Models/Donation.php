@@ -14,8 +14,6 @@ class Donation extends Model
         // 'logger' => 'array'
     ];
 
-    public $with = ['bloodComponent'];
-
     protected $fillable = [
         'logger',
     ];
@@ -28,11 +26,6 @@ class Donation extends Model
     public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class);
-    }
-
-    public function bloodComponent(): BelongsTo
-    {
-        return $this->belongsTo(BloodComponent::class);
     }
 
     public function camp(): BelongsTo
