@@ -34,7 +34,7 @@
                     <x-nav-link :href="route('bank.camps.index')" :active="request()->routeIs('bank.camps.*')">
                         {{ __('Camps') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('bank.donations.search')" :active="request()->routeIs('bank.donation.*')">
+                    <x-nav-link :href="route('bank.donations.index')" :active="request()->routeIs('bank.donation.*')">
                         {{ __('Donations') }}
                     </x-nav-link>
                     <x-nav-link :href="route('bank.processes.index')" :active="request()->routeIs('bank.processes.*')">
@@ -113,7 +113,7 @@
             <x-responsive-nav-link :href="route('bank.donors.index')" :active="request()->routeIs('bank.donors.*')">
                 {{ __('Donors') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('bank.donations.search')" :active="request()->routeIs('bank.donations.index')">
+            <x-responsive-nav-link :href="route('bank.donations.index')" :active="request()->routeIs('bank.donations.index')">
                 {{ __('Donations') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('bank.processes.index')" :active="request()->routeIs('bank.processes.*')">

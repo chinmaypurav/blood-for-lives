@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bank extends Model
 {
@@ -34,9 +36,14 @@ class Bank extends Model
         return $this->hasMany(User::class);
     }
 
-    public function donations()
+    public function donations(): HasMany
     {
-        return $this->belongsToMany(Donation::class);
+        return $this->hasMany(Donation::class);
+    }
+
+    public function donors():BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function demands()
