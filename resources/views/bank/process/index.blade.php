@@ -25,14 +25,14 @@
                         
                             @foreach ($donations as $donation)
                             <form method="POST" 
-                                action="{{ route('manager.process.update',  ['process' => $donation->id ]) }}">
+                                action="{{ route('bank.processes.update',  ['process' => $donation->id ]) }}">
                                 @csrf
                                 @method('put')
                                 <tr>
                                     <x-table.td>{{ $loop->iteration }}</x-table.td>
-                                    <x-table.td>{{ $donation->donor_card_no }}</x-table.td>
+                                    <x-table.td>{{ $donation->donor->donor_card_no }}</x-table.td>
                                     <x-table.td class="uppercase">{{ $donation->blood_component }}</x-table.td>
-                                    <x-table.td class="uppercase">{{ $donation->blood_group }}</x-table.td>
+                                    <x-table.td class="uppercase">{{ $donation->donor->blood_group }}</x-table.td>
                                     <x-table.td>{{ $donation->donated_at }}</x-table.td>
                                     <x-table.td>
                                         <x-select class="uppercase" name="action">

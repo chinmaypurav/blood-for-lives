@@ -16,7 +16,6 @@ class ProcessController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $manager = $user->manager;
         // dd($manager->bank_id);
         // $donations = Donation::whereHas('banks', function ($query) use ($bank) {
         //     $query->where('banks.id', $bank->id);
@@ -26,33 +25,12 @@ class ProcessController extends Controller
         //     ->with('bloodComponent', 'donor.bloodGroup')
         //     ->paginate();
 
-        $donations = Donation::where('bank_id', $manager->bank_id)
+        $donations = Donation::where('bank_id', $user->bank_id)
             ->where('donations.status', 'raw')
-            ->join('blood_components', function ($join) {
-                $join->on('donations.blood_component_id', 'blood_components.id');
-            })
-            ->join('donors', function ($join) {
-                $join->on('donations.donor_id', 'donors.id');
-            })
-            ->join('blood_groups', function ($join) {
-                $join->on('donors.blood_group_id', 'blood_groups.id');
-            })
-            ->select('donations.*', 'blood_components.*', 'donors.*', 'blood_groups.blood_group')
             // ->with('donor.bloodGroup')
             ->paginate();
 
-        // dd($donations);
-        // $donations = DB::table('bank_donor')
-        //     ->leftJoin('donors', 'bank_donor.donor_id', '=', 'donors.id')
-        //     ->select('bank_donor.*', 'donors.donor_card_no', 'donors.blood_group')
-        //     ->where([
-        //         'bank_donor.bank_id'=> $bank->id,
-        //         'bank_donor.status'=> 'raw',
-        //         ])
-        //     ->orderBy('bank_donor.donated_at')
-        //     ->paginate(10);
-
-        return view('manager.process.index', ['donations' => $donations]);
+        return view('bank.process.index', ['donations' => $donations]);
     }
 
     /**
