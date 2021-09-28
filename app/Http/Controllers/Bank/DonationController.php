@@ -19,11 +19,11 @@ use Illuminate\Contracts\View\View;
 
 class DonationController extends Controller
 {
-//    private $donationService;
+    private $donationService;
 
-    public function __construct(private DonationService $donationService)
+    public function __construct(DonationService $donationService)
     {
-//        $this->donationService = $donationService;
+        $this->donationService = $donationService;
     }
 
     public function index(): View
