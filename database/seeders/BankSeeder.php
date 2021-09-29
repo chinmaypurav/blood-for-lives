@@ -15,6 +15,6 @@ class BankSeeder extends Seeder
      */
     public function run()
     {
-        $bank = Bank::factory()->create();
+        $bank = Bank::factory(10)->create();
     }
 }

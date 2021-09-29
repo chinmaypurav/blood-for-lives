@@ -15,7 +15,7 @@ class DonationController extends Controller
      */
     public function index()
     {
-        $donations = Donation::where('donor_id', auth()->user()->donor->id)
+        $donations = Donation::where('user_id', auth()->id())
                     ->with('bank')
                     ->paginate(5);
         

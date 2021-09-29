@@ -44,9 +44,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
 
-            'blood_group' => $this->faker->randomElement([
-                'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH'
-            ]),
+            'blood_group' => $this->faker->randomElement(config('project.blood_groups')),
             'phone' => mt_rand(7000000000, 9999999999),
             'postcode' => $this->faker->postcode(),
             'date_of_birth' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
