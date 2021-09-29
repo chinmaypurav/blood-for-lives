@@ -11,10 +11,11 @@ class Demand extends Model
 
     protected $fillable = [
         'guardian_name',
-        'guardian_contact',
+        'guardian_email',
+        'guardian_phone',
         'recipient_name',
-        // 'recipient_group',
-        // 'recipient_component',
+        'blood_group',
+        'blood_component',
         'compatible_group',
         'buffer_time',
         'required_at',
@@ -24,7 +25,8 @@ class Demand extends Model
     ];
 
     protected $casts = [
-        'guardian_contact' => 'encrypted',
+        'guardian_phone' => 'encrypted',
+        'no_substitute' => 'boolean',
         'compatible_group' => 'array',
         'logger' => 'array',
         'required_at' => 'datetime:Y-m-d',

@@ -15,7 +15,7 @@
                     <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     
-                    <form method="POST" action="{{ route('manager.demand.store') }}">
+                    <form method="POST" action="{{ route('bank.demands.store') }}">
                         @csrf
 
                         <!-- Guardian Name -->
@@ -53,8 +53,8 @@
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="recipientGroup" class="block text-sm font-medium text-gray-700">Blood Group</label>
                             <select id="recipientGroup" name="recipientGroup" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                @foreach ($bloodGroups as $group)
-                                <option value="{{$group->id}}">{{$group->blood_group}}</option>
+                                @foreach ($bloodGroups as $bloodGroup)
+                                <option value="{{$bloodGroup}}">{{$bloodGroup}}</option>
                                 @endforeach
 
                             </select>
@@ -64,8 +64,8 @@
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="recipientComponent" class="block text-sm font-medium text-gray-700">Blood Group</label>
                             <select id="recipientComponent" name="recipientComponent" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm uppercase">
-                                @foreach ($bloodComponents as $component)
-                                    <option value="{{$component->id}}">{{$component->blood_component}}</option>
+                                @foreach ($bloodComponents as $bloodComponent)
+                                    <option value="{{$bloodComponent}}">{{$bloodComponent}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -42,11 +42,11 @@ Route::group([
     'as' => 'bank.',
     'middleware' => 'auth'
 ], function () {
-    Route::get('ada/{id}', [App\Http\Controllers\Manager\AdaController::class, 'create'])->name('ada.create');
-    Route::post('ada', [App\Http\Controllers\Manager\AdaController::class, 'store'])->name('ada.store');
-    Route::get('batch', [App\Http\Controllers\Manager\AdaController::class, 'status']);
+    Route::get('ada/{id}', [App\Http\Controllers\Bank\AdaController::class, 'create'])->name('ada.create');
+    Route::post('ada', [App\Http\Controllers\Bank\AdaController::class, 'store'])->name('ada.store');
+    Route::get('batch', [App\Http\Controllers\Bank\AdaController::class, 'status']);
 
-    Route::post('donor/search', [App\Http\Controllers\Manager\DonorController::class, 'search'])
+    Route::post('donor/search', [App\Http\Controllers\Bank\DonorController::class, 'search'])
         ->name('donor.search');
 
     Route::get('donation/search', function () {

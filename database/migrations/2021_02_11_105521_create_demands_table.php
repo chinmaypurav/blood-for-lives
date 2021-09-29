@@ -19,10 +19,11 @@ class CreateDemandsTable extends Migration
             $table->foreignId('bank_id')
                 ->constrained();
             $table->string('guardian_name');
-            $table->string('guardian_contact');
+            $table->string('guardian_email');
             $table->string('recipient_name');
-            $table->foreignId('blood_group_id');
-            $table->foreignId('blood_component_id');
+            $table->string('blood_group')->nullable();//wip hack
+            $table->string('blood_component')->nullable();//wip hack
+            $table->unsignedTinyInteger('no_substitute')->default(false);
             $table->json('compatible_group');
             $table->timestamp('required_at');
             $table->unsignedTinyInteger('required_units');

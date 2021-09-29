@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\DonorSearchService;
 use App\Http\Requests\Manager\DonationSearchRequest;
 use App\Models\Camp;
+use App\Models\User;
 use App\Services\Bank\CampDonationService;
 
 class CampDonationController extends Controller
@@ -25,24 +26,32 @@ class CampDonationController extends Controller
         return view('bank.camp.donation.index', compact('camp', 'donations'));
     }
 
-    public function create(Camp $camp)
+    public function create(Camp $camp, Request $request)
     {
-        //create form
+        $validated = $request->all();
+        $donorCardNo = $validated['donor_card_no'] ?? null;
+        $email = $validated['email'] ?? null;
+
+        $donor = null;
+        if ($validated["donor_card_no"] ?? false) {
+            $donor = User::where('donor_card_no', $validated["donor_card_no"])->first();
+        } elseif ($validated["email"] ?? false) {
+            $donor = User::where('email', $validated["email"])->first();
+        }
+
+        return view('bank.camp.donation.create', compact('camp', 'donor'));
     }
 
     public function store(DonationSearchRequest $request, Camp $camp)
     {
-        $validated = $request->validated();
-        $donor = DonorSearchService::run($validated);
+        $donations = $this->campDonationService->store(
+            $camp,
+            auth()->user(),
+            $request->all() //wip hack
+        );
 
-        if (!$donor) {
-            return back()->with('status', 'Invalid donor details');
-        }
-        if (now()->lessThan($donor->safe_donate_at)) {
-            return back()->with('status', 'Cannot Safely Donate before ' . $donor->safe_donate_at->toDateString());
-        }
-
-        return view('bank.camp.donation.found')->with('donor', $donor);
+        return redirect()->route('bank.camps.donations.create', compact('camp'))
+            ->with('status', 'Donation entry successful');
     }
 
     public function show($id)
@@ -60,12 +69,6 @@ class CampDonationController extends Controller
         dd($id, $request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

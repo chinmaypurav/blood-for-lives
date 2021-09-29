@@ -14,18 +14,13 @@ use App\Models\BloodGroup;
 
 class DemandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = auth()->user();
-        $bank = $user->manager->bank;
+        $bank = $user->bank;
         $demands = $bank->demands()->paginate();
 
-        return view('manager.demand.index', compact('demands'));
+        return view('bank.demand.index', compact('demands'));
     }
 
     /**
@@ -35,17 +30,11 @@ class DemandController extends Controller
      */
     public function create()
     {
-        $bloodComponents = BloodComponent::all();
-        $bloodGroups = BloodGroup::all();
-        return view('manager.demand.create', compact('bloodComponents', 'bloodGroups'));
+        $bloodComponents = config('project.blood_components');
+        $bloodGroups = config('project.blood_groups');
+        return view('bank.demand.create', compact('bloodComponents', 'bloodGroups'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -79,7 +68,7 @@ class DemandController extends Controller
             ]);
 
 
-        return redirect()->route('manager.demand.index');
+        return redirect()->route('bank.demands.index');
     }
 
     /**

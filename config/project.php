@@ -2,6 +2,10 @@
 
 return [
     'blood_components' => [
-        'whole', 'wbc', 'rbc', 'plasma'
+        'whole', 'wbc', 'rbc', 'plasma',
+    ],
+
+    'blood_groups' => [
+        'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH',
     ],
 ];
