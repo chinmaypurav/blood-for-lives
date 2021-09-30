@@ -30,6 +30,6 @@ class BankCreatedListener
     public function handle(BankCreated $event)
     {
         $url = URL::signedRoute('bank.register', ['bank' => $event->bank->bank_code]);
-        Mail::to($event->bank->email)->send(new BankRegistrationMail($this->bank, $url));
+        Mail::to($event->bank->email)->queue(new BankRegistrationMail($event->bank, $url));
     }
 }

@@ -22,9 +22,9 @@ class BankCreated
      * @return void
      */
     public function __construct(
-        private Bank $bank,
-        private User $manager,
-        private User $creator
+        public Bank $bank,
+        public User $manager,
+        public User $creator
     ) {
     }
 

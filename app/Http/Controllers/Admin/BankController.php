@@ -32,7 +32,7 @@ class BankController extends Controller
 
     public function store(BankRequest $request)
     {
-        $this->bankService->store($request->validated());
+        $this->bankService->store($request->validated(), auth()->user());
         return redirect()->route('admin.banks.create')->with('status', 'Bank Added!');
     }
 
@@ -58,9 +58,9 @@ class BankController extends Controller
     }
 
 
-    public function register()
+    public function register(Request $request)
     {
-        $bloodGroups = BloodGroup::all();
-        return view('bank.register', compact('bloodGroups'));
+        $bank = Bank::where('signature', $request->input('bank'))->firstOrFail();
+        return view('bank.register', compact('bank'));
     }
 }

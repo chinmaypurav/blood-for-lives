@@ -56,8 +56,8 @@
                 <x-label for="blood_group" :value="__('Blood Group')" />
 
                 <x-select id="blood_group" name="blood_group" class="uppercase">
-                    @foreach ($bloodGroups as $bloodGroup)
-                        <option value="{{$bloodGroup->id}}">{{$bloodGroup->blood_group}}</option>
+                    @foreach (config('project.blood_groups') as $bloodGroup)
+                        <option value="{{$bloodGroup}}">{{$bloodGroup}}</option>
                     @endforeach
                 </x-select>
             </div>
