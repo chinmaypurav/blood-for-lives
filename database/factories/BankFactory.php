@@ -42,7 +42,7 @@ class BankFactory extends Factory
         return [
             'name' => $this->faker->company(),
             'email' => $this->faker->unique()->safeEmail(),
-            'bank_code' => $this->faker->unique()->numerify('BB###'),
+            'bank_code' => $this->faker->unique()->numerify('BB#########'),
             'address' => $this->faker->address(),
             'postal' => $this->faker->postcode(),
             'latitude' => $this->faker->latitude(),

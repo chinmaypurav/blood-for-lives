@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\Admin\BankCreated;
+use App\Listeners\Admin\BankCreatedListener;
 use App\Models\Bank;
 use App\Models\Donor;
 use App\Observers\BankObserver;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        BankCreated::class => [
+            BankCreatedListener::class,
+        ]
     ];
 
     /**

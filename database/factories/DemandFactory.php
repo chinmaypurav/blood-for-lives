@@ -22,12 +22,8 @@ class DemandFactory extends Factory
      */
     public function definition()
     {
-        $recipientGroup = $this->faker->randomElement([
-            'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH'
-        ]);
-        $recipientComponent = $this->faker->randomElement([
-            'whole', 'plasma', 'wbc'
-        ]);
+        $recipientGroup = $this->faker->randomElement(config('project.blood_groups'));
+        $recipientComponent = $this->faker->randomElement(config('project.blood_components'));
         $compatibleGroup = CompatibilityService::recipient($recipientComponent, $recipientGroup);
         return [
             'bank_id' => mt_rand(1, 10),
