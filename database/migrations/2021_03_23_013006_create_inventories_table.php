@@ -17,8 +17,10 @@ class CreateInventoriesTable extends Migration
             $table->id();
             $table->foreignId('bank_id')
                 ->constrained();
-            $table->foreignId('blood_component_id');
-            $table->foreignId('blood_group_id');
+            $table->string('blood_component');
+            $table->enum('blood_group', config('project.blood_groups'));
+            $table->string('sample_no')->nullable();
+            $table->boolean('is_private')->default('false');
             $table->unsignedBigInteger('units')->default(0);
             $table->timestamps();
         });
