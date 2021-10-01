@@ -12,7 +12,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('bank.register', ['bank' => $bank]) }}">
             @csrf
 
             <!--Bank Name -->
@@ -24,6 +24,16 @@
                                 name="name"
                                 :value="$bank->name"
                                 readonly />
+            </div>
+
+            <!--Admin Name -->
+            <div class="mt-4">
+                <x-label for="name" :value="__('Admin Name')" />
+
+                <x-input id="name" class="block mt-1 w-full"
+                                type="text"
+                                name="name"
+                                autofocus />
             </div>
             <!-- Email Address -->
             <div class="mt-4">
@@ -73,7 +83,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-3">
-                    {{ __('Login') }}
+                    {{ __('Register') }}
                 </x-button>
             </div>
         </form>

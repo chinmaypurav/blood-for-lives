@@ -31,9 +31,11 @@ Route::get('dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('bank/register/{bank}', [App\Http\Controllers\Admin\BankController::class, 'register'])
+Route::get('bank/register/{bank:bank_code}', [App\Http\Controllers\Bank\BankRegisterController::class, 'create'])
     ->middleware('signed')
     ->name('bank.register');
+Route::post('bank/register/{bank:bank_code}', [App\Http\Controllers\Bank\BankRegisterController::class, 'store'])
+    ->middleware('guest');
 
 // Route::view('bank/register/{bank}', 'bank.register')->middleware('signed')->name('bank.register');
 
