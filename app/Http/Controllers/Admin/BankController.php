@@ -54,7 +54,7 @@ class BankController extends Controller
     public function destroy(Bank $bank)
     {
         $this->bankService->destroy($bank);
-        return redirect()->route('admin.bank.index')->with('status', 'Bank Deleted!');
+        return redirect()->route('admin.banks.index')->with('status', 'Bank Deleted!');
     }
 
 

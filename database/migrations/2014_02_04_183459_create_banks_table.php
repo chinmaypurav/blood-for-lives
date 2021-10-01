@@ -25,7 +25,8 @@ class CreateBanksTable extends Migration
             $table->unsignedTinyInteger('status')->default(0);
             $table->boolean('is_active')->default(false);
             $table->string('signature')->nullable();
-            $table->softDeletes('deleted_at', 0);
+            $table->json('properties')->nullable();
+            $table->softDeletes('deleted_at');
             $table->timestamps();
         });
     }

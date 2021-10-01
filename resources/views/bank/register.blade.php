@@ -15,20 +15,21 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <!-- Name -->
+            <!--Bank Name -->
             <div>
-                <x-label for="name" :value="__('Name')" />
+                <x-label for="name" :value="__('Bank Name')" />
 
                 <x-input id="name" class="block mt-1 w-full"
                                 type="text"
                                 name="name"
-                                required autocomplete="current-password" />
+                                :value="$bank->name"
+                                readonly />
             </div>
             <!-- Email Address -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Admin Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$bank->email" readonly/>
             </div>
 
             <!-- Password -->
@@ -71,12 +72,6 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
                 <x-button class="ml-3">
                     {{ __('Login') }}
                 </x-button>
