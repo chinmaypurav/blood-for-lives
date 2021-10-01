@@ -55,15 +55,16 @@ class InventoryController extends Controller
         $user = auth()->user();
         // return view('debug', ['debug' => $user]);
 
-        $inventories = Donation::select(DB::raw('count(*) as units, donations.blood_component, donors.blood_group'))
-            ->whereHas('banks', function ($query) use (&$id) {
-                $query->where('banks.id', $id);
-            })
-            ->where('donations.status', 'stored')
-            ->rightJoin('donors', 'donors.id', '=', 'donations.donor_id')
-            ->groupBy('blood_component', 'blood_group')
-            ->get();
-        return view('manager.inventory.show', compact('inventories'));
+        // $inventories = Donation::select(DB::raw('count(*) as units, donations.blood_component, donors.blood_group'))
+        //     ->whereHas('banks', function ($query) use (&$id) {
+        //         $query->where('banks.id', $id);
+        //     })
+        //     ->where('donations.status', 'stored')
+        //     ->rightJoin('donors', 'donors.id', '=', 'donations.donor_id')
+        //     ->groupBy('blood_component', 'blood_group')
+        //     ->get();
+        $inventories = [];
+        return view('bank.inventory.show', compact('inventories'));
 
         $inventories = Donation::select(['donations.blood_component', 'donors.blood_group'])
             ->whereHas('banks', function ($query) use (&$bank) {
