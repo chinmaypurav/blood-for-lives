@@ -36,6 +36,11 @@ class Bank extends Model
         return $this->hasMany(User::class);
     }
 
+    public function managers()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function donations(): HasMany
     {
         return $this->hasMany(Donation::class);

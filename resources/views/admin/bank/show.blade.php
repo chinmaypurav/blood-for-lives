@@ -14,6 +14,9 @@
                         Bank Name: {{$bank->name}}
                     </p>
                     <p>
+                        Bank Email: {{$bank->email}}
+                    </p>
+                    <p>
                         Bank Address: {{$bank->address}}
                     </p>
                     <p>

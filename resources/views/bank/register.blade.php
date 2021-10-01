@@ -32,7 +32,7 @@
 
                 <x-input id="name" class="block mt-1 w-full"
                                 type="text"
-                                name="name"
+                                name="admin_name"
                                 autofocus />
             </div>
             <!-- Email Address -->

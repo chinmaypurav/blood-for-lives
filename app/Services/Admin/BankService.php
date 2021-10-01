@@ -14,7 +14,7 @@ class BankService
 {
     public function index($params = [])
     {
-        return Bank::paginate();
+        return Bank::latest()->paginate();
     }
 
     public function store(array $validated, User $admin)
@@ -27,14 +27,7 @@ class BankService
                 // $url = URL::signedRoute('banks.register', ['bank' => $validated['bank_code']]);
                 // Mail::to($bank->email)->send(new BankRegistrationMail($bank, $url));
 
-                $manager = $bank->users()->create([
-                    'name' => $validated['user_name'],
-                    'email' => $validated['email'],
-                    'password' => bcrypt('password'),
-                ]);
-                $manager->assignRole('manager-admin');
-                $manager->assignRole('manager');
-                BankCreated::dispatch($bank, $manager, $admin);
+                event(new BankCreated($bank, $admin, $admin));
             });
         } catch (\Exception $ex) {
             dd($ex);
