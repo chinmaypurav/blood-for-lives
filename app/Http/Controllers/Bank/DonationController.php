@@ -32,9 +32,10 @@ class DonationController extends Controller
 
         return view('bank.donation.index', compact('donations'));
     }
-
+    //WIP to be optimised
     public function create(Request $request)
     {
+        session()->forget('status');
         $validated = $request->all();
         $donorCardNo = $validated['donor_card_no'] ?? null;
         $email = $validated['email'] ?? null;
@@ -46,10 +47,10 @@ class DonationController extends Controller
             $donor = User::where('email', $validated["email"])->first();
         }
 
-        if (!$donor) {
+        if (!$donor && ($request->has('email') || $request->has('donor_card_no'))) {
             $status = 'Donor not found';
-            session()->flash('status', 'Donor not found');   
-            return view('bank.donation.create', compact('donor'));
+            session()->flash('status', 'Donor not found'); 
+            return view('bank.donation.create', compact('donor'))->with('status', 'no found');
         }
 
         return view('bank.donation.create', compact('donor'));
