@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Bank;
 
+use App\Events\Bank\BloodProcessed;
 use App\Models\Bank;
 use App\Models\Donation;
 use App\Models\BankDonor;
@@ -12,7 +13,7 @@ use App\Http\Requests\Manager\ProcessUpdateRequest;
 
 class ProcessController extends Controller
 {
-   
+
     public function index()
     {
         $user = auth()->user();
@@ -77,37 +78,27 @@ class ProcessController extends Controller
         return view('manager.process.create');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProcessUpdateRequest $request, $id)
+    public function update(ProcessUpdateRequest $request, Donation $donation)
     {
-        dd($id);
+        // dd($id);
         $validated = $request->validated();
-        //dd($validated['action']);
 
-        $state = $validated['action'];
+        $status = $validated['action'];
 
-        $donation = BankDonor::find($id);
-        //dd($donation);
+        $res = $donation->update([
+            'status' => $status
+        ]);
 
-        DB::transaction(function () use (&$id, $donation, $state) {
-            DB::table('bank_donor')
-                ->where('id', $id)
-                ->update([
-                    'status' => $state,
-                    'logger->' . $state . '->id' => auth()->user()->id,
-                    'logger->' . $state . '->updated_at' => now(),
-                ]);
-        });
+        // $donation = 
+
+        // dd($res, $status);
+
+        if ($status == 'stored') {
+            event(new BloodProcessed($donation, auth()->user()));
+        }
 
 
-
-        return redirect()->route('manager.process.index');
+        return redirect()->route('bank.processes.index')->with('status', 'Process successful');
     }
 
     /**

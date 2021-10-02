@@ -10,7 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    
+                    <!-- Session Status -->
+                    <x-auth-session-status class="mb-4" :status="session('status')" />
+
                     <x-table.table>
                         <x-slot name="thead">
                             <x-table.th>Index</x-table.th>
@@ -23,9 +25,9 @@
                         </x-slot>
                         {{-- td --}}
                         
-                            @foreach ($donations as $donation)
+                            @forelse ($donations as $donation)
                             <form method="POST" 
-                                action="{{ route('bank.processes.update',  ['process' => $donation->id ]) }}">
+                                action="{{ route('bank.processes.update',  ['donation' => $donation ]) }}">
                                 @csrf
                                 @method('put')
                                 <tr>
@@ -53,7 +55,11 @@
                                     </td>
                                 </tr>
                             </form>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <x-table.td class="text-center" colspan="7">No Data Found</x-table.td>
+                            </tr>
+                            @endforelse
                         
 
                     </x-table.table>

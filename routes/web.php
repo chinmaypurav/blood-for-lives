@@ -58,13 +58,19 @@ Route::group([
         ->name('donation.found');
     Route::resource('donors', App\Http\Controllers\Bank\DonorController::class);
     Route::resource('donations', App\Http\Controllers\Bank\DonationController::class);
-    Route::resource('processes', App\Http\Controllers\Bank\ProcessController::class);
     Route::resource('demands', 'App\Http\Controllers\Bank\DemandController');
     Route::resource('inventories', App\Http\Controllers\Bank\InventoryController::class);
     Route::resource('managers', App\Http\Controllers\Bank\ManagerController::class);
     Route::resource('ada', App\Http\Controllers\Bank\AdaController::class);
     Route::resource('camps', App\Http\Controllers\Bank\CampController::class);
     Route::resource('camps.donations', App\Http\Controllers\Bank\CampDonationController::class);
+
+
+    // Route::resource('processes', App\Http\Controllers\Bank\ProcessController::class);
+    Route::get('processes', [App\Http\Controllers\Bank\ProcessController::class, 'index'])->name('processes.index');
+    Route::post('processes', [App\Http\Controllers\Bank\ProcessController::class, 'store'])->name('processes.store');
+    Route::put('processes/{donation}', [App\Http\Controllers\Bank\ProcessController::class, 'update'])->name('processes.update');
+
 
     Route::group([], function () {
     });

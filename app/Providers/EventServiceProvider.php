@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\Admin\BankCreated;
 use App\Listeners\Admin\BankCreatedListener;
+use App\Listeners\Bank\BloodProcessListener;
 use App\Models\Bank;
 use App\Models\Donor;
 use App\Observers\BankObserver;
@@ -29,6 +30,10 @@ class EventServiceProvider extends ServiceProvider
         ]
     ];
 
+    protected $subscribe = [
+        BloodProcessListener::class,
+    ];
+
     /**
      * Register any events for your application.
      *
@@ -36,7 +41,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Donor::observe(DonorObserver::class);
-        Bank::observe(BankObserver::class);
+        //
     }
 }

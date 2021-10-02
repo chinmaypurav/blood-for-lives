@@ -15,7 +15,7 @@ class Donation extends Model
     ];
 
     protected $fillable = [
-        'logger',
+        'blood_component', 'blood', 'status', 'notes',
     ];
 
     public function donor(): BelongsTo
@@ -25,7 +25,7 @@ class Donation extends Model
 
     public function bank(): BelongsTo
     {
-        return $this->belongsTo(Bank::class);
+        return $this->belongsTo(Bank::class, 'bank_id');
     }
 
     public function camp(): BelongsTo
