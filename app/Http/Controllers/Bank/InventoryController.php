@@ -44,15 +44,10 @@ class InventoryController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Bank $bank, Request $request)
     {
         $user = auth()->user();
+        $bank = $user->bank;
         // return view('debug', ['debug' => $user]);
 
         // $inventories = Donation::select(DB::raw('count(*) as units, donations.blood_component, donors.blood_group'))
@@ -63,19 +58,18 @@ class InventoryController extends Controller
         //     ->rightJoin('donors', 'donors.id', '=', 'donations.donor_id')
         //     ->groupBy('blood_component', 'blood_group')
         //     ->get();
-        $inventories = [];
-        return view('bank.inventory.show', compact('inventories'));
-
-        $inventories = Donation::select(['donations.blood_component', 'donors.blood_group'])
-            ->whereHas('banks', function ($query) use (&$bank) {
-                $query->where('banks.id', $bank->id);
+        // dd($request->all());
+        $inventories = $bank->inventories()->select(DB::raw('SUM(units) as units, blood_component, blood_group'))
+            ->groupBy('blood_component', 'blood_group')
+            ->when($request->filled('blood_group'), function ($q, $param) {
+                $q->having('blood_group', $param);
             })
-            ->where('donations.status', 'stored')
-            ->rightJoin('donors', 'donors.id', '=', 'donations.donor_id')
-            ->get()
-            ->groupBy(['blood_component', 'blood_group']);
-
-        return view('manager.inventory.show', compact('inventories'));
+            ->when($request->filled('blood_component'), function ($q, $param) {
+                $q->having('blood_component', $param);
+            })
+            ->get();
+        // dd($inventories);
+        return view('bank.inventory.show', compact('inventories'));
     }
 
     /**

@@ -9,14 +9,15 @@ class Inventory extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'blood_group',
         'blood_component',
         'units',
+        'sample_no',
+        'is_private',
+    ];
+
+    protected $casts = [
+        'is_private' => 'boolean'
     ];
 }

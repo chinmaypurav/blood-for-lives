@@ -46,17 +46,17 @@ class Bank extends Model
         return $this->hasMany(Donation::class);
     }
 
-    public function donors():BelongsToMany
+    public function donors(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function demands()
+    public function demands(): HasMany
     {
         return $this->hasMany(Demand::class);
     }
 
-    public function inventories()
+    public function inventories(): HasMany
     {
         return $this->hasMany(Inventory::class);
     }
