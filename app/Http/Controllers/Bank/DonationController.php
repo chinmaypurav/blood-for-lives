@@ -33,9 +33,26 @@ class DonationController extends Controller
         return view('bank.donation.index', compact('donations'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('bank.donation.create');
+        $validated = $request->all();
+        $donorCardNo = $validated['donor_card_no'] ?? null;
+        $email = $validated['email'] ?? null;
+
+        $donor = null;
+        if ($validated["donor_card_no"] ?? false) {
+            $donor = User::where('donor_card_no', $validated["donor_card_no"])->first();
+        } elseif ($validated["email"] ?? false) {
+            $donor = User::where('email', $validated["email"])->first();
+        }
+
+        if (!$donor) {
+            $status = 'Donor not found';
+            session()->flash('status', 'Donor not found');   
+            return view('bank.donation.create', compact('donor'));
+        }
+
+        return view('bank.donation.create', compact('donor'));
     }
 
     public function store(DonationRequest $request)
