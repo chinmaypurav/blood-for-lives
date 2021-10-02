@@ -11,17 +11,18 @@ class Demand extends Model
 
     protected $fillable = [
         'guardian_name',
-        'guardian_email',
-        'guardian_phone',
+        'contact_email',
+        'contact_phone',
         'recipient_name',
         'blood_group',
         'blood_component',
-        'compatible_group',
-        'buffer_time',
+        'compatible_groups',
+        'buffer_days',
         'required_at',
         'required_units',
         'status',
-        'logger',
+        'no_substitute',
+        'is_donor',
     ];
 
     protected $casts = [
