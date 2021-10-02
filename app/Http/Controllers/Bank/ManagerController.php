@@ -11,51 +11,40 @@ use App\Http\Requests\Manager\ManagerRequest;
 
 class ManagerController extends Controller
 {
-    private User $user;
-    private Bank $bank;
+    private $user;
+    private $bank;
 
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            $this->user = auth()->user();
-            $this->bank = $this->user->bank;
-            if ($this->user->hasRole('head-manager')) {
-                return $next($request);
-            } else {
-                abort(403);
-            }
-        });
+        // $this->middleware(function ($request, $next) {
+        //     $this->user = auth()->user();
+        //     $this->bank = $this->user->bank;
+        //     // if ($this->user->hasRole('head-manager')) {
+        //     //     return $next($request);
+        //     // } else {
+        //     //     abort(403);
+        //     // }
+        // });
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
-        $managers = $this->bank->users;
-        return view('manager.manager.index', compact('managers'));
+        $user = auth()->user();
+        //     $this->bank = $this->user->bank;
+        $managers = User::where('bank_id', $user->bank_id)->paginate();
+        return view('bank.manager.index', compact('managers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('manager.manager.create');
+        return view('bank.manager.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\ManagerRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(ManagerRequest $request)
     {
+        dd('change to invite');
         //Validate and add password to the array
         $validated = Arr::add($request->validated(), 'password', bcrypt('password'));
 
