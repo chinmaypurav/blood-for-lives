@@ -20,7 +20,7 @@ class CreateInventoriesTable extends Migration
             $table->string('blood_component');
             $table->enum('blood_group', config('project.blood_groups'));
             $table->string('sample_no')->nullable();
-            $table->boolean('is_private')->default('false');
+            $table->boolean('is_private')->default(false);
             $table->unsignedBigInteger('units')->default(0);
             $table->timestamps();
         });
