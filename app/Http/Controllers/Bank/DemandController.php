@@ -23,16 +23,9 @@ class DemandController extends Controller
         return view('bank.demand.index', compact('demands'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $bloodComponents = config('project.blood_components');
-        $bloodGroups = config('project.blood_groups');
-        return view('bank.demand.create', compact('bloodComponents', 'bloodGroups'));
+        return view('bank.demand.create');
     }
 
     public function store(Request $request)
@@ -61,33 +54,14 @@ class DemandController extends Controller
         ]);
 
 
-        Demand::where('id', $demand->id)
-            ->update([
-                'logger->open->id' => $user->id,
-                'logger->open->updated_at' => now(),
-            ]);
-
-
         return redirect()->route('bank.demands.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Demand $demand)
     {
         $user = auth()->user();
@@ -112,13 +86,6 @@ class DemandController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
 
@@ -149,12 +116,6 @@ class DemandController extends Controller
         dd($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

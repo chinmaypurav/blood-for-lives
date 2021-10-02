@@ -48,7 +48,7 @@
                             }}</x-table.td>
                             <x-table.td>{{ $demand->ada_range }}</x-table.td>
                             <x-table.td>
-                                <a href="{{route('manager.demand.edit',  ['demand' => $demand->id ])}}">
+                                <a href="{{route('bank.demands.edit',  ['demand' => $demand->id ])}}">
                                     Allocate Supply
                                 </a>
                             </x-table.td>

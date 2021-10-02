@@ -20,51 +20,50 @@
 
                         <!-- Guardian Name -->
                         <div>
-                            <x-label for="guardianName" :value="__('Guardian Name')" />
+                            <x-label for="guardian_name" :value="__('Guardian Name')" />
 
-                            <x-input id="guardianName" class="block mt-1 w-full" 
+                            <x-input id="guardian_name" class="block mt-1 w-full" 
                                     type="text" 
-                                    name="guardianName" 
-                                    :value="old('guardianName')" required autofocus />
+                                    name="guardian_name" 
+                                    :value="old('guardian_name')" required autofocus />
                         </div class="mt-4">
 
                          <!-- Guardian Contact -->
                          <div class="mt-4">
                             <x-label for="guardianContact" :value="__('Guardian Contact')" />
 
-                            <x-input id="guardianContact" class="block mt-1 w-full" 
+                            <x-input id="guardian_phone" class="block mt-1 w-full" 
                                     type="text" 
-                                    name="guardianContact" 
-                                    :value="old('guardianContact')" required />
+                                    name="guardian_phone" 
+                                    :value="old('guardian_phone')" required />
                         </div>
 
                         <!-- Recipient Name -->
                         <div class="mt-4">
-                            <x-label for="recipientName" :value="__('Recipient Name')" />
+                            <x-label for="recipient_name" :value="__('Recipient Name')" />
 
-                            <x-input id="recipientName" class="block mt-1 w-full" 
+                            <x-input id="recipient_name" class="block mt-1 w-full" 
                                     type="text" 
-                                    name="recipientName" 
-                                    :value="old('recipientName')" required />
+                                    name="recipient_name" 
+                                    :value="old('recipient_name')" required />
                         </div>
 
 
                         <!-- Recipient Blood Group -->
                         <div class="mt-4 col-span-6 sm:col-span-3">
-                            <label for="recipientGroup" class="block text-sm font-medium text-gray-700">Blood Group</label>
-                            <select id="recipientGroup" name="recipientGroup" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                @foreach ($bloodGroups as $bloodGroup)
+                            <label for="blood_group" class="block text-sm font-medium text-gray-700">Blood Group</label>
+                            <select id="blood_group" name="blood_group" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                @foreach (config('project.blood_groups') as $bloodGroup)
                                 <option value="{{$bloodGroup}}">{{$bloodGroup}}</option>
                                 @endforeach
-
                             </select>
                         </div>
 
                         <!-- Recipient Blood Component -->
                         <div class="mt-4 col-span-6 sm:col-span-3">
-                            <label for="recipientComponent" class="block text-sm font-medium text-gray-700">Blood Group</label>
-                            <select id="recipientComponent" name="recipientComponent" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm uppercase">
-                                @foreach ($bloodComponents as $bloodComponent)
+                            <label for="blood_component" class="block text-sm font-medium text-gray-700">Blood Group</label>
+                            <select id="blood_component" name="blood_component" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm uppercase">
+                                @foreach (config('project.blood_components') as $bloodComponent)
                                     <option value="{{$bloodComponent}}">{{$bloodComponent}}</option>
                                 @endforeach
                             </select>
@@ -72,11 +71,11 @@
 
                         <!-- required at -->
                         <div class="mt-4">
-                            <x-label for="requiredAt" :value="__('Required At')" />
+                            <x-label for="required_at" :value="__('Required At')" />
 
-                            <x-input id="requiredAt" class="block mt-1 w-full" 
+                            <x-input id="required_at" class="block mt-1 w-full" 
                                     type="date" 
-                                    name="requiredAt" 
+                                    name="required_at" 
                                     :min="today()->toDateString()"
                                     :value="today()->toDateString()" required />
                         </div>
