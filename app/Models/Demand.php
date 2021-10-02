@@ -25,10 +25,10 @@ class Demand extends Model
     ];
 
     protected $casts = [
-        'guardian_phone' => 'encrypted',
+        'contact_phone' => 'encrypted',
         'no_substitute' => 'boolean',
-        'compatible_group' => 'array',
-        'logger' => 'array',
+        'is_donor' => 'boolean',
+        'compatible_groups' => 'array',
         'required_at' => 'datetime:Y-m-d',
     ];
 }

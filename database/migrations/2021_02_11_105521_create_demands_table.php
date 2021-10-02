@@ -25,11 +25,11 @@ class CreateDemandsTable extends Migration
             $table->string('blood_group')->nullable();//wip hack
             $table->string('blood_component')->nullable();//wip hack
             $table->unsignedTinyInteger('no_substitute')->default(false);
-            $table->json('compatible_group');
+            $table->boolean('is_donor')->default(false);
+            $table->json('compatible_groups')->nullable();
             $table->timestamp('required_at');
             $table->unsignedTinyInteger('required_units');
-            $table->unsignedTinyInteger('buffer_time');
-            $table->boolean('is_donor')->default(false);
+            $table->unsignedTinyInteger('buffer_days');
             $table->enum('status', ['open', 'allocated', 'success', 'failed'])->default('open');
             $table->unsignedTinyInteger('ada_range')->default(0);
             $table->timestamps();
