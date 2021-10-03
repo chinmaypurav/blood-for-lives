@@ -32,4 +32,14 @@ class Demand extends Model
         'compatible_groups' => 'array',
         'required_at' => 'datetime:Y-m-d',
     ];
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function bank()
+    {
+        $this->belongsTo(Bank::class);
+    }
 }
