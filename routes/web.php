@@ -59,7 +59,7 @@ Route::group([
         Route::resource('donors', App\Http\Controllers\Bank\DonorController::class);
         Route::resource('donations', App\Http\Controllers\Bank\DonationController::class);
         Route::resource('demands', 'App\Http\Controllers\Bank\DemandController');
-        // Route::resource('inventories', App\Http\Controllers\Bank\InventoryController::class);
+        Route::resource('inventories', App\Http\Controllers\Bank\InventoryController::class);
         Route::resource('managers', App\Http\Controllers\Bank\ManagerController::class);
         Route::resource('ada', App\Http\Controllers\Bank\AdaController::class);
         Route::resource('camps', App\Http\Controllers\Bank\CampController::class);

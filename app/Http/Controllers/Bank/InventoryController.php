@@ -19,13 +19,11 @@ class InventoryController extends Controller
         $this->inventoryService = $inventoryService;
     }
 
-    public function index(Bank $bank)
+    public function index(Bank $bank, Request $request)
     {
-        $thisBank = auth()->user()->bank;
-        $banks = Bank::whereNotIn('id', [$thisBank->id])
-            ->paginate(10);
+        $inventories = $this->inventoryService->index($bank, $request->all());
 
-        return view('bank.inventory.index', compact('banks', 'thisBank'));
+        return view('bank.inventory.index', compact('inventories', 'bank'));
     }
 
     public function create(Bank $bank)
@@ -33,12 +31,6 @@ class InventoryController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, Bank $bank)
     {
         //

@@ -10,35 +10,59 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <a href="{{route('bank.inventories.show', ['bank' => $thisBank->id])}}">This Bank</a>
+                    {{-- Filters --}}
 
+                    <div>
+                        <form action="{{route('banks.inventories.index', ['bank' => $bank])}}" method="GET">
+                            <x-form.select-filter name="blood_group" id="" class="uppercase">
+                                <option value="">Blood Group</option>
+                                @foreach (config('project.blood_groups') as $bloodGroup)
+                                    <option class="uppercase" value="{{$bloodGroup}}"
+                                    @if(request('blood_group') == $bloodGroup)
+                                    selected 
+                                    @endif>
+                                    {{$bloodGroup}}
+                                </option>
+                                @endforeach
+                            </x-form.select-filter>
+                            <x-form.select-filter name="blood_component" id="" class="uppercase">
+                                <option value="">Blood Component</option>
+                                @foreach (config('project.blood_components') as $bloodComponent)
+                                    <option class="uppercase" value="{{$bloodComponent}}"
+                                    @if(request('blood_component') == $bloodGroup)
+                                    selected 
+                                    @endif>
+                                    {{$bloodComponent}}
+                                </option>
+                                @endforeach
+                            </x-form.select-filter>
+                            <x-button.w-full>
+                                {{ __('Search') }}
+                            </x-button.w-full>
+                        </form>
+                    </div>
                     
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <x-table.th>Bank id</x-table.th>
-                            <x-table.th>Bank Name</x-table.th>
-                            <x-table.th>Bank Code</x-table.th>                          
-                            <x-table.th>Action</x-table.th>                          
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse ($banks as $bank)
+                    <x-table.table>
+                        <x-slot name="thead">
                             <tr>
-                                <x-table.td class="uppercase">{{$bank->id}}</x-table.td>
-                                <x-table.td class="uppercase">{{$bank->name}}</x-table.td>
-                                <x-table.td class="uppercase">{{$bank->bank_code}}</x-table.td>
-                                <x-table.td>
-                                    <a href="{{route('bank.inventories.show', ['inventory' => $bank->id])}}">View</a>
-                                </x-table.td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <x-table.td colspan="4" class="text-center">No Data Found</x-table.td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                    {{ $banks->links() }}     
-
+                                <x-table.th>Blood Component</x-table.th>
+                                <x-table.th>Blood Group</x-table.th>
+                                <x-table.th>Units Available</x-table.th>
+                            </tr>                        
+                        </x-slot>
+                     
+                        @forelse ($inventories as $inventory)
+                        <tr>
+                            <x-table.td class="uppercase">{{$inventory->blood_component}}</x-table.td>
+                            <x-table.td class="uppercase">{{$inventory->blood_group}}</x-table.td>
+                            <x-table.td class="uppercase">{{$inventory->units}}</x-table.td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <x-table.td colspan="3" class="text-center">No Data Found</x-table.td>
+                        </tr>
+                        @endforelse
+                    </x-table.table>               
                 </div>
             </div>
         </div>
