@@ -17,14 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if (config('app.env' == 'production')) {
+        if (config('app.env') == 'production') {
             $this->call([
                 RoleSeeder::class,
                 StageSeeder::class,
             ]);
             return;
         }
-        
+
         $this->call([
             RoleSeeder::class,
             AdminSeeder::class,
