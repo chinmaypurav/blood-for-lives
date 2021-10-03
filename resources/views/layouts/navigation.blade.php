@@ -15,9 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('banks.index')" :active="request()->routeIs('banks.*')">
+                        {{ __('Banks') }}
+                    </x-nav-link>
                     @role('admin')
                     <x-nav-link :href="route('admin.banks.index')" :active="request()->routeIs('admin.banks.*')">
-                        {{ __('Banks') }}
+                        {{ __('Banks (Admin)') }}
                     </x-nav-link>
                     @endrole
 
@@ -40,7 +43,7 @@
                     <x-nav-link :href="route('bank.processes.index')" :active="request()->routeIs('bank.processes.*')">
                         {{ __('Process') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('bank.inventories.index')" :active="request()->routeIs('bank.inventories.*')">
+                    <x-nav-link :href="route('banks.inventories.index', ['bank' => auth()->user()->bank_id])" :active="request()->routeIs('banks.inventories.*')">
                         {{ __('Inventory') }}
                     </x-nav-link>
                     <x-nav-link :href="route('bank.demands.index')" :active="request()->routeIs('bank.demands.*')">
@@ -119,9 +122,9 @@
             <x-responsive-nav-link :href="route('bank.processes.index')" :active="request()->routeIs('bank.processes.*')">
                 {{ __('Process') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('bank.inventories.index')" :active="request()->routeIs('bank.inventories.*')">
+            {{-- <x-responsive-nav-link :href="route('bank.inventories.index')" :active="request()->routeIs('bank.inventories.*')">
                 {{ __('Inventory') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             <x-responsive-nav-link :href="route('bank.demands.index')" :active="request()->routeIs('bank.demands.*')">
                 {{ __('Demand') }}
             </x-responsive-nav-link>

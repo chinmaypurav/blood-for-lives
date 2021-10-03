@@ -22,11 +22,10 @@ class DonationFactory extends Factory
     public function definition()
     {
         return [
-            'donor_id' => mt_rand(1,200),
+            'user_id' => mt_rand(1,200),
             'bank_id' => mt_rand(1,20),
             'blood_component' => $this->faker->randomElement(config('project.blood_components')),
             'donated_at' => $this->faker->datetimeBetween('-1 year', '+1 year'),
-            'expiry_at' => $this->faker->datetimeBetween('+1 year', '+2 year'),
             'status' => $this->faker->randomElement([
                 'raw', 'stored', 'transfused'
             ]),

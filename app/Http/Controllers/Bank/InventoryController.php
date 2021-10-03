@@ -19,7 +19,7 @@ class InventoryController extends Controller
         $this->inventoryService = $inventoryService;
     }
 
-    public function index()
+    public function index(Bank $bank)
     {
         $thisBank = auth()->user()->bank;
         $banks = Bank::whereNotIn('id', [$thisBank->id])
@@ -28,7 +28,7 @@ class InventoryController extends Controller
         return view('bank.inventory.index', compact('banks', 'thisBank'));
     }
 
-    public function create()
+    public function create(Bank $bank)
     {
         //
     }
@@ -39,7 +39,7 @@ class InventoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Bank $bank)
     {
         //
     }
@@ -78,7 +78,7 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Bank $bank)
     {
         //
     }
@@ -90,7 +90,7 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Bank $bank)
     {
         //
     }
@@ -101,7 +101,7 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Bank $bank)
     {
         //
     }
