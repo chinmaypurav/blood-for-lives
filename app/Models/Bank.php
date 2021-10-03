@@ -12,13 +12,15 @@ class Bank extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'bank_code',
-        'email',
-        'address',
-        'postal',
-        'latitude',
-        'longitude',
+        'name', 'bank_code', 'email', 'address', 'postal', 'latitude', 'longitude',
+        'is_verified', 'is_active', 'properties', 'banks_in_proximity',
+    ];
+
+    protected $casts = [
+        'is_verified' => 'boolean',
+        'is_active' => 'boolean',
+        'properties' => 'array',
+        'banks_in_proximity' => 'array',
     ];
 
     public function camps()
