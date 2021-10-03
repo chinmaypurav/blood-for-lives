@@ -69,7 +69,7 @@ class DemandController extends Controller
         dd($demand);
 
 
-        $compatibleGroup = Demand::find($id)->compatible_group;
+        $compatibleGroup = $demand->compatible_group;
 
         //dd($compatibleGroup);
 
@@ -82,7 +82,7 @@ class DemandController extends Controller
 
         return view('manager.demand.stock')->with([
             'inventories' => $inventories,
-            'demandId' => $id,
+            'demandId' => $demand->id,
         ]);
     }
 
