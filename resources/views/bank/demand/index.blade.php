@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
@@ -22,7 +22,7 @@
                     <x-table.table>
                         <x-slot name="thead">
                             <x-table.th>Index</x-table.th>
-                            <x-table.th>Recipient Name</x-table.th>
+                            <x-table.th>Recipient Name <br> (Guardian Name)</x-table.th>
                             <x-table.th>Recipient Group</x-table.th>
                             <x-table.th>Recipient Component</x-table.th>
                             <x-table.th>Compatible Group</x-table.th>
@@ -34,17 +34,23 @@
                         @forelse ($demands as $demand)
                         <tr>
                             <x-table.td>{{ $loop->iteration }}</x-table.td>
-                            <x-table.td>{{ $demand->recipient_name }}</x-table.td>
-                            <x-table.td>{{ $demand->recipient_group }}</x-table.td>
-                            <x-table.td class="uppercase">{{ $demand->recipient_component }}</x-table.td>
                             <x-table.td>
-                                @foreach ($demand->compatible_group as $item)
+                                {{ $demand->recipient_name }}
+                                @isset($demand->guardian_name)
+                                <br>
+                                <span>({{ $demand->guardian_name }})</span>
+                                @endisset
+                            </x-table.td>
+                            <x-table.td>{{ $demand->blood_group }}</x-table.td>
+                            <x-table.td class="uppercase">{{ $demand->blood_component }}</x-table.td>
+                            <x-table.td>
+                                @foreach ($demand->compatible_groups as $item)
                                     {{ $loop->last ? $item : $item . ', ' }}
                                 @endforeach    
                             </x-table.td>
                             <x-table.td>{{ 
-                                $demand->required_at->toDateString() . " - " .
-                                $demand->required_at->addDays($demand->buffer_time)->toDateString()
+                                $demand->required_at->subDays($demand->buffer_days)->format('d M') . " - " .
+                                $demand->required_at->format('d M')
                             }}</x-table.td>
                             <x-table.td>{{ $demand->ada_range }}</x-table.td>
                             <x-table.td>

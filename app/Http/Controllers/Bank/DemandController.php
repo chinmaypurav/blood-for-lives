@@ -32,24 +32,24 @@ class DemandController extends Controller
     {
         $user = auth()->user();
         // $bank = $user->bank;
-
+        // dd($request->all());
         $demand = $user->bank->demands();
 
         $compatibility = new CompatibilityController();
-        $compatibleGroup = $compatibility->recipient($request->recipientComponent, $request->recipientGroup);
+        $compatibleGroup = $compatibility->recipient($request->blood_component, $request->blood_group);
 
         $demand = new Demand();
 
 
         $demand = $user->bank->demands()->create([
-            'guardian_name' => $request->guardianName,
-            'guardian_contact' => $request->guardianContact,
-            'recipient_name' => $request->recipientName,
-            'recipient_group' => $request->recipientGroup,
-            'recipient_component' => $request->recipientComponent,
-            'compatible_group' => $compatibleGroup,
-            'buffer_time' => 2,
-            'required_at' => $request->requiredAt,
+            'guardian_name' => $request->guardian_ame,
+            'guardian_contact' => $request->guardian_contact,
+            'recipient_name' => $request->recipient_name,
+            'blood_group' => $request->blood_group,
+            'blood_component' => $request->blood_component,
+            'compatible_groups' => $compatibleGroup,
+            'buffer_days' => 2,
+            'required_at' => $request->required_at,
             'required_units' => 2,
         ]);
 

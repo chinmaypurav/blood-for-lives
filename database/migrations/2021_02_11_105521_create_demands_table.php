@@ -27,7 +27,7 @@ class CreateDemandsTable extends Migration
             $table->unsignedTinyInteger('no_substitute')->default(false);
             $table->boolean('is_donor')->default(false);
             $table->foreignId('user_id')->nullable()->constrained();
-            $table->json('compatible_groups')->nullable();
+            $table->json('compatible_groups');
             $table->timestamp('required_at');
             $table->unsignedTinyInteger('required_units');
             $table->unsignedTinyInteger('buffer_days');
