@@ -27,14 +27,20 @@ class StageSeeder extends Seeder
 
 
         $email = 'managerone@gmail.com';
-        $bank = Bank::factory()->create([
+        $bank = Bank::create([
             'name' => 'Bank One',
             'email' => $email,
+            'bank_code' => 'BB001',
+            'address' => 'address of bank one',
+            'postal' => '400001',
+            'is_verified' => true,
+            'is_active' => true,
         ]);
 
-        $manager = User::factory()->create([
+        $manager = User::create([
             'name' => 'Manager One',
             'email' => $email,
+            'password' => $password,
         ]);
         $manager->assignRole('manager-admin');
         $manager->assignRole('manager');
