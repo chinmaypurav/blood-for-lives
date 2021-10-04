@@ -2,7 +2,7 @@
 
 return [
     'blood_components' => [
-        'whole', 'wbc', 'rbc', 'plasma',
+        'whole', 'platelets', 'wbc', 'rbc', 'plasma',
     ],
 
     'blood_groups' => [
