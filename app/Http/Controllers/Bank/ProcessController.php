@@ -17,18 +17,12 @@ class ProcessController extends Controller
     public function index()
     {
         $user = auth()->user();
-        // dd($manager->bank_id);
-        // $donations = Donation::whereHas('banks', function ($query) use ($bank) {
-        //     $query->where('banks.id', $bank->id);
-        // })->paginate(5);
-
-        // $donations = Donation::where('bank_id', $manager->bank_id)
-        //     ->with('bloodComponent', 'donor.bloodGroup')
-        //     ->paginate();
 
         $donations = Donation::where('bank_id', $user->bank_id)
             ->where('donations.status', 'raw')
-            // ->with('donor.bloodGroup')
+            ->with([
+                'donor' => fn ($q) => $q->select('id', 'blood_group', 'donor_card_no')
+            ])
             ->paginate();
 
         return view('bank.process.index', ['donations' => $donations]);

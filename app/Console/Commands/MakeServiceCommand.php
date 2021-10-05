@@ -7,7 +7,7 @@ use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
-class ServiceMakeCommand extends GeneratorCommand
+class MakeServiceCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
