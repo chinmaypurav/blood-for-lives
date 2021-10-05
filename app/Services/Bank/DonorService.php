@@ -6,10 +6,12 @@ use App\Models\Donor;
 use App\Models\User;
 use App\Traits\UserTrait;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class DonorService
 {
     use UserTrait;
+    private $donor;
 
     public function index()
     {
@@ -20,14 +22,15 @@ class DonorService
 
     public function store(array $validated): User
     {
-        $password = 'password';
-        $validated['password'] = $password;
-        $user = $this->create($validated);
+        DB::transaction(function () use ($validated) {
+            $password = 'password';
+            $validated['password'] = $password;
+            $this->donor = $this->create($validated);
 
+            $this->donor->assignRole('donor');
+            $this->donor->assignRole('recipient');
+        });
 
-        $user->assignRole('donor');
-        $user->assignRole('recipient');
-
-        return $user;
+        return $this->donor;
     }
 }

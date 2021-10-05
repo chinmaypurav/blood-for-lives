@@ -20,7 +20,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     
                     Add Donor Registration
-                    <form method="POST" action="{{ route('bank.donor.store') }}">
+                    <form method="POST" action="{{ route('bank.donors.store') }}">
                         @csrf
 
                         <!-- Name -->
@@ -64,8 +64,8 @@
                         <div class="mt-4 col-span-6 sm:col-span-3">
                             <label for="bloodGroup" class="block text-sm font-medium text-gray-700">Blood Group</label>
                             <select id="bloodGroup" name="blood_group_id" autocomplete="bloodGroup" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                @foreach ($bloodGroups as $bloodGroup)
-                                    <option value="{{$bloodGroup->id}}">{{$bloodGroup->blood_group}}</option>
+                                @foreach (config('project.blood_groups') as $bloodGroup)
+                                    <option value="{{$bloodGroup}}">{{$bloodGroup}}</option>
                                 @endforeach
                             </select>
                         </div>

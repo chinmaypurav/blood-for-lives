@@ -31,8 +31,7 @@ class DonorController extends Controller
 
     public function create()
     {
-        $bloodGroups = BloodGroup::all(['id', 'blood_group']);
-        return view('bank.donor.create', compact('bloodGroups'));
+        return view('bank.donor.create');
     }
 
     public function store(DonorRequest $request)
@@ -43,7 +42,7 @@ class DonorController extends Controller
 
         // (new DonorCreateService($validated))->create();
 
-        return redirect()->route('bank.donor.create')->with('status', 'Donor Added!');
+        return redirect()->route('bank.donors.create')->with('status', 'Donor Added!');
     }
 
     public function show(Donor $donor)

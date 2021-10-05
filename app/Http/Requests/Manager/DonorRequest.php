@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Manager;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DonorRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class DonorRequest extends FormRequest
         return [
             'name' => ['required', 'max:255'],
             'email' => ['required', 'unique:users,email'],
-            'blood_group_id' => ['exists:blood_groups,id'],
+            'blood_group' => [Rule::in(config('project.blood_groups'))],
             'contact' => ['required', 'numeric', 'digits:10'],
             'date_of_birth' => ['required', 'date'],
             'postcode' => ['required', 'numeric', 'digits:6'],
