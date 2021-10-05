@@ -10,7 +10,7 @@ trait ParamsFilterTrait
     {
         $filtered = [];
         foreach ($allowed as $key) {
-            $filtered[$key] = in_array($key, $params)
+            $filtered[$key] = array_key_exists($key, $params)
                 ? $params[$key]
                 : null;
         }
