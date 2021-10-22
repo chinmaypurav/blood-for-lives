@@ -15,39 +15,48 @@
                     <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     
-                    <form method="POST" action="{{ route('bank.demands.store') }}">
+                    <form method="POST" action="{{ route('bank.demands.store') }}" x-data="{ isSamePerson: false }">
                         @csrf
 
-                        <!-- Guardian Name -->
+                        <!-- Recipient Name -->
                         <div>
+                            <x-label for="recipient_name" :value="__('Recipient Name')" />
+
+                            <x-input id="recipient_name" class="block mt-1 w-full" 
+                                    type="text" 
+                                    name="recipient_name" 
+                                    :value="old('recipient_name')" required autofocus />
+                        </div>
+
+                        {{-- Is Same Person --}}
+                        <div class="block mt-4">
+                            <label for="is_same_person" class="inline-flex items-center">
+                                <input id="is_same_person" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="is_same_person"
+                                x-model="isSamePerson"
+                                >
+                                <span class="ml-2 text-sm text-gray-600">{{ __('Is Same Person') }}</span>
+                            </label>
+                        </div>
+
+                        <!-- Guardian Name -->
+                        <div class="mt-4" x-show="!isSamePerson">
                             <x-label for="guardian_name" :value="__('Guardian Name')" />
 
                             <x-input id="guardian_name" class="block mt-1 w-full" 
                                     type="text" 
                                     name="guardian_name" 
-                                    :value="old('guardian_name')" required autofocus />
+                                    :value="old('guardian_name')" required />
                         </div class="mt-4">
 
-                         <!-- Guardian Contact -->
-                         <div class="mt-4">
-                            <x-label for="guardianContact" :value="__('Guardian Contact')" />
+                        <!-- Guardian Contact -->
+                        <div class="mt-4">
+                            <x-label for="guardianContact" :value="__('Contact')" />
 
                             <x-input id="guardian_phone" class="block mt-1 w-full" 
                                     type="text" 
                                     name="guardian_phone" 
                                     :value="old('guardian_phone')" required />
                         </div>
-
-                        <!-- Recipient Name -->
-                        <div class="mt-4">
-                            <x-label for="recipient_name" :value="__('Recipient Name')" />
-
-                            <x-input id="recipient_name" class="block mt-1 w-full" 
-                                    type="text" 
-                                    name="recipient_name" 
-                                    :value="old('recipient_name')" required />
-                        </div>
-
 
                         <!-- Recipient Blood Group -->
                         <div class="mt-4 col-span-6 sm:col-span-3">
