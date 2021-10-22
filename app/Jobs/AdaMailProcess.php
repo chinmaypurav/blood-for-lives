@@ -39,10 +39,10 @@ class AdaMailProcess implements ShouldQueue
      */
     public function handle()
     {
+        $recipients = [];
         foreach ($this->donors as $donor) {
-            $recipients[] = $donor->user->email;
+            $recipients[] = $donor->email;
         }
         Mail::to($recipients)->send(new AdaMail($this->groups, $this->component));
-
     }
 }

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminSeeder::class,
             // BankSeeder::class,
-            TestSeeder::class,
+            // TestSeeder::class,
             // CampSeeder::class,
             // DonationSeeder::class,
             // DemandSeeder::class,

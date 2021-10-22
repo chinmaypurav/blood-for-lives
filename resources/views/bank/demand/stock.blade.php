@@ -32,7 +32,7 @@
                                 <x-table.td>{{ $inventory->expiry_at }}</x-table.td>
                                 
 
-                                <form action="{{route('manager.demand.update', ['demand' => $demandId ])}}" method="post">
+                                <form action="{{route('bank.demand.update', ['demand' => $demandId ])}}" method="post">
                                     @csrf
                                     @method('put')
                                     <input type="hidden" name="donation_id" value="{{$inventory->id}}">
@@ -58,9 +58,9 @@
                     <div class="mt-4">
                         <h4 class="text-center">Ada for Blood new</h4>
 
-                        <a href="{{route('manager.ada.create', ["id" => $demandId])}}">ADA Create</a>
+                        <a href="{{route('bank.ada.create', ["id" => $demandId])}}">ADA Create</a>
 
-                        <form action="{{route('manager.ada.store')}}" method="POST">
+                        <form action="{{route('bank.ada.store')}}" method="POST">
                             @csrf
                             <x-input id="demandId" type="hidden" name="demandId" :value="$demandId" />
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Imports\CompatibilityController;
 use App\Models\BloodComponent;
 use App\Models\BloodGroup;
+use App\Models\Inventory;
 
 class DemandController extends Controller
 {
@@ -66,21 +67,27 @@ class DemandController extends Controller
     {
         $user = auth()->user();
         $bank = $user->bank;
-        dd($demand);
 
+        // dd($demand->toArray());
 
-        $compatibleGroup = $demand->compatible_group;
+        $compatibleGroups = $demand->compatible_groups;
 
-        //dd($compatibleGroup);
+        // dd($compatibleGroups);
 
-        $inventories = DB::table('bank_donor')
-            ->leftJoin('donors', 'donors.id', '=', 'bank_donor.donor_id')
-            ->select('bank_donor.*', 'donors.blood_group')
-            ->whereIn('donors.blood_group', $compatibleGroup)
-            //->orderBy('bank_donor.expiry_at')
+        $inventories = Inventory::query()
+            ->whereIn('blood_group', $compatibleGroups)
             ->get();
 
-        return view('manager.demand.stock')->with([
+        // $inventories = DB::table('bank_donor')
+        //     ->leftJoin('donors', 'donors.id', '=', 'bank_donor.donor_id')
+        //     ->select('bank_donor.*', 'donors.blood_group')
+        //     ->whereIn('donors.blood_group', $compatibleGroups)
+        //     //->orderBy('bank_donor.expiry_at')
+        //     ->get();
+
+        // dd($inventories);
+
+        return view('bank.demand.stock')->with([
             'inventories' => $inventories,
             'demandId' => $demand->id,
         ]);
