@@ -26,7 +26,7 @@
                     </div>
 
 
-                    <x-table.table>
+                    <x-table>
                         <x-slot name="thead">
                             <x-table.th>Index</x-table.th>
                             <x-table.th>Date Time</x-table.th>
