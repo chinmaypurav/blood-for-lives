@@ -72,7 +72,11 @@ Route::group([
         Route::put('processes/{donation}', [App\Http\Controllers\Bank\ProcessController::class, 'update'])->name('processes.update');
 
 
-        Route::group([], function () {
+        Route::group([
+            'prefix' => 'donor',
+            'as' => 'donor.'
+        ], function () {
+            Route::resource('requests', App\Http\Controllers\Donor\OpenRequestController::class);
         });
     });
 
