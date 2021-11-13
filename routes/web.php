@@ -76,7 +76,7 @@ Route::group([
             'prefix' => 'donor',
             'as' => 'donor.'
         ], function () {
-            Route::resource('requests', App\Http\Controllers\Donor\OpenRequestController::class);
+            // Route::resource('requests', App\Http\Controllers\Donor\OpenRequestController::class);
         });
     });
 
@@ -92,6 +92,7 @@ Route::group([
         'as' => 'donor.',
     ], function () {
         Route::resource('donations', App\Http\Controllers\Donor\DonationController::class);
+        Route::resource('requests', App\Http\Controllers\Donor\OpenRequestController::class);
     });
 
     Route::group([
